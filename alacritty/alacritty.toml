@@ -1,30 +1,183 @@
-# Colors (Gruvbox dark)
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║              alacritty.toml — Matte Black Edition               ║
+# ╚══════════════════════════════════════════════════════════════════╝
 
-# Default colors
+# ── Window ────────────────────────────────────────────────────────────
+[window]
+padding.x         = 12
+padding.y         = 10
+decorations       = "None"         # no titlebar — clean borderless look
+opacity           = 0.90           # slight transparency — pairs with hyprland blur
+blur              = true           # blur the background (requires compositor support)
+startup_mode      = "Windowed"
+title             = "Alacritty"
+dynamic_title     = true           # show current process in title
+
+# ── Scrolling ─────────────────────────────────────────────────────────
+[scrolling]
+history    = 10000                 # large scrollback buffer
+multiplier = 5                     # faster scroll speed
+
+# ── Font ──────────────────────────────────────────────────────────────
+[font]
+size = 13.0
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style  = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style  = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style  = "Italic"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style  = "Bold Italic"
+
+# Fallback fonts if JetBrains isn't installed
+# family = "FiraCode Nerd Font"
+# family = "Hack Nerd Font"
+# family = "monospace"
+
+# ── Cursor ────────────────────────────────────────────────────────────
+[cursor]
+style.shape   = "Block"            # Block | Underline | Beam
+style.blinking = "On"
+blink_interval = 600               # ms between blinks
+blink_timeout  = 0                 # 0 = never stop blinking
+unfocused_hollow = true            # hollow cursor when window unfocused
+thickness = 0.15
+
+# ── Terminal ──────────────────────────────────────────────────────────
+[terminal]
+osc52 = "CopyPaste"                # allow clipboard access via OSC 52
+
+# ── Mouse ─────────────────────────────────────────────────────────────
+[mouse]
+hide_when_typing = true            # hide cursor while typing
+
+# ── Selection ─────────────────────────────────────────────────────────
+[selection]
+save_to_clipboard = true           # auto-copy selection to clipboard
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+# ── Colors (Matte Black) ──────────────────────────────────────────────
+# Palette sourced from github.com/tahayvr/matte-black-theme
+
 [colors.primary]
-# hard contrast background = = '#1d2021'
-background = '#282828'
-# soft contrast background = = '#32302f'
-foreground = '#ebdbb2'
+background = '#1e1e1e'
+foreground = '#d4d4d4'             # brighter fg for readability
+dim_foreground = '#8a8a8d'
 
-# Normal colors
+[colors.cursor]
+text   = '#1e1e1e'
+cursor = '#8a8a8d'                 # gray cursor — matches the theme accent
+
+[colors.vi_mode_cursor]
+text   = '#1e1e1e'
+cursor = '#e5c07b'                 # yellow in vi mode — easy to spot
+
+[colors.search.matches]
+foreground = '#1e1e1e'
+background = '#e5c07b'
+
+[colors.search.focused_match]
+foreground = '#1e1e1e'
+background = '#98c379'
+
+[colors.hints.start]
+foreground = '#1e1e1e'
+background = '#e5c07b'
+
+[colors.hints.end]
+foreground = '#1e1e1e'
+background = '#8a8a8d'
+
+[colors.selection]
+text       = '#1e1e1e'
+background = '#3d3d3d'
+
 [colors.normal]
-black   = '#282828'
-red     = '#cc241d'
-green   = '#98971a'
-yellow  = '#d79921'
-blue    = '#458588'
-magenta = '#b16286'
-cyan    = '#689d6a'
-white   = '#a89984'
+black   = '#1e1e1e'
+red     = '#e06c75'
+green   = '#98c379'
+yellow  = '#e5c07b'
+blue    = '#61afef'
+magenta = '#c678dd'
+cyan    = '#56b6c2'
+white   = '#8a8a8d'
 
-# Bright colors
 [colors.bright]
-black   = '#928374'
-red     = '#fb4934'
-green   = '#b8bb26'
-yellow  = '#fabd2f'
-blue    = '#83a598'
-magenta = '#d3869b'
-cyan    = '#8ec07c'
-white   = '#ebdbb2'
+black   = '#3d3d3d'
+red     = '#e06c75'
+green   = '#98c379'
+yellow  = '#e5c07b'
+blue    = '#61afef'
+magenta = '#c678dd'
+cyan    = '#56b6c2'
+white   = '#d4d4d4'
+
+[colors.dim]
+black   = '#1a1a1a'
+red     = '#a04050'
+green   = '#6a8f55'
+yellow  = '#a08a50'
+blue    = '#4a7fa0'
+magenta = '#8a50a0'
+cyan    = '#3a8090'
+white   = '#606060'
+
+
+# ── Keyboard bindings ─────────────────────────────────────────────────
+[[keyboard.bindings]]
+key    = "V"
+mods   = "Control|Shift"
+action = "Paste"
+
+[[keyboard.bindings]]
+key    = "C"
+mods   = "Control|Shift"
+action = "Copy"
+
+[[keyboard.bindings]]
+key    = "Plus"
+mods   = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key    = "Minus"
+mods   = "Control"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key    = "0"
+mods   = "Control"
+action = "ResetFontSize"
+
+[[keyboard.bindings]]
+key    = "F11"
+action = "ToggleFullscreen"
+
+[[keyboard.bindings]]
+key    = "K"
+mods   = "Control|Shift"
+action = "ScrollPageUp"
+
+[[keyboard.bindings]]
+key    = "J"
+mods   = "Control|Shift"
+action = "ScrollPageDown"
+
+[[keyboard.bindings]]
+key    = "Home"
+mods   = "Shift"
+action = "ScrollToTop"
+
+[[keyboard.bindings]]
+key    = "End"
+mods   = "Shift"
+action = "ScrollToBottom"

@@ -1,26 +1,28 @@
 /* ===== GENERAL STYLING ===== */
 window {
     margin: 0px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    background-color: rgba(40, 40, 43, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    background-color: rgba(10, 10, 10, 0.55);
     font-family: "SF Pro Display", "JetBrainsMono Nerd Font", sans-serif;
     font-size: 12px;
 }
 
 /* ===== INPUT BAR ===== */
 #input {
-    margin: 10px;
+    margin: 12px 12px 6px 12px;
     padding: 8px 12px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     color: #ffffff;
-    background-color: rgba(60, 60, 65, 0.8);
-    font-size: 12px;
+    background-color: rgba(255, 255, 255, 0.07);
+    caret-color: #ffffff;
+    font-size: 13px;
 }
 
 #input:focus {
-    background-color: rgba(70, 70, 75, 0.9);
+    background-color: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* ===== SCROLLABLE LIST ===== */
@@ -35,24 +37,25 @@ window {
 }
 
 #outer-box {
-    margin: 10px;
+    margin: 8px;
     border: none;
 }
 
 /* ===== LIST ITEMS ===== */
 #entry {
     margin: 2px 0px;
-    padding: 6px 12px;
+    padding: 6px 10px;
     border: none;
-    border-radius: 6px;
-    color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.6);
     background-color: transparent;
 }
 
 #entry:selected {
     color: #ffffff;
-    background-color: rgba(23, 147, 209, 0.3); /* Arch blue tint */
-    border: none;
+    background-color: rgba(255, 255, 255, 0.10);
+    border-left: 2px solid rgba(255, 255, 255, 0.45);
+    padding-left: 8px;
 }
 
 #entry:selected #text {
@@ -63,29 +66,132 @@ window {
 #text {
     margin: 0px;
     padding: 0px;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.75);
 }
 
 #text:selected {
     color: #ffffff;
 }
 
-/* ===== IMAGE ELEMENTS ===== */
+/* ===== APP ICONS ===== */
 #img {
-    margin-right: 8px;
+    margin-right: 10px;
+    min-width: 22px;
+    min-height: 22px;
+    -gtk-icon-size: 22px;
 }
 
 /* ===== PLACEHOLDER TEXT ===== */
 #placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.25);
 }
 
 /* ===== SELECTION HIGHLIGHT ===== */
 #selected {
-    background-color: rgba(23, 147, 209, 0.3);
+    background-color: rgba(255, 255, 255, 0.10);
 }
 
 /* ===== EXPANDER ARROW ===== */
 #expander-box {
-    background-color: rgba(40, 40, 43, 0.95);
+    background-color: transparent;
+}
+Downloads/config (1)
+/* ===== GENERAL STYLING ===== */
+window {
+    margin: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    background-color: rgba(8, 8, 8, 0.60);
+    font-family: "SF Pro Display", "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 11px;
+}
+
+/* ===== INPUT BAR ===== */
+#input {
+    margin: 10px 10px 4px 10px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.06);
+    caret-color: #ffffff;
+    font-size: 12px;
+    min-width: 220px;
+}
+
+#input:focus {
+    background-color: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+/* ===== SCROLLABLE LIST ===== */
+#scroll {
+    margin: 0px 6px;
+    border: none;
+}
+
+#inner-box {
+    margin: 0px;
+    border: none;
+}
+
+#outer-box {
+    margin: 4px;
+    border: none;
+}
+
+/* ===== LIST ITEMS ===== */
+#entry {
+    margin: 1px 0px;
+    padding: 5px 8px;
+    border: none;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.55);
+    background-color: transparent;
+}
+
+#entry:selected {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.09);
+    border-left: 2px solid rgba(255, 255, 255, 0.4);
+    padding-left: 6px;
+}
+
+#entry:selected #text {
+    color: #ffffff;
+}
+
+/* ===== TEXT ELEMENTS ===== */
+#text {
+    margin: 0px;
+    padding: 0px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 11px;
+}
+
+#text:selected {
+    color: #ffffff;
+}
+
+/* ===== APP ICONS ===== */
+#img {
+    margin-right: 10px;
+    min-width: 32px;
+    min-height: 32px;
+    -gtk-icon-size: 32px;
+}
+
+/* ===== PLACEHOLDER TEXT ===== */
+#placeholder {
+    color: rgba(255, 255, 255, 0.22);
+}
+
+/* ===== SELECTION HIGHLIGHT ===== */
+#selected {
+    background-color: rgba(255, 255, 255, 0.09);
+}
+
+/* ===== EXPANDER ARROW ===== */
+#expander-box {
+    background-color: transparent;
 }
