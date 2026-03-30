@@ -1,51 +1,59 @@
+-- lsp.lua – Robust LSP configuration for Neovim 0.11+
+-- Uses the new vim.lsp.config API (no deprecation warnings)
+
 return {
-  -- Mason (install LSP servers)
+  -- 1. Mason: install and manage LSP servers, formatters, etc.
   {
     "williamboman/mason.nvim",
+    lazy = false,
     opts = {
       ensure_installed = {
-        "pyright",          -- Python
-        "rust-analyzer",    -- Rust
-        "clangd",           -- C/C++
-        "jdtls",            -- Java
-        "sqls",             -- SQL / PostgreSQL
-        "dockerfile-language-server", -- Docker
-        "lua-language-server",        -- Neovim config
-        "stylua",           -- Lua formatter
-        "black",            -- Python formatter
-        "debugpy",          -- Python debugger
-        "codelldb",         -- C/C++/Rust debugger
+        -- LSP servers
+        "pyright", "rust-analyzer", "clangd", "jdtls", "sqls",
+        "dockerfile-language-server", "lua-language-server",
+        -- Formatters & debuggers
+        "stylua", "black", "debugpy", "codelldb",
       },
     },
   },
+
+  -- 2. Bridge between Mason and LSP: ensures servers are installed and configured.
   {
     "williamboman/mason-lspconfig.nvim",
+    lazy = false,
     opts = {
       automatic_installation = true,
+      -- Names must match those in lspconfig (e.g., rust_analyzer, not rust-analyzer)
+      ensure_installed = {
+        "pyright",
+        "rust_analyzer",
+        "clangd",
+        "jdtls",
+        "sqls",
+        "dockerls",
+        "lua_ls",
+      },
     },
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "pyright",
-          "rust-analyzer",
-          "clangd",
-          "jdtls",
-          "sqls",
-          "dockerfile-language-server",
-          "lua-language-server",
-        },
-        automatic_installation = true,
-      })
-    end,
   },
 
-  -- LSP configuration
+  -- 3. LSP configuration using Neovim's built‑in vim.lsp.config API
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
     dependencies = { "williamboman/mason-lspconfig.nvim" },
     config = function()
-      local lspconfig = require("lspconfig")
-      local on_attach = function(client, bufnr)
+      -- Optional: add cmp capabilities if nvim-cmp is present
+      local has_cmp, cmp = pcall(require, "cmp_nvim_lsp")
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      if has_cmp then
+        capabilities = cmp.default_capabilities(capabilities)
+      end
+
+      -- Define the on_attach function that attaches keymaps and buffer‑local settings
+      local function on_attach(client, bufnr)
+        -- Disable formatting if you want to use a dedicated formatter like conform.nvim
+        -- client.server_capabilities.documentFormattingProvider = false
+
         local opts = { buffer = bufnr, remap = false }
 
         -- Standard LSP keymaps
@@ -56,17 +64,17 @@ return {
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
         vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 
-        -- Diagnostics navigation (fast jumping)
+        -- Diagnostics navigation
         vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
         vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
         vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, opts)
 
-        -- Manual formatting (use <leader>lf)
+        -- Formatting
         vim.keymap.set("n", "<leader>lf", function()
           vim.lsp.buf.format({ async = true })
         end, opts)
 
-        -- Optional: Enable inlay hints (if supported by server)
+        -- Inlay hints (if supported)
         if client.server_capabilities.inlayHintProvider then
           vim.keymap.set("n", "<leader>lh", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
@@ -74,15 +82,35 @@ return {
         end
       end
 
-      require("mason-lspconfig").setup_handlers({
-        function(server_name)
-          lspconfig[server_name].setup({ on_attach = on_attach })
-        end,
+      -- Global LSP configuration applied to every server
+      vim.lsp.config("*", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
+
+      -- List of servers to enable (must match the ensure_installed list above)
+      local servers = {
+        "pyright",
+        "rust_analyzer",
+        "clangd",
+        "jdtls",
+        "sqls",
+        "dockerls",
+        "lua_ls",
+      }
+
+      -- Enable all servers – this starts them automatically when a relevant file is opened
+      vim.lsp.enable(servers)
+
+      -- Configure mason-lspconfig to automatically install missing servers
+      require("mason-lspconfig").setup({
+        ensure_installed = servers,
+        automatic_installation = true,
       })
     end,
   },
 
-  -- nvim-cmp (completion)
+  -- 4. Completion engine (nvim-cmp)
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -126,13 +154,13 @@ return {
           { name = "luasnip" },
           { name = "buffer" },
           { name = "path" },
-          { name = "dadbod" }, -- for SQL
+          { name = "dadbod" },
         }),
       })
     end,
   },
 
-  -- Treesitter (syntax highlighting)
+  -- 5. Treesitter for syntax highlighting (optional but recommended)
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
