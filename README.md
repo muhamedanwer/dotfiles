@@ -1,6 +1,6 @@
-# src
+# dotfiles
 
-My personal configuration files.
+My personal configuration files for my daily workflow.
 
 ## What's Inside
 
@@ -9,17 +9,22 @@ This repo contains configuration files for:
 - Vim/Neovim
 - Git
 - Tmux
+- alacritty - terminal emulator
+- hyprland - window manager
+- dwm - window manager
+- rofi - app luancher
+- wofi - app launcher
 - Other tools I use daily
 
 ## Setup
 
 ```bash
 # Clone the repo
-git clone https://github.com/muhamedanwer/src.git ~/src
+git clone https://github.com/muhamedanwer/dotfiles.git ~/dotfies
 
 # Create symlinks (examples)
-ln -s ~/src/.bashrc ~/.bashrc
-ln -s ~/src/.vimrc ~/.vimrc
+ln -s ~/dotfiles/.bashrc ~/.bashrc
+ln -s ~/dotfiles/.vimrc ~/.vimrc
 ```
 
 ## Usage
@@ -35,4 +40,4 @@ Feel free to:
 
 ## Contact
 - Muhammad Anwer - [muhamedanwer@outlook.com]
-- Project Link: [https://github.com/muhamedanwer/src](https://github.com/muhamedanwer/src)
+- Project Link: [https://github.com/muhamedanwer/src](https://github.com/muhamedanwer/dotfiles)
