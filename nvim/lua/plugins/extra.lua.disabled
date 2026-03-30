@@ -1,0 +1,38 @@
+return {
+  -- Colorscheme (optional)
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+
+  -- LSP & Mason
+  { "neovim/nvim-lspconfig" },
+  { "williamboman/mason.nvim" },
+  { "williamboman/mason-lspconfig.nvim" },
+
+  -- Completion
+  { "hrsh7th/nvim-cmp" },
+  { "hrsh7th/cmp-nvim-lsp" },
+  { "hrsh7th/cmp-path" },
+  { "hrsh7th/cmp-buffer" },
+  { "L3MON4D3/LuaSnip" },          -- snippets
+  { "saadparwaiz1/cmp_luasnip" },
+
+  -- Treesitter (syntax highlighting, etc.)
+  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+
+  -- File navigation
+  { "nvim-tree/nvim-tree.lua" },
+  { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+
+  -- Markdown preview
+  { "iamcco/markdown-preview.nvim", build = "cd app && npm install", ft = "markdown" },
+
+  -- Jupyter integration (using jupytext + vim-slime)
+  { "GCBallesteros/jupytext.nvim" },
+  { "jpalardy/vim-slime" },
+
+  -- Copilot
+
+  -- For C – debugger (optional)
+  { "mfussenegger/nvim-dap" },
+  { "rcarriga/nvim-dap-ui" },
+  { "theHamsta/nvim-dap-virtual-text" },
+}
