@@ -1,0 +1,59 @@
+* {
+  font-family: "SF Pro Display", "JetBrainsMono Nerd Font";
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* BAR */
+window#waybar {
+  background: rgba(28, 28, 30, 0.55);
+  color: #ffffff;
+  border-radius: 12px;
+  margin: 6px 12px;
+  padding: 2px 6px;
+}
+
+/* WORKSPACES */
+#workspaces button {
+  padding: 4px 10px;
+  margin: 2px;
+  border-radius: 8px;
+  color: #b0b0b0;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+}
+
+#workspaces button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* MODULES */
+#cpu, #temperature, #battery, #network, #pulseaudio, #clock {
+  padding: 0 12px;
+  margin: 2px;
+  border-radius: 8px;
+}
+
+/* HOVER (mac subtle highlight) */
+#cpu:hover, #temperature:hover, #battery:hover,
+#network:hover, #pulseaudio:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* CRITICAL STATES */
+#temperature.critical {
+  color: #ff453a;
+}
+
+#battery.warning {
+  color: #ffd60a;
+}
+
+#battery.critical {
+  color: #ff453a;
+}
