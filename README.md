@@ -23,7 +23,7 @@ This repo contains configuration files for:
 git clone https://github.com/muhamedanwer/dotfiles.git ~/dotfies
 
 # Create symlinks (examples)
-ln -s ~/dotfiles/.bashrc ~/.bashrc
+ln -s ~/dotfiles/.zshrc ~/.zshrc
 ln -s ~/dotfiles/.vimrc ~/.vimrc
 ```
 
