@@ -2,22 +2,25 @@
   // General Waybar settings
   "layer": "top",
   "position": "top",
-  "height": 28,
+  "height": 30,
   "spacing": 2,
   "margin-top": 0,
   "margin-bottom": 6,
   "margin-left": 0,
   "margin-right": 0,
   "modules-left": [
+    "hyprland/workspaces",
     "custom/launcher"
   ],
-  "modules-center": [
-    "hyprland/workspaces"
-  ],
+  "modules-center": [],
   "modules-right": [
+    "mpd",
+    "custom/theme",
+    "idle_inhibitor",
     "custom/keyboard",
     "cpu",
     "memory",
+    "backlight",
     "temperature",
     "pulseaudio",
     "network",
@@ -25,14 +28,40 @@
     "clock",
     "tray"
   ],
-  
-  // Custom application launcher with Arch Linux icon
+
+  // Custom application launcher
   "custom/launcher": {
-    "format": "",
+    "format": "⌘",
     "tooltip": false,
     "on-click": "wofi --show drun"
   },
-  
+  "mpd": {
+    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+    "format-disconnected": "Disconnected ",
+    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+    "unknown-tag": "N/A",
+    "interval": 5,
+    "consume-icons": {
+      "on": " "
+    },
+    "random-icons": {
+      "off": "<span color=\"#f53c3c\"></span> ",
+      "on": " "
+    },
+    "repeat-icons": {
+      "on": " "
+    },
+    "single-icons": {
+      "on": "1 "
+    },
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)"
+  },
+
   // Keyboard layout indicator for Hyprland
   "custom/keyboard": {
     "format": "⌨",
@@ -40,21 +69,57 @@
     "interval": 2,
     "tooltip-format": "Layout: {}"
   },
-  
+
+  "custom/theme": {
+    "format": "  {}",
+    "exec": "~/.config/waybar/theme.sh",
+    "interval": 1,
+    "tooltip-format": "Theme: {} - Click to change",
+    "on-click": "~/.local/bin/theme-set"
+  },
+
   // CPU usage
   "cpu": {
-    "format": " {usage}%",
-    "interval": 3,
-    "tooltip-format": "CPU: {usage}%"
+    "format": "  {usage}%",
+    "interval": 2,
+    "states": {
+      "good": 0,
+      "warning": 50,
+      "critical": 80
+    }
   },
-  
+
   // Memory usage
   "memory": {
-    "format": " {percentage}%",
+    "format": " {percentage}%",
     "interval": 3,
-    "tooltip-format": "RAM: {percentage}%"
+    "states": {
+      "good": 0,
+      "warning": 60,
+      "critical": 85
+    }
   },
-  
+
+  // Backlight (Brightness)
+  "backlight": {
+    "format": "☀ {percent}%",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "scroll-step": 5,
+    "tooltip-format": "Brightness: {percent}%"
+  },
+
+  // Idle inhibitor
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    },
+    "tooltip": true,
+    "tooltip-format-activated": "Screensaver inhibited",
+    "tooltip-format-deactivated": "Screensaver enabled"
+  },
+
   // Temperature
   "temperature": {
     "format": " {temperatureC}°C",
@@ -62,13 +127,21 @@
     "interval": 5,
     "tooltip-format": "Temp: {temperatureC}°C"
   },
-  
+
   // Hyprland workspaces module
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
+      "1": "●",
+      "2": "●",
+      "3": "●",
+      "4": "●",
+      "5": "●",
+      "6": "●",
+      "7": "●",
+      "8": "●",
+      "9": "●",
       "default": "○",
-      "active": "●", 
       "urgent": "◉"
     },
     "on-click": "activate",
@@ -76,13 +149,13 @@
     "on-scroll-down": "hyprctl dispatch workspace e-1",
     "all-outputs": true
   },
-  
+
   // System tray
   "tray": {
     "icon-size": 16,
     "spacing": 8
   },
-  
+
   // PulseAudio (Volume)
   "pulseaudio": {
     "format": "{icon}",
@@ -94,7 +167,7 @@
     "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
     "tooltip-format": "Volume: {volume}%"
   },
-  
+
   // Network
   "network": {
     "format-wifi": "",
@@ -103,7 +176,7 @@
     "tooltip-format": "{ifname} - {essid}",
     "on-click": "nm-connection-editor"
   },
-  
+
   // Battery
   "battery": {
     "format": "{icon}",
@@ -117,7 +190,7 @@
       "critical": 10
     }
   },
-  
+
   // Clock
   "clock": {
     "format": "{:%a %d %b %H:%M }",

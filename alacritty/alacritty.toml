@@ -1,6 +1,6 @@
-# ╔══════════════════════════════════════════════════════════════════╗
-# ║              alacritty.toml — Matte Black Edition               ║
-# ╚══════════════════════════════════════════════════════════════════╝
+# ════════════════════════════════════════════════════════════════════
+#              alacritty.toml — Darker Matte Black Edition               
+# ════════════════════════════════════════════════════════════════════
 
 # ── Window ────────────────────────────────────────────────────────────
 [window]
@@ -63,73 +63,73 @@ hide_when_typing = true            # hide cursor while typing
 # ── Selection ─────────────────────────────────────────────────────────
 [selection]
 save_to_clipboard = true           # auto-copy selection to clipboard
-semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+semantic_escape_chars = ",|`|:\"' ()[]{}<>\t"
 
-# ── Colors (Matte Black) ──────────────────────────────────────────────
+# ── Colors (Darker Matte Black) ────────────────────────────────────────────
 # Palette sourced from github.com/tahayvr/matte-black-theme
 
 [colors.primary]
-background = '#1e1e1e'
-foreground = '#d4d4d4'             # brighter fg for readability
-dim_foreground = '#8a8a8d'
+background='#0a0a0a'
+foreground='#c9c9c9'
+dim_foreground='#6a6a6a'
 
 [colors.cursor]
-text   = '#1e1e1e'
-cursor = '#8a8a8d'                 # gray cursor — matches the theme accent
+text='#0a0a0a'
+cursor='#6a6a6a'
 
 [colors.vi_mode_cursor]
-text   = '#1e1e1e'
-cursor = '#e5c07b'                 # yellow in vi mode — easy to spot
+text='#0a0a0a'
+cursor='#6a6a6a'
 
 [colors.search.matches]
-foreground = '#1e1e1e'
-background = '#e5c07b'
+foreground='#c9c9c9'
+background='#0a0a0a'
 
 [colors.search.focused_match]
-foreground = '#1e1e1e'
-background = '#98c379'
+foreground='#c9c9c9'
+background='#0a0a0a'
 
 [colors.hints.start]
-foreground = '#1e1e1e'
-background = '#e5c07b'
+foreground='#c9c9c9'
+background='#0a0a0a'
 
 [colors.hints.end]
-foreground = '#1e1e1e'
-background = '#8a8a8d'
+foreground='#c9c9c9'
+background='#0a0a0a'
 
 [colors.selection]
-text       = '#1e1e1e'
-background = '#3d3d3d'
+text='#0a0a0a'
+background='#0a0a0a'
 
 [colors.normal]
-black   = '#1e1e1e'
-red     = '#e06c75'
-green   = '#98c379'
-yellow  = '#e5c07b'
-blue    = '#61afef'
-magenta = '#c678dd'
-cyan    = '#56b6c2'
-white   = '#8a8a8d'
+black='#2d2d2d'
+red='#e06c75'
+green='#98c379'
+yellow='#e5c07b'
+blue='#61afef'
+magenta='#c678dd'
+cyan='#56b6c2'
+white='#c9c9c9'
 
 [colors.bright]
-black   = '#3d3d3d'
-red     = '#e06c75'
-green   = '#98c379'
-yellow  = '#e5c07b'
-blue    = '#61afef'
-magenta = '#c678dd'
-cyan    = '#56b6c2'
-white   = '#d4d4d4'
+black='#2d2d2d'
+red='#e06c75'
+green='#98c379'
+yellow='#e5c07b'
+blue='#61afef'
+magenta='#c678dd'
+cyan='#56b6c2'
+white='#c9c9c9'
 
 [colors.dim]
-black   = '#1a1a1a'
-red     = '#a04050'
-green   = '#6a8f55'
-yellow  = '#a08a50'
-blue    = '#4a7fa0'
-magenta = '#8a50a0'
-cyan    = '#3a8090'
-white   = '#606060'
+black='#2d2d2d'
+red='#e06c75'
+green='#98c379'
+yellow='#e5c07b'
+blue='#61afef'
+magenta='#c678dd'
+cyan='#56b6c2'
+white='#c9c9c9'
 
 
 # ── Keyboard bindings ─────────────────────────────────────────────────
