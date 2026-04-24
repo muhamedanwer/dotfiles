@@ -2,20 +2,19 @@
   // General Waybar settings
   "layer": "top",
   "position": "top",
-  "height": 30,
-  "spacing": 2,
+  "height": 28,
+  "spacing": 1,
   "margin-top": 0,
-  "margin-bottom": 6,
+  "margin-bottom": 4,
   "margin-left": 0,
   "margin-right": 0,
   "modules-left": [
-    "hyprland/workspaces",
-    "custom/launcher"
+    "custom/launcher",
+    "hyprland/workspaces"
   ],
   "modules-center": [],
   "modules-right": [
     "mpd",
-    "custom/theme",
     "idle_inhibitor",
     "custom/keyboard",
     "cpu",
@@ -31,7 +30,7 @@
 
   // Custom application launcher
   "custom/launcher": {
-    "format": "⌘",
+    "format": "Apps",
     "tooltip": false,
     "on-click": "wofi --show drun"
   },
@@ -64,18 +63,10 @@
 
   // Keyboard layout indicator for Hyprland
   "custom/keyboard": {
-    "format": "⌨",
+    "format": " {}",
     "exec": "~/.config/waybar/keyboard-layout.sh",
     "interval": 2,
     "tooltip-format": "Layout: {}"
-  },
-
-  "custom/theme": {
-    "format": "  {}",
-    "exec": "~/.config/waybar/theme.sh",
-    "interval": 1,
-    "tooltip-format": "Theme: {} - Click to change",
-    "on-click": "~/.local/bin/theme-set"
   },
 
   // CPU usage
@@ -141,9 +132,11 @@
       "7": "●",
       "8": "●",
       "9": "●",
-      "default": "○",
-      "urgent": "◉"
+      "default": "·",
+      "urgent": "⚪"
     },
+    "format": "{icon}",
+    "separate-outputs": true,
     "on-click": "activate",
     "on-scroll-up": "hyprctl dispatch workspace e+1",
     "on-scroll-down": "hyprctl dispatch workspace e-1",
@@ -152,8 +145,8 @@
 
   // System tray
   "tray": {
-    "icon-size": 16,
-    "spacing": 8
+    "icon-size": 18,
+    "spacing": 6
   },
 
   // PulseAudio (Volume)
@@ -184,7 +177,8 @@
       "charging": ["", "", "", "", ""],
       "default": ["", "", "", "", ""]
     },
-    "tooltip-format": "Battery: {capacity}%",
+    "tooltip-format": "Battery: {capacity}% ({timeTo})",
+    "tooltip-format-hover": "{:%A, %B %d, %Y}",
     "states": {
       "warning": 20,
       "critical": 10

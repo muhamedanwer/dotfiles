@@ -1,93 +1,119 @@
-
-@import '/home/noah/.config/waybar/theme.css';
-
 * {
-  font-family: "SF Pro Display", "JetBrainsMono Nerd Font";
-  font-size: 14px;
-  font-weight: 500;
+  font-family: "JetBrains Mono", "SF Mono", monospace;
+  font-size: 13px;
 }
 
-/* BAR */
 window#waybar {
   color: #ffffff;
-  border-radius: 12px;
-  margin: 6px 12px;
-  padding: 2px 6px;
+  background: #000000;
+  padding: 0 8px;
 }
 
-/* WORKSPACES */
-#workspaces {
-  padding: 0 4px;
+#workspaces,
+#idle_inhibitor,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#battery,
+#pulseaudio,
+#network,
+#tray,
+#clock,
+#power {
+  padding: 0 10px;
 }
 
 #workspaces button {
-  padding: 2px 8px;
-  margin: 0 2px;
-  border-radius: 4px;
-  color: #888888;
-  background: transparent;
-  transition: all 0.15s ease;
+  color: #666666;
+  padding: 0 2px;
+  margin: 0;
 }
 
 #workspaces button.active {
-  background: rgba(255,255,255,0.15);
   color: #ffffff;
 }
 
 #workspaces button.urgent {
-  background: rgba(255,69,58,0.25);
-  color: #ff453a;
+  color: #ff5722;
 }
 
-#workspaces button:hover {
-  background: rgba(255,255,255,0.08);
+#idle_inhibitor {
+  color: #666666;
+}
+
+#custom-keyboard {
   color: #ffffff;
 }
 
-/* MODULES */
-#cpu, #temperature, #battery, #network, #pulseaudio, #clock, #backlight, #idle_inhibitor {
-  padding: 0 12px;
-  margin: 2px;
-  border-radius: 8px;
+#cpu,
+#memory {
+  color: #4fc3f7;
 }
 
-/* HOVER (mac subtle highlight) */
-#cpu:hover, #temperature:hover, #battery:hover,
-#network:hover, #pulseaudio:hover, #backlight:hover,
-#idle_inhibitor:hover {
-  background: rgba(255,255,255,0.12);
+#cpu.warning,
+#memory.warning {
+  color: #f5a623;
 }
 
-#custom-theme {
-  padding: 0 12px;
-  margin: 2px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
+#cpu.critical,
+#memory.critical {
+  color: #ff4757;
 }
 
-#custom-theme:hover {
-  background: rgba(255,255,255,0.15);
+#temperature {
+  color: #888888;
 }
 
-/* CRITICAL STATES */
+#temperature.warning {
+  color: #f5a623;
+}
+
 #temperature.critical {
-  color: #ff453a;
+  color: #ff4757;
+}
+
+#backlight {
+  color: #ffd700;
+}
+
+#battery {
+  color: #666666;
 }
 
 #battery.warning {
-  color: #ffd60a;
+  color: #ff9800;
 }
 
 #battery.critical {
-  color: #ff453a;
+  color: #ff5722;
 }
 
-#cpu.warning, #memory.warning {
-  color: #ffd60a;
+#pulseaudio {
+  color: #666666;
 }
 
-#cpu.critical, #memory.critical {
-  color: #ff453a;
+#pulseaudio.muted {
+  color: #444444;
 }
-/* Theme will be injected here */
+
+#network {
+  color: #4caf50;
+}
+
+#tray {
+  padding: 0 6px;
+}
+
+#clock {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+#power {
+  color: #666666;
+}
+
+#power:hover {
+  color: #ff5722;
+}
