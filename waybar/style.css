@@ -4,11 +4,12 @@
 }
 
 window#waybar {
-  color: #ffffff;
-  background: #000000;
+  color: #c8c8c8;
+  background: #0f0f0f;
   padding: 0 8px;
 }
 
+/* ── Modules base padding ── */
 #workspaces,
 #idle_inhibitor,
 #cpu,
@@ -20,100 +21,163 @@ window#waybar {
 #network,
 #tray,
 #clock,
-#power {
+#power,
+#mpd,
+#custom-launcher,
+#custom-keyboard {
   padding: 0 10px;
 }
 
+/* ── Workspaces ── */
 #workspaces button {
-  color: #666666;
+  color: #2e2e2e;
   padding: 0 2px;
   margin: 0;
 }
 
 #workspaces button.active {
-  color: #ffffff;
+  color: #7eb3f0;           /* soft blue — active workspace stands out clearly */
 }
 
 #workspaces button.urgent {
-  color: #ff5722;
+  color: #e07860;           /* muted red-orange for urgent */
 }
 
+/* ── Launcher ── */
+#custom-launcher {
+  color: #555555;
+}
+
+#custom-launcher:hover {
+  color: #c8c8c8;
+}
+
+/* ── Idle inhibitor ── */
 #idle_inhibitor {
-  color: #666666;
+  color: #3a3a3a;
 }
 
+#idle_inhibitor.activated {
+  color: #f0c060;           /* amber — screensaver held, warm warning feel */
+}
+
+/* ── Keyboard layout ── */
 #custom-keyboard {
-  color: #ffffff;
-}
-
-#cpu,
-#memory {
-  color: #4fc3f7;
-}
-
-#cpu.warning,
-#memory.warning {
-  color: #f5a623;
-}
-
-#cpu.critical,
-#memory.critical {
-  color: #ff4757;
-}
-
-#temperature {
   color: #888888;
 }
 
+/* ── CPU ── */
+#cpu {
+  color: #6ea8e8;           /* soft blue — system resource color */
+}
+
+#cpu.warning {
+  color: #c8a060;           /* amber warning */
+}
+
+#cpu.critical {
+  color: #e07060;           /* muted red critical */
+}
+
+/* ── Memory ── */
+#memory {
+  color: #7e9ee0;           /* slightly cooler blue than CPU — same family, distinct */
+}
+
+#memory.warning {
+  color: #c8a060;
+}
+
+#memory.critical {
+  color: #e07060;
+}
+
+/* ── Temperature ── */
+#temperature {
+  color: #5eb8c0;           /* teal — heat reads as cool until it isn't */
+}
+
 #temperature.warning {
-  color: #f5a623;
+  color: #c8a060;
 }
 
 #temperature.critical {
-  color: #ff4757;
+  color: #e07060;
 }
 
+/* ── Backlight ── */
 #backlight {
-  color: #ffd700;
+  color: #c8b060;           /* warm amber — brightness = warmth = light */
 }
 
+/* ── Battery ── */
 #battery {
-  color: #666666;
+  color: #6eba8a;           /* soft green — good charge */
+}
+
+#battery.charging {
+  color: #8ecaa0;           /* brighter green when charging */
 }
 
 #battery.warning {
-  color: #ff9800;
+  color: #c8a060;           /* amber at low charge */
 }
 
 #battery.critical {
-  color: #ff5722;
+  color: #e07060;           /* muted red when critical */
 }
 
+/* ── Audio ── */
 #pulseaudio {
-  color: #666666;
+  color: #9e8ae8;           /* soft lavender — audio has its own identity */
 }
 
 #pulseaudio.muted {
-  color: #444444;
+  color: #2e2e2e;           /* near-invisible when muted */
 }
 
+/* ── Network ── */
 #network {
-  color: #4caf50;
+  color: #6eba8a;           /* soft green — connected = good */
 }
 
+#network.disconnected {
+  color: #554444;           /* dark muted red — disconnected = problem */
+}
+
+/* ── MPD ── */
+#mpd {
+  color: #b890d0;           /* soft purple — music has a different vibe */
+}
+
+#mpd.playing {
+  color: #c8a0e0;           /* brighter purple when playing */
+}
+
+#mpd.paused {
+  color: #665577;           /* dim purple when paused */
+}
+
+#mpd.disconnected {
+  color: #2a2a2a;
+}
+
+/* ── Tray ── */
 #tray {
   padding: 0 6px;
 }
 
+/* ── Clock ── */
 #clock {
-  color: #ffffff;
+  color: #e8e8d8;           /* warm white — clock is the visual anchor */
   font-weight: 500;
 }
 
+/* ── Power ── */
 #power {
-  color: #666666;
+  color: #444444;
 }
 
 #power:hover {
-  color: #ff5722;
+  color: #e07060;           /* muted red on hover — power = danger */
 }
