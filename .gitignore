@@ -23,7 +23,6 @@ scripts/.local/bin/zoxide
 # Ignore editor temp files
 *.swp
 *.swo
-*~
 
 # Ignore logs
 *.log
