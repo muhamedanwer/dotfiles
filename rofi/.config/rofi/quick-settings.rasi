@@ -1,0 +1,85 @@
+/* Matte Black Rofi Theme - Quick Settings */
+
+configuration {
+    font: "JetBrains Mono Nerd Font 12";
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+}
+
+* {
+    background-color: #0a0a0a;
+    text-color: #d0d0d0;
+    border-color: #1a1a1a;
+    selected-background-color: #1a1a1a;
+    selected-text-color: #e0e0e0;
+    selected-icon-color: #a0c0e0;
+    input-background-color: #121212;
+    input-text-color: #d0d0d0;
+    scrollbar-color: #303030;
+    scrollbar-handle-color: #404040;
+}
+
+window {
+    width: 320;
+    height: 400;
+    location: center;
+    anchor: center;
+    border: 1px;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+mainbox {
+    spacing: 8px;
+}
+
+inputbar {
+    spacing: 8px;
+    padding: 8px;
+    children: [prompt, entry];
+}
+
+prompt {
+    text-color: #606060;
+    font: "JetBrains Mono Nerd Font 12";
+}
+
+entry {
+    placeholder: "Search settings...";
+    placeholder-color: #505050;
+}
+
+listview {
+    spacing: 4px;
+    lines: 12;
+    columns: 1;
+    scrollbar: true;
+}
+
+element {
+    padding: 10px 12px;
+    border-radius: 6px;
+}
+
+element selected {
+    background-color: #1a1a1a;
+}
+
+element-text {
+    text-color: #c0c0c0;
+}
+
+element-icon {
+    size: 20px;
+    text-color: #909090;
+}
+
+element selected element-icon {
+    text-color: #a0c0e0;
+}
+
+scrollbar {
+    width: 6px;
+    handle-width: 6px;
+    handle-border-radius: 3px;
+}

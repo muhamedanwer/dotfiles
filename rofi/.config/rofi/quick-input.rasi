@@ -1,0 +1,45 @@
+/* Matte Black Rofi Theme - Quick Input */
+
+configuration {
+    font: "JetBrains Mono Nerd Font 12";
+    show-icons: false;
+}
+
+* {
+    background-color: #0a0a0a;
+    text-color: #d0d0d0;
+    border-color: #1a1a1a;
+    selected-background-color: #1a1a1a;
+    selected-text-color: #e0e0e0;
+    input-background-color: #121212;
+    input-text-color: #d0d0d0;
+}
+
+window {
+    width: 500;
+    height: 120;
+    location: center;
+    anchor: center;
+    border: 1px;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+mainbox {
+    spacing: 12px;
+}
+
+inputbar {
+    children: [prompt, entry];
+    spacing: 12px;
+}
+
+prompt {
+    text-color: #a0c0e0;
+    font: "JetBrains Mono Nerd Font 14";
+}
+
+entry {
+    placeholder: "Type here...";
+    placeholder-color: #505050;
+}

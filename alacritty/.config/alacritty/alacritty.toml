@@ -1,0 +1,167 @@
+# Matte Black Alacritty Configuration (New Format)
+
+[window]
+dimensions.columns = 120
+dimensions.lines = 35
+padding.x = 12
+padding.y = 10
+dynamic_padding = true
+decorations = "none"
+opacity = 0.92
+blur = false
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[font]
+normal.family = "JetBrains Mono Nerd Font"
+normal.style = "Regular"
+bold.family = "JetBrains Mono Nerd Font"
+bold.style = "Bold"
+italic.family = "JetBrains Mono Nerd Font"
+italic.style = "Italic"
+bold_italic.family = "JetBrains Mono Nerd Font"
+bold_italic.style = "Bold Italic"
+size = 11.5
+offset.x = 0
+offset.y = 1
+glyph_offset.x = 0
+glyph_offset.y = 0
+
+[colors]
+# Matte Black Theme
+primary.background = "0x0a0a0a"
+primary.foreground = "0xd0d0d0"
+primary.dim_foreground = "0x808080"
+primary.bright_foreground = "0xe0e0e0"
+
+cursor.text = "0x0a0a0a"
+cursor.cursor = "0xd0d0d0"
+
+vi_mode_cursor.text = "0x0a0a0a"
+vi_mode_cursor.cursor = "0xa0c0e0"
+
+search.matches.foreground = "0x0a0a0a"
+search.matches.background = "0xa0c0e0"
+search.focused_match.foreground = "0x0a0a0a"
+search.focused_match.background = "0xe0a060"
+
+footer_bar.background = "0x0a0a0a"
+footer_bar.foreground = "0x808080"
+
+hints.start.foreground = "0x0a0a0a"
+hints.start.background = "0xe0a060"
+hints.end.foreground = "0x0a0a0a"
+hints.end.background = "0xa0c0e0"
+
+line_indicator.foreground = "0xa0c0e0"
+line_indicator.background = "0x0a0a0a"
+
+selection.text = "0xd0d0d0"
+selection.background = "0x2a2a2a"
+
+normal.black = "0x1a1a1a"
+normal.red = "0xd06060"
+normal.green = "0x70a070"
+normal.yellow = "0xe0a060"
+normal.blue = "0x70a0c0"
+normal.magenta = "0xc070c0"
+normal.cyan = "0x60b0b0"
+normal.white = "0xc0c0c0"
+
+bright.black = "0x404040"
+bright.red = "0xe07070"
+bright.green = "0x80b080"
+bright.yellow = "0xf0b070"
+bright.blue = "0x80b0d0"
+bright.magenta = "0xd080d0"
+bright.cyan = "0x70c0c0"
+bright.white = "0xe0e0e0"
+
+dim.black = "0x101010"
+dim.red = "0x804040"
+dim.green = "0x406040"
+dim.yellow = "0x806040"
+dim.blue = "0x405060"
+dim.magenta = "0x704070"
+dim.cyan = "0x406060"
+dim.white = "0x909090"
+
+[cursor]
+style.shape = "Block"
+style.blinking = "On"
+blink_interval = 500
+unfocused_hollow = true
+
+[general]
+live_config_reload = true
+
+[terminal.shell]
+program = "/usr/bin/fish"
+args = ["--login"]
+
+# working_directory = null
+
+[mouse]
+hide_when_typing = true
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+save_to_clipboard = true
+
+[keyboard]
+
+# mouse_bindings and key_bindings use array of inline tables
+# Format: [[section]] for array of tables
+
+[[mouse.bindings]]
+mouse = "Middle"
+action = "PasteSelection"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control|Shift"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control|Shift"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "N"
+mods = "Control|Shift"
+action = "SpawnNewInstance"
+
+[[keyboard.bindings]]
+key = "F11"
+mods = "Control|Shift"
+action = "ToggleFullscreen"
+
+[[keyboard.bindings]]
+key = "Plus"
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Control"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Key0"
+mods = "Control"
+action = "ResetFontSize"
+
+[[keyboard.bindings]]
+key = "Paste"
+mods = "Control|Shift"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "Copy"
+mods = "Control|Shift"
+action = "Copy"
+
+[terminal]

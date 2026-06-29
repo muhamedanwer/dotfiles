@@ -1,0 +1,191 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "spacing": 6,
+
+    // ┌─────────────────────────────────────────────────────────────────────┐
+    // │  Left: workspaces  │  Center: clock · pomodoro · tasks  │  Right:  │
+    // │  cpu · memory · temperature · network · audio · battery · tray      │
+    // └─────────────────────────────────────────────────────────────────────┘
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock", "custom/pomodoro", "custom/taskwarrior"],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "temperature",
+        "network",
+        "pulseaudio",
+        "battery",
+        "tray"
+    ],
+
+    // ── Workspaces ───────────────────────────────────────────────────────────
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1", "2": "2", "3": "3", "4": "4", "5": "5",
+            "6": "6", "7": "7", "8": "8", "9": "9", "10": "10",
+            "active": "●",
+            "urgent": "◌"
+        },
+        "persistent-workspaces": {
+            "1": [], "2": [], "3": [], "4": [], "5": [],
+            "6": [], "7": [], "8": [], "9": [], "10": []
+        }
+    },
+
+    // ── Clock ─────────────────────────────────────────────────────────────────
+    "clock": {
+        "format": " {:%H:%M}",
+        "format-alt": " {:%a %d %b}",
+        "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt>{calendar}</tt>",
+        "interval": 1,
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1
+        }
+    },
+
+    // ── Pomodoro ──────────────────────────────────────────────────────────────
+    // Script: ~/.local/bin/waybar-pomodoro.sh
+    //   left-click   → toggle (start / pause / resume)
+    //   right-click  → start a short break  (5 min)
+    //   middle-click → start a long break  (15 min)
+    "custom/pomodoro": {
+        "format": "{}",
+        "interval": 1,
+        "exec": "bash /home/anwar/.local/bin/waybar-pomodoro.sh status 2>/dev/null",
+        "on-click": "bash /home/anwar/.local/bin/waybar-pomodoro.sh toggle 2>/dev/null",
+        "on-right-click": "bash /home/anwar/.local/bin/waybar-pomodoro.sh short-break 2>/dev/null",
+        "on-middle-click": "bash /home/anwar/.local/bin/waybar-pomodoro.sh long-break 2>/dev/null",
+        "return-type": "json",
+        "signal": 10
+    },
+
+    // ── Taskwarrior ───────────────────────────────────────────────────────────
+    "custom/taskwarrior": {
+        "format": "{}",
+        "interval": 5,
+        "exec": "bash /home/anwar/.local/bin/waybar-taskwarrior.sh status 2>/dev/null",
+        "on-click": "bash /home/anwar/.local/bin/waybar-taskwarrior.sh add 2>/dev/null",
+        "on-right-click": "bash /home/anwar/.local/bin/waybar-taskwarrior.sh list 2>/dev/null",
+        "on-middle-click": "bash /home/anwar/.local/bin/waybar-taskwarrior.sh done 2>/dev/null",
+        "return-type": "json",
+        "signal": 11
+    },
+
+    // ── CPU ───────────────────────────────────────────────────────────────────
+    // Polls every 2 s. Click → btop. Alt-click → frequency view.
+    // CSS classes "warning"(70%) and "critical"(90%) — wire in style.css.
+    "cpu": {
+        "interval": 2,
+        "format": " {usage}%",
+        "format-alt": " {avg_frequency}GHz",
+        "tooltip": true,
+        "tooltip-format": "CPU: {usage}%\nFreq: {avg_frequency}GHz",
+        "on-click": "alacritty -e btop",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+    // ── Memory ────────────────────────────────────────────────────────────────
+    // Shows used/total in GiB. Alt-click → percentage view.
+    "memory": {
+        "interval": 5,
+        "format": " {used:.1f}G/{total:.0f}G",
+        "format-alt": " {percentage}%",
+        "tooltip": true,
+        "tooltip-format": "RAM: {used:.2f} / {total:.2f} GiB\nSwap: {swapUsed:.2f} / {swapTotal:.2f} GiB",
+        "on-click": "alacritty -e btop",
+        "states": {
+            "warning": 70,
+            "critical": 85
+        }
+    },
+
+    // ── Temperature ───────────────────────────────────────────────────────────
+    //
+    // SETUP — pick one option:
+    //
+    // Option A (works now, no install):
+    //   1. Run:  cat /sys/class/thermal/thermal_zone*/type
+    //   2. Find "x86_pkg_temp" or "acpitz" and note its index (zone0=0, etc.)
+    //   3. Set "thermal-zone" to that index.
+    //
+    // Option B (recommended, more accurate):
+    //   1. sudo pacman -S lm-sensors && sudo sensors-detect
+    //   2. sensors   ← verify CPU temp appears
+    //   3. Remove "thermal-zone" line below.
+    //   4. Uncomment "hwmon-chip" + "input-filename".
+    //      Intel typical: hwmon-chip="coretemp", input-filename="temp1_input"
+    //
+    "temperature": {
+        "interval": 3,
+        "thermal-zone": 0,
+        // "hwmon-chip": "coretemp",
+        // "input-filename": "temp1_input",
+        "critical-threshold": 85,
+        "format": "{icon} {temperatureC}°C",
+        "format-critical": "󱃂 {temperatureC}°C",
+        "format-icons": ["", "", ""],
+        "tooltip": true,
+        "tooltip-format": "CPU temp: {temperatureC}°C"
+    },
+
+    // ── Network ───────────────────────────────────────────────────────────────
+    // Click → nmtui for quick connection switching without leaving the terminal.
+    "network": {
+        "interval": 5,
+        "format-wifi": " {essid} {signalStrength}%",
+        "format-ethernet": "󰈀 {ipaddr}",
+        "format-disconnected": "󰖪 Offline",
+        "tooltip-format": "{ifname}: {ipaddr}\nSSID: {essid}\nSignal: {signalStrength}%",
+        "tooltip-format-ethernet": "{ifname}: {ipaddr}",
+        "on-click": "alacritty -e nmtui"
+    },
+
+    // ── Pulseaudio / PipeWire-pulse ───────────────────────────────────────────
+    // Right-click mutes/unmutes directly without opening pavucontrol.
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon} 󰂯",
+        "format-muted": "󰝟",
+        "format-icons": {
+            "headphone": "󰋋",
+            "headset": "󰋋",
+            "speaker": "󰕾",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "pavucontrol",
+        "on-right-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "scroll-step": 5,
+        "tooltip-format": "{desc}\nVolume: {volume}%"
+    },
+
+    // ── Battery ───────────────────────────────────────────────────────────────
+    // 30 s interval — battery doesn't move faster than that.
+    "battery": {
+        "interval": 30,
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% 󰂄",
+        "format-plugged": "{capacity}% 󰚥",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["󰂎", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "states": {
+            "warning": 25,
+            "critical": 10
+        },
+        "tooltip-format": "{capacity}%\nTime: {timeTo}\nPower: {power}W"
+    },
+
+    // ── System tray ───────────────────────────────────────────────────────────
+    "tray": {
+        "icon-size": 16,
+        "spacing": 6
+    }
+}

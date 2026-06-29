@@ -1,0 +1,74 @@
+# Matte Black Mako Configuration
+
+# Colors (RGBA)
+background-color=#0a0a0aff
+text-color=#d0d0d0ff
+
+# Border
+border-color=#1a1a1aff
+border-size=1
+
+# Margins & Padding
+margin=8
+padding=12
+
+# Border radius
+border-radius=8
+
+# Width
+width=360
+
+# Height (auto)
+height=-1
+
+# Max visible notifications
+max-visible=5
+
+# Anchor (top-right, top-left, bottom-right, bottom-left, center)
+anchor=top-right
+
+# Layer (overlay, top, bottom)
+layer=overlay
+
+# Default timeout (ms)
+default-timeout=5000
+
+# Ignore timeout for critical notifications
+ignore-timeout=false
+
+# Format
+format=<b>{summary}</b>\n{body}
+
+# Icons
+icons=1
+icon-path=/usr/share/icons/Papirus-Dark/24x24/apps/:/usr/share/icons/Papirus-Dark/24x24/status/:/usr/share/icons/hicolor/24x24/apps/
+
+# Default icon
+default-icon=dialog-information
+
+# Progress bar (for notifications with progress)
+progress-bar-enabled=true
+progress-bar-color=#404040ff
+progress-bar-background=#1a1a1aff
+progress-bar-height=4
+progress-bar-radius=2
+
+# Action buttons
+actions-enabled=true
+action-background=#1a1a1aff
+action-text-color=#a0a0a0ff
+action-hover-background=#252525ff
+action-hover-text-color=#d0d0d0ff
+action-border-color=#303030ff
+action-border-size=1
+action-radius=4
+
+# Focus mode (minimal notifications when active)
+[mode=focus]
+background-color=#0a0a0aff
+text-color=#606060ff
+border-color=#1a1a1aff
+default-timeout=2000
+max-visible=1
+format={summary}
+icons=0

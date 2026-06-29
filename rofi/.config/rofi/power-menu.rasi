@@ -1,0 +1,81 @@
+/* Matte Black Rofi Theme - Power Menu */
+
+configuration {
+    font: "JetBrains Mono Nerd Font 14";
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+}
+
+* {
+    background-color: #0a0a0a;
+    text-color: #d0d0d0;
+    border-color: #1a1a1a;
+    selected-background-color: #2a1a1a;
+    selected-text-color: #e06060;
+    selected-icon-color: #e06060;
+    input-background-color: #121212;
+    input-text-color: #d0d0d0;
+}
+
+window {
+    width: 280;
+    height: 300;
+    location: center;
+    anchor: center;
+    border: 1px;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+mainbox {
+    spacing: 10px;
+}
+
+inputbar {
+    children: [];
+}
+
+listview {
+    spacing: 6px;
+    lines: 6;
+    columns: 1;
+    scrollbar: false;
+}
+
+element {
+    padding: 14px 16px;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+}
+
+element:hover {
+    background-color: #1a1a1a;
+}
+
+element selected {
+    background-color: #2a1a1a;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { background-color: #2a1a1a; }
+    50% { background-color: #3a1a1a; }
+}
+
+element-text {
+    text-color: #c0c0c0;
+    font-weight: 500;
+}
+
+element selected element-text {
+    text-color: #e06060;
+}
+
+element-icon {
+    size: 24px;
+    text-color: #808080;
+}
+
+element selected element-icon {
+    text-color: #e06060;
+}

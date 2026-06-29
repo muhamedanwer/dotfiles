@@ -1,0 +1,33 @@
+# Matte Black Swaylock Configuration (fallback)
+
+daemonize = true
+indicator_radius = 120
+indicator_thickness = 4
+ring_color = 1a1a1a
+key_hl_color = 70a070
+line_color = 00000000
+inside_color = 0a0a0a
+inside_clear_color = 0a0a0a
+inside_wrong_color = 2a1010
+inside_ver_color = 1a1a2a
+ring_clear_color = 1a1a1a
+ring_wrong_color = d06060
+ring_ver_color = 70a0d0
+separator_color = 00000000
+grace = 2
+fade_in = 0.2
+effect_vignette = 0.3
+effect_blur = 0
+effect_scale = 1
+effect_greyscale = 0
+clock = true
+indicator = true
+timestr = "%H:%M"
+datestr = "%A, %d %B %Y"
+font = "JetBrains Mono Nerd Font"
+font_size = 72
+color = d0d0d0
+image = ~/Pictures/wallpapers/gargantua-black.jpg
+scaling = fill
+show_failed_attempts = true
+ignore_empty_password = false

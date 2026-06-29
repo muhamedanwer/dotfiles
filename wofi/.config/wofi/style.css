@@ -1,0 +1,95 @@
+/* Matte Black Wofi Styles */
+
+window {
+    background-color: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-radius: 10px;
+}
+
+#input {
+    background-color: #121212;
+    border: 1px solid #252525;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 0 16px 12px 16px;
+    color: #d0d0d0;
+    font-size: 13px;
+}
+
+#input:focus {
+    border-color: #303030;
+    box-shadow: 0 0 0 2px #1a1a1a;
+}
+
+#input-label {
+    color: #606060;
+    font-style: italic;
+}
+
+#input-text {
+    color: #d0d0d0;
+}
+
+#scroll {
+    background-color: transparent;
+    margin: 0 16px 16px 16px;
+}
+
+#inner-box {
+    spacing: 4px;
+}
+
+#entry {
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 2px 0;
+    transition: background-color 0.1s ease;
+}
+
+#entry:selected {
+    background-color: #1a1a1a;
+}
+
+#entry:selected #text,
+#entry:selected #image {
+    color: #e0e0e0;
+}
+
+#text {
+    color: #c0c0c0;
+    font-size: 12px;
+}
+
+#image {
+    color: #909090;
+    margin-right: 12px;
+    min-width: 24px;
+}
+
+#entry:selected #image {
+    color: #b0b0b0;
+}
+
+/* Match highlighting */
+#text:match {
+    color: #a0c0e0;
+    font-weight: 600;
+}
+
+/* Categories (drun mode) */
+#category {
+    color: #606060;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 14px 4px 14px;
+    margin-top: 8px;
+    border-top: 1px solid #1a1a1a;
+}
+
+#category:first-child {
+    margin-top: 0;
+    border-top: none;
+}

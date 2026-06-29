@@ -1,0 +1,69 @@
+/* Matte Black Rofi Theme - Task List */
+
+configuration {
+    font: "JetBrains Mono Nerd Font 11";
+    show-icons: false;
+}
+
+* {
+    background-color: #0a0a0a;
+    text-color: #d0d0d0;
+    border-color: #1a1a1a;
+    selected-background-color: #1a1a1a;
+    selected-text-color: #e0e0e0;
+}
+
+window {
+    width: 800;
+    height: 500;
+    location: center;
+    anchor: center;
+    border: 1px;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+mainbox {
+    spacing: 8px;
+}
+
+inputbar {
+    children: [prompt, entry];
+    spacing: 12px;
+    margin-bottom: 8px;
+}
+
+prompt {
+    text-color: #a0c0e0;
+}
+
+entry {
+    placeholder: "Filter tasks...";
+    placeholder-color: #505050;
+}
+
+listview {
+    lines: 20;
+    spacing: 4px;
+    scrollbar: true;
+    scrollbar-width: 6px;
+}
+
+element {
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+element selected {
+    background-color: #1a1a1a;
+}
+
+element-text {
+    text-color: #d0d0d0;
+}
+
+scrollbar {
+    background-color: #1a1a1a;
+    handle-color: #303030;
+    handle-width: 6px;
+}

@@ -1,0 +1,29 @@
+# Ignore stow backup files
+*.bak
+*~
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore local config that shouldn't be shared
+fish/.config/fish/fish_variables
+nvim/.config/nvim/lazy-lock.json
+
+# Ignore binaries
+scripts/.local/bin/btm
+scripts/.local/bin/dust
+scripts/.local/bin/lazygit
+scripts/.local/bin/procs
+scripts/.local/bin/starship
+scripts/.local/bin/ya
+scripts/.local/bin/yazi
+scripts/.local/bin/zoxide
+
+# Ignore editor temp files
+*.swp
+*.swo
+*~
+
+# Ignore logs
+*.log
