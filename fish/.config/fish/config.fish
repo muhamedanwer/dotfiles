@@ -1,26 +1,67 @@
 # Fish Shell Configuration - Matte Black Productivity Setup
 
+function is_installed
+    type -q $argv[1]
+end
+
 # Starship Prompt
-starship init fish | source
+if is_installed starship
+    starship init fish | source
+end
 
 # ========================================
 # ALIASES
 # ========================================
 
 # Modern replacements
-alias ls="eza --icons --group-directories-first"
-alias ll="eza -l --icons --git --group-directories-first"
-alias la="eza -la --icons --git --group-directories-first"
-alias lt="eza --tree --icons --level=2"
-alias lta="eza --tree --icons --level=3 -a"
-alias cat="bat --style=numbers,changes --theme=ansi"
-alias grep="rg --smart-case"
-alias find="fd"
-alias du="dust"
-alias df="duf"
-alias ps="procs"
-alias top="btm"
-alias htop="btm"
+if is_installed eza
+    alias ls="eza --icons --group-directories-first"
+    alias ll="eza -l --icons --git --group-directories-first"
+    alias la="eza -la --icons --git --group-directories-first"
+    alias lt="eza --tree --icons --level=2"
+    alias lta="eza --tree --icons --level=3 -a"
+else if is_installed exa
+    alias ls="exa --icons --group-directories-first"
+    alias ll="exa -l --icons --git --group-directories-first"
+    alias la="exa -la --icons --git --group-directories-first"
+    alias lt="exa --tree --icons --level=2"
+    alias lta="exa --tree --icons --level=3 -a"
+else
+    alias ls="ls --color=auto"
+    alias ll="ls -l --color=auto"
+    alias la="ls -la --color=auto"
+    alias lt="ls --color=auto"
+    alias lta="ls --color=auto"
+end
+
+if is_installed bat
+    alias cat="bat --style=numbers,changes --theme=ansi"
+end
+
+if is_installed rg
+    alias grep="rg --smart-case"
+end
+
+if is_installed fd
+    alias find="fd"
+end
+
+if is_installed dust
+    alias du="dust"
+end
+
+if is_installed duf
+    alias df="duf"
+end
+
+if is_installed procs
+    alias ps="procs"
+end
+
+if is_installed btm
+    alias top="btm"
+    alias htop="btm"
+end
 
 # Git
 alias g="git"
@@ -189,14 +230,18 @@ end
 # ========================================
 
 # Zoxide
-zoxide init fish | source
+if is_installed zoxide
+    zoxide init fish | source
+end
 
 # FZF
-if test -f /usr/share/fzf/key-bindings.fish
-    source /usr/share/fzf/key-bindings.fish
-end
-if test -f /usr/share/fzf/completion.fish
-    source /usr/share/fzf/completion.fish
+if is_installed fzf
+    if test -f /usr/share/fzf/key-bindings.fish
+        source /usr/share/fzf/key-bindings.fish
+    end
+    if test -f /usr/share/fzf/completion.fish
+        source /usr/share/fzf/completion.fish
+    end
 end
 
 # Atuin (history sync)

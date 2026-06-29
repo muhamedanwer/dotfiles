@@ -55,11 +55,19 @@ dotfiles/
 ## Installation
 
 ### Prerequisites
+<<<<<<< HEAD
 
 - `git`
 - `stow`
 - Optional utilities for the shell experience:
   - `eza`, `bat`, `ripgrep`, `fd`, `dust`, `duf`, `procs`, `btm`, `zoxide`, `fzf`, `starship`, `timetrap`
+=======
+- GNU Stow
+- Git
+- Optional utilities for the full shell experience:
+  - `eza`, `bat`, `ripgrep`, `fd`, `dust`, `duf`, `procs`, `btm`, `zoxide`, `fzf`, `starship`, `timetrap`
+  - `pacman`/`yay` are used by some shell aliases if available
+>>>>>>> c27a9c7 (install.sh)
 
 ### Quick Install
 
