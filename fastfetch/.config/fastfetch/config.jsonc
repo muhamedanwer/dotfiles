@@ -13,30 +13,86 @@
     }
   },
   "display": {
+    "stat": false,
+    "pipe": true,
+    "showErrors": false,
+    "disableLinewrap": false,
+    "hideCursor": false,
     "separator": "  ",
-    "color": "8",
-    "keys": [
-      "os",
-      "kernel",
-      "uptime",
-      "packages",
-      "shell",
-      "display",
-      "wm",
-      "wmtheme",
-      "theme",
-      "icons",
-      "font",
-      "cursor",
-      "terminal",
-      "cpu",
-      "gpu",
-      "memory",
-      "disk",
-      "battery",
-      "localip",
-      "publicip"
-    ]
+    "color": {
+      "keys": "8",
+      "title": "",
+      "output": "",
+      "separator": ""
+    },
+    "brightColor": true,
+    "duration": {
+      "abbreviation": false,
+      "spaceBeforeUnit": "default"
+    },
+    "size": {
+      "maxPrefix": "YB",
+      "binaryPrefix": "iec",
+      "ndigits": 2,
+      "spaceBeforeUnit": "default"
+    },
+    "temp": {
+      "unit": "D",
+      "ndigits": 1,
+      "color": {
+        "green": "32",
+        "yellow": "93",
+        "red": "91"
+      },
+      "spaceBeforeUnit": "default"
+    },
+    "percent": {
+      "type": [
+        "num",
+        "num-color"
+      ],
+      "ndigits": 0,
+      "color": {
+        "green": "32",
+        "yellow": "93",
+        "red": "91"
+      },
+      "spaceBeforeUnit": "default",
+      "width": 0
+    },
+    "bar": {
+      "char": {
+        "elapsed": "■",
+        "total": "-"
+      },
+      "border": {
+        "left": "[ ",
+        "right": " ]",
+        "leftElapsed": "",
+        "rightElapsed": ""
+      },
+      "color": {
+        "elapsed": "auto",
+        "total": "97",
+        "border": "97"
+      },
+      "width": 10
+    },
+    "fraction": {
+      "ndigits": 2,
+      "trailingZeros": "default"
+    },
+    "noBuffer": false,
+    "key": {
+      "width": 0,
+      "type": "string",
+      "paddingLeft": 0
+    },
+    "freq": {
+      "ndigits": 2,
+      "spaceBeforeUnit": "default"
+    },
+    "constants": []
   },
   "modules": {
     "os": {

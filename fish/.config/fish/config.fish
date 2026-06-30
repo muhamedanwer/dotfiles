@@ -4,6 +4,9 @@ function is_installed
     type -q $argv[1]
 end
 
+# Disable the default Fish welcome message
+set -g fish_greeting ''
+
 # Starship Prompt
 if is_installed starship
     starship init fish | source
@@ -255,26 +258,6 @@ if command -v direnv >/dev/null 2>&1
     direnv hook fish | source
 end
 
-# Welcome message (only in interactive login shells)
-if status is-login
-    if command -v fastfetch >/dev/null 2>&1
-        fastfetch --config ~/.config/fastfetch/config.jsonc
-    else
-        echo ""
-        echo "  ███████╗███████╗██████╗ ██╗   ██╗███████╗██████╗ "
-        echo "  ██╔════╝██╔════╝██╔══██╗██║   ██║██╔════╝██╔══██╗"
-        echo "  ███████╗█████╗  ██████╔╝██║   ██║█████╗  ██████╔╝"
-        echo "  ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██╔══╝  ██╔═══██╗"
-        echo "  ███████║███████╗██║  ██║ ╚████╔╝ ███████╗██║  ██║"
-        echo "  ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝"
-        echo ""
-        echo "  Matte Black Productivity Environment"
-        echo "  SUPER+F11  →  Toggle Focus Mode"
-        echo "  SUPER+P    →  Pomodoro (25/5)"
-        echo "  SUPER+Space→  App Launcher"
-        echo ""
-    end
-end
 
 # Key bindings
 bind \cg 'git status -sb'
