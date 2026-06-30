@@ -17,14 +17,17 @@ text-color=#d0d0d0ff
 border-color=#1a1a1aff
 border-size=1
 
-# Selected item
-selected-background=#1a1a1aff
-selected-text-color=#e0e0e0ff
-
-# Input field
-prompt-color=#606060ff
+# Prompt
+prompt=Run
+prompt-color=#909090ff
+prompt-text-color=#d0d0d0ff
 input-color=#d0d0d0ff
 input-background=#121212ff
+input-border-color=#303030ff
+
+# Selected item
+selected-background=#1f1f1fff
+selected-text-color=#e0e0e0ff
 
 # Match highlighting
 match-color=#a0c0e0ff
@@ -35,7 +38,8 @@ scrollbar-color=#303030ff
 scrollbar-handle-color=#404040ff
 
 # Icons
-icon-size=24
+show-icons=true
+icon-size=28
 icon-theme=Papirus-Dark
 
 # Behavior

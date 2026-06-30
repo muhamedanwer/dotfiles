@@ -41,14 +41,26 @@ window {
 
 #entry {
     background-color: transparent;
+    border: 1px solid transparent;
     border-radius: 6px;
     padding: 10px 14px;
     margin: 2px 0;
-    transition: background-color 0.1s ease;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+#entry:hover {
+    background-color: #141414;
+    border-color: #303030;
+}
+
+#entry:focus {
+    background-color: #1a1a1a;
+    border-color: #404040;
 }
 
 #entry:selected {
     background-color: #1a1a1a;
+    border-color: #404040;
 }
 
 #entry:selected #text,
