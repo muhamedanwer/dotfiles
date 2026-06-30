@@ -12,6 +12,7 @@ A curated Linux dotfiles repository for a matte-black, keyboard-focused Wayland 
 - **Fish + Starship**: Modern shell experience with a clean prompt
 - **Alacritty**: Fast GPU-accelerated terminal settings
 - **Mako**: Lightweight notification daemon
+- **Fastfetch**: System information display
 - **Custom scripts**: Useful utilities in `~/.local/bin`
 
 ## Repo Structure
@@ -55,19 +56,11 @@ dotfiles/
 ## Installation
 
 ### Prerequisites
-<<<<<<< HEAD
 
 - `git`
 - `stow`
 - Optional utilities for the shell experience:
   - `eza`, `bat`, `ripgrep`, `fd`, `dust`, `duf`, `procs`, `btm`, `zoxide`, `fzf`, `starship`, `timetrap`
-=======
-- GNU Stow
-- Git
-- Optional utilities for the full shell experience:
-  - `eza`, `bat`, `ripgrep`, `fd`, `dust`, `duf`, `procs`, `btm`, `zoxide`, `fzf`, `starship`, `timetrap`
-  - `pacman`/`yay` are used by some shell aliases if available
->>>>>>> c27a9c7 (install.sh)
 
 ### Quick Install
 

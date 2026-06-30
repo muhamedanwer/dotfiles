@@ -93,6 +93,7 @@ alias fishconf="nvim ~/.config/fish/config.fish"
 alias starshipconf="nvim ~/.config/starship.toml"
 alias nvimconf="nvim ~/.config/nvim/"
 alias alacrittyconf="nvim ~/.config/alacritty/alacritty.toml"
+alias roficonf="nvim ~/.config/rofi/quick-input.rasi"
 alias wofiiconf="nvim ~/.config/wofi/config"
 alias makoconf="nvim ~/.config/mako/config"
 
