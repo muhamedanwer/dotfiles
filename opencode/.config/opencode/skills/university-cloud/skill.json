@@ -1,0 +1,57 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "university-cloud",
+  "description": "University Cloud Computing course assistant: AWS/GCP/Azure, containers, Kubernetes, serverless, infrastructure as code, cloud architecture, certifications.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "cloud:concept",
+      "description": "Explain cloud computing concept",
+      "prompt": "Explain {{concept}} for Cloud Computing at {{level}} level. Include:\n1. Intuition and business motivation\n2. Technical architecture and components\n3. Comparison: AWS vs GCP vs Azure services\n4. Hands-on: CLI commands, console steps, IaC (Terraform/Pulumi)\n5. Pricing model and cost optimization\n6. Security: IAM, network, encryption, compliance\n7. Best practices and design patterns\n8. Common pitfalls and troubleshooting\n9. Certification exam relevance\n10. Lab exercise with expected outcomes\n\nConcept: {{concept}} (e.g., VPC, IAM, K8s, serverless, CDN, database, monitoring)\nLevel: {{level}} (intro, associate, professional)",
+      "arguments": [
+        {"name": "concept", "description": "Cloud concept", "required": true},
+        {"name": "level", "description": "intro, associate, professional", "required": false, "default": "associate"},
+        {"name": "provider", "description": "aws, gcp, azure, multi", "required": false, "default": "aws"}
+      ]
+    },
+    {
+      "name": "cloud:lab",
+      "description": "Cloud hands-on lab",
+      "prompt": "Create a hands-on lab for {{topic}} on {{provider}}. Include:\n1. Prerequisites: account setup, CLI, permissions\n2. Architecture diagram (ASCII)\n3. Step-by-step instructions with screenshots descriptions\n4. CLI commands and/or Terraform/Pulumi code\n5. Console navigation guide\n6. Verification steps and expected outputs\n7. Cleanup instructions (critical for cost)\n8. Cost estimate\n9. Troubleshooting common errors\n10. Extension challenges\n\nTopic: {{topic}} (e.g., deploy K8s, serverless API, data pipeline, ML pipeline)\nProvider: {{provider}} (aws, gcp, azure)\nDuration: {{duration}} minutes\nFree tier compatible: {{free_tier}}",
+      "arguments": [
+        {"name": "topic", "description": "Lab topic", "required": true},
+        {"name": "provider", "description": "aws, gcp, azure", "required": false, "default": "aws"},
+        {"name": "duration", "description": "Lab duration in minutes", "required": false, "default": "60"},
+        {"name": "free_tier", "description": "true, false", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "cloud:cert-prep",
+      "description": "Cloud certification preparation",
+      "prompt": "Create study plan for {{certification}} certification. Include:\n1. Exam guide: domains, weightings, question types\n2. Prerequisites and recommended experience\n3. Study resources: official docs, courses, practice exams\n4. {{duration}}-week schedule with daily/weekly goals\n5. Hands-on labs for each domain\n6. Key services deep-dive with FAQs\n7. Practice questions with explanations\n8. Exam day strategy: time management, flagging, review\n9. Common failure points and how to avoid\n10. Post-certification: next steps, specialization paths\n\nCertification: {{certification}} (e.g., AWS SAA, GCP Cloud Engineer, Azure AZ-104, CKA, CKAD)\nDuration: {{duration}} weeks\nBackground: {{background}}",
+      "arguments": [
+        {"name": "certification", "description": "Certification name", "required": true},
+        {"name": "duration", "description": "Study duration in weeks", "required": false, "default": "8"},
+        {"name": "background", "description": "Current experience level", "required": false, "default": "some cloud experience"}
+      ]
+    },
+    {
+      "name": "cloud:architecture",
+      "description": "Cloud architecture design exercise",
+      "prompt": "Design a cloud architecture for {{scenario}}. Include:\n1. Requirements: functional, non-functional, constraints\n2. Architecture diagram (ASCII/PlantUML)\n3. Service selection with justification\n4. Network design: VPC, subnets, security groups, peering\n5. Security: IAM, encryption, WAF, DDoS, secrets\n6. Reliability: multi-AZ, multi-region, backup, DR\n7. Performance: caching, CDN, load balancing, auto-scaling\n8. Cost optimization: reserved, spot, savings plans, right-sizing\n9. Operations: logging, monitoring, alerting, CI/CD\n10. IaC: Terraform modules structure\n11. Migration strategy if applicable\n12. Trade-offs and alternatives\n\nScenario: {{scenario}} (e.g., ML platform, data lake, e-commerce, SaaS)\nScale: {{scale}} (small, medium, large, enterprise)\nCloud: {{cloud}} (aws, gcp, azure, hybrid)",
+      "arguments": [
+        {"name": "scenario", "description": "Architecture scenario", "required": true},
+        {"name": "scale", "description": "small, medium, large, enterprise", "required": false, "default": "medium"},
+        {"name": "cloud", "description": "aws, gcp, azure, hybrid", "required": false, "default": "aws"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "cloud-tutor",
+      "description": "Cloud Computing tutor",
+      "prompt": "You are a Cloud Computing tutor for university students. Cover: cloud fundamentals (IaaS/PaaS/SaaS), virtualization, containers, Kubernetes, serverless, networking, storage, databases, security, monitoring, IaC (Terraform, Pulumi), CI/CD, cost optimization, architecture patterns. Provide: clear explanations, hands-on labs, certification prep, architecture design, best practices, real-world scenarios. Adapt to AWS/GCP/Azure. Focus on: understanding over memorization, hands-on practice, cost awareness, security mindset."
+    }
+  ]
+}

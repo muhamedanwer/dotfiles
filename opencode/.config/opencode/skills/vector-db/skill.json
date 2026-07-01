@@ -1,0 +1,71 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "vector-db",
+  "description": "Vector databases for RAG, semantic search, recommendations. Covers Pinecone, Weaviate, Qdrant, Milvus, pgvector, Chroma, LanceDB, Vespa. Includes indexing, filtering, hybrid search, and production patterns.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "vdb:pinecone",
+      "description": "Set up Pinecone vector database",
+      "prompt": "Create Pinecone setup with:\n- Index: serverless, pod-based, integrated inference\n- Metrics: cosine, dotproduct, euclidean\n- Namespaces: multi-tenancy, isolation\n- Metadata: filtering, hybrid search, sparse-dense\n- Upsert: batch, async, streaming\n- Query: top-k, filter, namespace, rerank\n- Indexing: HNSW, IVF, configuration\n- Monitoring: latency, throughput, errors, costs\n- Backup: export, import, collections\n- Integrations: LangChain, LlamaIndex, Haystack\n- Cost optimization: pod sizing, serverless, namespaces",
+      "arguments": [
+        {"name": "index_type", "description": "serverless, pod, integrated", "required": true, "default": "serverless"},
+        {"name": "embedding_model", "description": "text-embedding-3-small, ada-002, custom", "required": false, "default": "text-embedding-3-small"}
+      ]
+    },
+    {
+      "name": "vdb:weaviate",
+      "description": "Set up Weaviate vector database",
+      "prompt": "Create Weaviate deployment with:\n- Schema: classes, properties, vectorizer, module config\n- Vectorizers: text2vec-openai, text2vec-cohere, text2vec-huggingface, multi2vec, custom\n- Hybrid search: BM25 + vector, alpha weighting\n- Filters: where, nearText, nearVector, nearObject\n- Aggregations: groupBy, count, sum, mean\n- Multi-tenancy: tenants, isolation, resource limits\n- Replication: shards, replicas, consistency\n- Backup: export, import, scheduling\n- Modules: generative (OpenAI, Cohere, HuggingFace), reranker\n- GraphQL/REST: queries, mutations, subscriptions\n- Monitoring: Prometheus, Grafana, traces",
+      "arguments": [
+        {"name": "deployment", "description": "docker, kubernetes, weaviate-cloud", "required": true, "default": "docker"},
+        {"name": "vectorizer", "description": "openai, cohere, huggingface, none", "required": true, "default": "openai"}
+      ]
+    },
+    {
+      "name": "vdb:qdrant",
+      "description": "Set up Qdrant vector database",
+      "prompt": "Create Qdrant setup with:\n- Collections: vectors, sparse, multi-vector, named\n- Distance: cosine, dot, euclid, manhattan\n- Indexing: HNSW, quantization (scalar, product, binary)\n- Payload: filtering, payload indexes, geo, full-text\n- Search: vector, hybrid, recommendation, discover\n- Sharding: distributed, replication, consensus\n- Snapshots: create, recover, schedule\n- Aliases: blue-green, versioning\n- Integrations: LangChain, LlamaIndex, FastEmbed, Instructor\n- Cloud: Qdrant Cloud, BYOC\n- Monitoring: Prometheus, health checks",
+      "arguments": [
+        {"name": "deployment", "description": "docker, kubernetes, qdrant-cloud", "required": true, "default": "docker"},
+        {"name": "quantization", "description": "scalar, product, binary, none", "required": false, "default": "scalar"}
+      ]
+    },
+    {
+      "name": "vdb:milvus",
+      "description": "Set up Milvus vector database",
+      "prompt": "Create Milvus deployment with:\n- Architecture: standalone, cluster, Zilliz Cloud\n- Collections: schema, partitions, segments\n- Indexes: FLAT, IVF_FLAT, IVF_SQ8, IVF_PQ, HNSW, DISKANN, GPU indexes\n- Search: vector, hybrid, filtered, range, iterator\n- Scalar filtering: bool, numeric, text, JSON, array\n- Multi-vector: dense + sparse, ColBERT, late interaction\n- Replication: replica groups, load balancing\n- Backup: snapshots, export/import\n- Resource groups: isolation, priority\n- Integrations: LangChain, LlamaIndex, MilvusDM, Attu\n- Monitoring: Prometheus, Grafana, Milvus Insight",
+      "arguments": [
+        {"name": "deployment", "description": "standalone, cluster, zilliz", "required": true, "default": "standalone"},
+        {"name": "index_type", "description": "hnsw, ivf_pq, diskann, gpu_ivf", "required": false, "default": "hnsw"}
+      ]
+    },
+    {
+      "name": "vdb:pgvector",
+      "description": "Set up pgvector for PostgreSQL",
+      "prompt": "Create pgvector setup with:\n- Extension: CREATE EXTENSION vector\n- Tables: vector column, dimensions, metadata\n- Indexes: HNSW (m, ef_construction), IVFFLAT (lists)\n- Search: <-> (L2), <#> (IP), <=> (cosine)\n- Filtering: WHERE clauses, composite indexes\n- HNSW: build, scan, ef_search tuning\n- Partitioning: pg_partman, time-based\n- Replication: streaming, logical\n- Connection pooling: PgBouncer\n- Monitoring: pg_stat_statements, pgvector stats\n- Migration: from other vector DBs\n- Hybrid: full-text search + vector (tsvector + vector)",
+      "arguments": [
+        {"name": "postgres_version", "description": "14, 15, 16, 17", "required": false, "default": "16"},
+        {"name": "index_type", "description": "hnsw, ivfflat", "required": false, "default": "hnsw"}
+      ]
+    },
+    {
+      "name": "vdb:rag",
+      "description": "Build RAG pipeline",
+      "prompt": "Create RAG pipeline with:\n- Ingestion: PDF, HTML, MD, code, docs → chunking → embeddings\n- Chunking: fixed, semantic, recursive, agentic, parent-child\n- Embedding: OpenAI, Cohere, Voyage, BGE, E5, custom\n- Storage: vector DB + metadata (doc_id, page, source)\n- Retrieval: dense, sparse (BM25), hybrid, reranking\n- Reranking: Cohere, BGE, CrossEncoder, LLM-based\n- Generation: prompt templates, citations, streaming\n- Evaluation: RAGAS, TruLens, DeepEval, custom\n- Query rewriting: HyDE, step-back, multi-query\n- Guardrails: hallucination, PII, toxicity, factuality\n- Observability: traces, metrics, costs, latency",
+      "arguments": [
+        {"name": "vector_db", "description": "pinecone, weaviate, qdrant, milvus, pgvector, chroma", "required": true, "default": "qdrant"},
+        {"name": "embedding", "description": "openai, cohere, voyage, bge, e5, instructor", "required": true, "default": "bge-base"},
+        {"name": "reranker", "description": "cohere, bge, cross-encoder, none", "required": false, "default": "bge-reranker"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "vector-engineer",
+      "description": "Vector database engineer for RAG and search",
+      "prompt": "You are a vector database engineer. Build production vector search systems with: Pinecone, Weaviate, Qdrant, Milvus, pgvector, Chroma, LanceDB, Vespa. Focus on: index selection, quantization, hybrid search, multi-tenancy, filtering, scaling, cost optimization, RAG patterns. Write production code with monitoring, testing, and documentation."
+    }
+  ]
+}

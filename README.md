@@ -1,26 +1,27 @@
 # dotfiles
 
-Personal configuration files and scripts for my daily Linux setup.
+Personal Linux configuration files and system setup scripts.
 
 ## Overview
 
-This repository contains configuration and helper scripts for common tools and systems I use:
-- Alacritty (terminal)
-- Hyprland (wayland compositor)
-- DWM (tiling window manager) and patches
-- Rofi / Wofi (launchers)
-- Neovim (`nvim`)
-- slstatus, mako, dunst and other utilities
-- Shell configs (fish, bash, zsh)
+This repository contains dotfiles and configs for my daily desktop environment:
 
-## Requirements
+**Core Tools**
+- **Terminal**: Alacritty (TOML config)
+- **Editor**: Neovim (Lua config with Lazy plugin manager)
+- **Launchers**: Rofi
+- **Compositor**: Hyprland (Wayland)
+- **Window Managers**: DWM (X11) with custom patches, slstatus (status bar)
+- **Utilities**: Mako, Dunst, Waybar, Wofi, Swaylock, Picom
+- **Shells**: Fish, Bash, Zsh
+- **Other**: Starship, Fastfetch, opencode
 
-- Linux with a Wayland/X11 environment (depending on target component)
-- Build tools for C programs when rebuilding `dwm` or `slstatus` (gcc/make)
+**Root-level dotfiles**: `.vimrc`, `.xinitrc`, `.zshrc`, `hyprland.conf`, `picom.conf`, plus input device configs.
 
-## Quick install
+## Setup
 
-Clone the repo and run the included installer script (preferred):
+### Automatic (recommended)
+The repo uses [GNU Stow](https://www.gnu.org/software/stow/) to manage symlinks:
 
 ```bash
 git clone https://github.com/muhamedanwer/dotfiles.git ~/dotfiles
@@ -28,28 +29,41 @@ cd ~/dotfiles
 ./install.sh
 ```
 
-If you prefer manual setup, create symlinks for the files you want to use, for example:
+The installer will:
+- Install Stow if not present (pacman, apt, dnf, or brew)
+- Backup any conflicting files to `~/.local/share/dotfiles-backup/`
+- Symlink all configs into place
+
+### Manual setup
+If you prefer selective installation, symlink individual packages (directories):
 
 ```bash
-ln -s ~/dotfiles/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
-ln -s ~/dotfiles/nvim ~/.config/nvim
+cd ~/dotfiles
+stow alacritty    # Creates ~/.config/alacritty/ symlink
+stow nvim         # Creates ~/.config/nvim/ symlink
+stow fish         # Creates ~/.config/fish/ symlink
 ```
 
-## Notable files and scripts
+## Key files & scripts
 
-- `install.sh` — opinionated installer that symlinks configs and installs helper tools
-- `setup_obsidian_vault.sh` — helper for Obsidian vault setup
-- `hypr/` — Hyprland configs and helper scripts
-- `dwm/` — `dwm` source, configs, and local patches (check `dwm/README` and `config.h` before rebuilding)
-- `alacritty/`, `nvim/`, `rofi/`, `waybar/`, `slstatus/` — per-app configuration folders
+- `install.sh` — automated setup with Stow and optional package installation
+- `setup_obsidian_vault.sh` — Obsidian vault initialization helper
+- `dwm/` — DWM source with custom patches and config (see `dwm/README`, rebuild with `make`)
+- `hypr/` — Hyprland config and helper scripts
+- `scripts/` — utility scripts (e.g., for status bar, keyboard layout)
+- `nvim/` — Neovim Lua config with lazy.nvim
+- Per-app configs: `alacritty/`, `rofi/`, `waybar/`, `mako/`, `dunst/`, `fish/`, `bash/`, `zsh/`, etc.
 
 ## Contributing
 
-Feel free to open issues or PRs. If you add changes that affect other systems (dwm patches, service files), include usage notes and rebuild instructions.
+Contributions, suggestions, and forks are welcome! If you add changes, please:
+- Document any new dependencies or build steps
+- Test on your environment before submitting PRs
+- Include notes for config-specific changes (e.g., DWM patches need rebuild)
 
 ## License
 
-Specify a license in this file (e.g. MIT) or add a `LICENSE` file.
+See LICENSE file (or specify MIT, GPL, etc.).
 
 ## Contact
 

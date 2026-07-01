@@ -1,0 +1,53 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "university-de",
+  "description": "University Data Engineering course assistant: databases, distributed systems, data pipelines, streaming, cloud platforms, big data tools.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "de:concept",
+      "description": "Explain Data Engineering concept",
+      "prompt": "Explain {{concept}} for Data Engineering at {{level}} level. Include:\n1. Intuition and real-world use cases\n2. System architecture and data flow diagrams\n3. Key algorithms and data structures\n4. Implementation: SQL, Python (Polars/PySpark), or pseudo-code\n5. Trade-offs: consistency, availability, latency, cost\n6. Production considerations: monitoring, scaling, failure handling\n7. Comparison with alternatives\n8. Practice exercises with solutions\n\nConcept: {{concept}} (e.g., LSM trees, partition strategies, CDC, exactly-once, watermarks)\nLevel: {{level}} (undergraduate/graduate)",
+      "arguments": [
+        {"name": "concept", "description": "DE concept to explain", "required": true},
+        {"name": "level", "description": "undergraduate, graduate", "required": false, "default": "undergraduate"}
+      ]
+    },
+    {
+      "name": "de:lab",
+      "description": "Data Engineering lab exercise",
+      "prompt": "Create a lab exercise for {{topic}} with:\n1. Learning objectives and prerequisites\n2. Environment setup: Docker, local, or cloud (AWS/GCP/Azure free tier)\n3. Dataset: sample data with schema and download script\n4. Step-by-step tasks with expected outputs\n5. Starter code templates\n6. Complete solution with explanations\n7. Common errors and debugging tips\n8. Extension challenges\n9. Grading rubric\n10. Real-world context and applications\n\nTopic: {{topic}} (e.g., ETL pipeline, Kafka streaming, Spark job, Airflow DAG, dbt model)\nDuration: {{duration}} hours",
+      "arguments": [
+        {"name": "topic", "description": "Lab topic", "required": true},
+        {"name": "duration", "description": "Lab duration in hours", "required": false, "default": "3"},
+        {"name": "platform", "description": "local, docker, aws, gcp, azure", "required": false, "default": "docker"}
+      ]
+    },
+    {
+      "name": "de:project",
+      "description": "Data Engineering course project",
+      "prompt": "Design a DE course project for {{course_level}}. Include:\n1. Problem statement: business context, requirements, SLAs\n2. Architecture design: components, data flow, technology choices\n3. Data generation: synthetic or public datasets with schemas\n4. Implementation milestones:\n   - Ingestion: batch/streaming, CDC, API\n   - Storage: data lake, warehouse, formats\n   - Processing: transformation, aggregation, ML features\n   - Orchestration: DAGs, scheduling, monitoring\n   - Quality: tests, alerts, dashboards\n   - Serving: APIs, BI, ML features\n5. Tech stack: Kafka/Flink/Spark, Airflow/Dagster, dbt, Cloud\n6. Evaluation: correctness, performance, cost, operability\n7. Deliverables: code, docs, architecture diagram, demo\n8. Rubric: functionality, code quality, design, presentation\n\nCourse: {{course_level}} (intro, advanced, capstone)\nFocus: {{focus}} (batch, streaming, cloud, ML-platform)",
+      "arguments": [
+        {"name": "course_level", "description": "intro, advanced, capstone", "required": true},
+        {"name": "focus", "description": "batch, streaming, cloud, ml-platform", "required": false, "default": "batch"}
+      ]
+    },
+    {
+      "name": "de:system-design",
+      "description": "Data system design interview prep",
+      "prompt": "Prepare for Data Engineering system design interview on {{topic}}. Include:\n1. Requirements clarification: functional, non-functional\n2. Back-of-envelope: storage, throughput, latency\n3. High-level architecture: components, data flow\n4. Deep dives: storage engine, partitioning, replication\n5. APIs: ingestion, query, management\n6. Failure scenarios: recovery, consistency, degradation\n7. Scaling: horizontal, vertical, auto-scaling\n8. Cost optimization: storage tiers, compute, network\n9. Monitoring: metrics, alerts, debugging\n10. Trade-off analysis: build vs buy, consistency models\n11. Follow-up questions and variations\n\nTopic: {{topic}} (e.g., event pipeline, feature store, CDC, real-time analytics, data lake)\nScale: {{scale}} (startup, enterprise, hyperscale)",
+      "arguments": [
+        {"name": "topic", "description": "System design topic", "required": true},
+        {"name": "scale", "description": "startup, enterprise, hyperscale", "required": false, "default": "enterprise"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "de-tutor",
+      "description": "Data Engineering tutor",
+      "prompt": "You are a Data Engineering tutor for university students. Explain: databases (relational, NoSQL, NewSQL), distributed systems (CAP, consensus, replication), data pipelines (batch, streaming, ETL/ELT), orchestration (Airflow, Dagster, Prefect), storage (Parquet, Delta, Iceberg), processing (Spark, Flink, Polars, DuckDB), cloud (AWS, GCP, Azure), quality (Great Expectations, Soda), governance (catalogs, lineage). Provide: clear explanations, diagrams, code, labs, projects, interview prep."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "mlops-deploy",
+  "description": "ML model deployment with KServe, BentoML, Triton, Seldon, vLLM. Covers serving, monitoring, A/B testing, canary, drift detection, and autoscaling.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "mlops:serve",
+      "description": "Deploy model for inference",
+      "prompt": "Create model serving with:\n- Frameworks: KServe (KNative, Istio), BentoML, Triton, Seldon Core, vLLM, TGI, SGLang\n- Models: ONNX, TorchScript, TensorRT, TensorFlow SavedModel, GGUF, safetensors\n- Features: batching, streaming, model composition, multi-model serving\n- Autoscaling: KPA, HPA, VPA, custom metrics (queue depth, latency)\n- Protocols: REST, gRPC, WebSocket, Server-Sent Events\n- Auth: OAuth2, OIDC, API keys, mTLS\n- Observability: Prometheus, Grafana, OpenTelemetry, distributed tracing\n- Logging: structured, request/response, audit\n- Canary: Istio, Flagger, Argo Rollouts, progressive delivery\n- A/B testing: shadow traffic, mirror, weighted routing\n- Drift: data drift, concept drift, prediction drift, feature drift\n- Fallback: circuit breaker, retry, timeout, fallback model",
+      "arguments": [
+        {"name": "framework", "description": "kserve, bentoml, triton, vllm, tgi, sglang", "required": true, "default": "kserve"},
+        {"name": "model_format", "description": "onnx, torchscript, tensorrt, safetensors, gguf", "required": true},
+        {"name": "gpu", "description": "Enable GPU serving", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "mlops:monitor",
+      "description": "ML monitoring and observability",
+      "prompt": "Implement ML monitoring with:\n- Metrics: latency (p50/p95/p99), throughput, error rate, saturation\n- Data drift: PSI, KS test, Jensen-Shannon, Wasserstein distance\n- Concept drift: performance degradation, label distribution shift\n- Feature drift: univariate, multivariate, embedding drift\n- Prediction drift: distribution shift, confidence calibration\n- Business metrics: conversion, revenue, user satisfaction\n- Alerting: thresholds, anomaly detection, SLO burn rate\n- Dashboards: Grafana, Evidently, WhyLabs, Arize, Fiddler\n- Root cause: feature attribution, SHAP, counterfactuals\n- Automated: retraining triggers, rollback, notification",
+      "arguments": [
+        {"name": "tool", "description": "evidently, whylabs, arize, fiddler, custom", "required": true, "default": "evidently"},
+        {"name": "model_endpoint", "description": "Model serving endpoint", "required": true}
+      ]
+    },
+    {
+      "name": "mlops:registry",
+      "description": "Model registry and lifecycle",
+      "prompt": "Set up model registry with:\n- Registry: MLflow, Weights & Biases, Neptune, Vertex AI, SageMaker\n- Versioning: semantic, immutable, lineage, artifacts\n- Stages: staging, production, archived, deprecated\n- Metadata: parameters, metrics, tags, descriptions, examples\n- Lineage: data, code, environment, experiments\n- Deployment: promotion, rollback, canary, approval gates\n- Governance: access control, audit, compliance, model cards\n- Integration: CI/CD, serving, monitoring, feature store\n- API: REST, Python, CLI, webhooks",
+      "arguments": [
+        {"name": "registry", "description": "mlflow, wandb, neptune, vertex, sagemaker", "required": true, "default": "mlflow"},
+        {"name": "backend_store", "description": "postgres, mysql, sqlite, s3", "required": false, "default": "postgres"}
+      ]
+    },
+    {
+      "name": "mlops:pipeline",
+      "description": "End-to-end ML pipeline",
+      "prompt": "Create ML pipeline with:\n- Orchestration: Kubeflow Pipelines, Dagster, Prefect, Airflow, Vertex AI Pipelines\n- Steps: ingest, validate, transform, train, evaluate, register, deploy\n- Triggers: schedule, data change, model drift, manual\n- Artifacts: datasets, models, metrics, reports, lineage\n- Caching: step-level, fingerprint-based, incremental\n- Parallelism: fan-out, fan-in, dynamic mapping\n- Resources: GPU, memory, CPU, spot/preemptible\n- Secrets: Vault, AWS Secrets Manager, GCP Secret Manager\n- Testing: unit, integration, contract, data/validation\n- GitOps: ArgoCD, Flux, sync, drift detection",
+      "arguments": [
+        {"name": "orchestrator", "description": "kubeflow, dagster, prefect, vertex", "required": true, "default": "kubeflow"},
+        {"name": "registry", "description": "mlflow, wandb, vertex", "required": false, "default": "mlflow"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "mlops-engineer",
+      "description": "MLOps engineer for production ML systems",
+      "prompt": "You are an MLOps engineer. Build production ML platforms with: KServe, Kubeflow, MLflow, Prometheus, Grafana, ArgoCD. Focus on: reliability, scalability, observability, governance, cost optimization, developer velocity. Write infrastructure-as-code, automate everything, enable self-service."
+    }
+  ]
+}

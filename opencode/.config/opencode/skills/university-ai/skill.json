@@ -1,0 +1,67 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "university-ai",
+  "description": "University AI/ML course helper: study plans, concept explanations, problem sets, project guidance, exam prep for ML/DL/RL courses.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "ai:concept",
+      "description": "Explain AI/ML concept with intuition and math",
+      "prompt": "Explain {{concept}} for a university {{level}} student. Include:\n1. Intuition: real-world analogy, visual description\n2. Mathematical formulation: equations, derivations, assumptions\n3. Algorithmic perspective: pseudocode, complexity\n4. Implementation: PyTorch/NumPy/JAX code snippet\n5. Common pitfalls and misconceptions\n6. Applications: where it's used, why it works\n7. Connections: related concepts, prerequisites, extensions\n8. Practice problems: 2-3 with hints\n9. Further reading: textbook chapters, papers, videos\n\nConcept: {{concept}} (e.g., backpropagation, attention, VAE, policy gradient)\nLevel: {{level}} (undergrad, grad, phd)\nCourse: {{course}} (e.g., CS231n, CS224n, 6.S191, MLSS)",
+      "arguments": [
+        {"name": "concept", "description": "Concept to explain", "required": true},
+        {"name": "level", "description": "undergrad, grad, phd", "required": false, "default": "grad"},
+        {"name": "course", "description": "Course context", "required": false, "default": "general"}
+      ]
+    },
+    {
+      "name": "ai:study-plan",
+      "description": "Create personalized study plan for AI course",
+      "prompt": "Create a {{duration}}-week study plan for {{course}}. Student background: {{background}}.\n\nInclude:\n1. Weekly breakdown: topics, readings, lectures, assignments\n2. Prerequisites check: linear algebra, calculus, probability, Python\n3. Resources: textbooks, lecture videos (YouTube/MIT/Stanford), papers\n4. Hands-on: coding assignments, Kaggle, Colab notebooks\n5. Milestones: concept mastery, project checkpoints, exam prep\n6. Time allocation: lectures, reading, coding, review per week\n7. Accountability: study group, progress tracking, office hours\n8. Exam prep: past exams, cheat sheet, practice problems\n9. Project ideas: course project, portfolio, research\n\nCourse: {{course}} (e.g., CS229, CS231n, CS224n, FAI, DLSS, RL)\nDuration: {{duration}} weeks\nBackground: {{background}}",
+      "arguments": [
+        {"name": "course", "description": "Course name/code", "required": true},
+        {"name": "duration", "description": "Weeks available", "required": false, "default": "10"},
+        {"name": "background", "description": "Math/CS background", "required": false, "default": "strong"}
+      ]
+    },
+    {
+      "name": "ai:problem-set",
+      "description": "Generate practice problems with solutions",
+      "prompt": "Generate {{num_problems}} practice problems for {{topic}} at {{level}} level.\n\nFor each problem:\n1. Problem statement: clear, self-contained, realistic\n2. Difficulty: easy/medium/hard\n3. Concepts tested\n4. Hints: progressive, without giving away\n5. Full solution: math derivation, code, explanation\n6. Variations: easier/harder extensions\n7. Common mistakes\n8. Time estimate\n\nTopic: {{topic}} (e.g., CNN, Transformer, RL, GAN, VAE, Optimization)\nLevel: {{level}} (intro, intermediate, advanced)\nNumber: {{num_problems}}",
+      "arguments": [
+        {"name": "topic", "description": "ML/DL topic", "required": true},
+        {"name": "level", "description": "intro, intermediate, advanced", "required": false, "default": "intermediate"},
+        {"name": "num_problems", "description": "Number of problems", "required": false, "default": "5"}
+      ]
+    },
+    {
+      "name": "ai:project",
+      "description": "Course project guidance and structure",
+      "prompt": "Guide a course project for {{course}} on {{topic}}.\n\nProvide:\n1. Project ideas: 3-5 with scope, novelty, feasibility\n2. Project structure: proposal, milestones, final report\n3. Baseline implementation: starter code, data, evaluation\n4. Extension ideas: improvements, ablations, analysis\n5. Literature: 5-10 key papers to read\n6. Evaluation: metrics, baselines, statistical significance\n7. Write-up: structure, figures, tables, reproducibility\n8. Presentation: slides, demo, Q&A prep\n9. Grading rubric alignment\n10. Portfolio: GitHub, blog, video\n\nCourse: {{course}}\nTopic: {{topic}}\nTeam size: {{team_size}}\nDuration: {{duration}} weeks",
+      "arguments": [
+        {"name": "course", "description": "Course name", "required": true},
+        {"name": "topic", "description": "Project topic area", "required": true},
+        {"name": "team_size", "description": "1, 2, 3-4", "required": false, "default": "2"},
+        {"name": "duration", "description": "Project duration in weeks", "required": false, "default": "6"}
+      ]
+    },
+    {
+      "name": "ai:exam-prep",
+      "description": "Exam preparation materials",
+      "prompt": "Create exam prep for {{course}} {{exam_type}}.\n\nInclude:\n1. Topic checklist: all concepts with mastery levels\n2. Formula sheet: key equations, theorems, algorithms\n3. Concept maps: connections between topics\n4. Practice questions: multiple choice, short answer, derivation, coding\n5. Past exam analysis: patterns, frequency, difficulty\n6. Study schedule: {{days_until}} days remaining\n7. Active recall: flashcards (Anki format), self-testing\n8. Weak area identification and remediation\n9. Exam day strategy: time allocation, question order\n10. Stress management: sleep, nutrition, anxiety\n\nCourse: {{course}}\nExam type: {{exam_type}} (midterm, final, qualifying)\nDays until: {{days_until}}",
+      "arguments": [
+        {"name": "course", "description": "Course name", "required": true},
+        {"name": "exam_type", "description": "midterm, final, qualifying", "required": true},
+        {"name": "days_until", "description": "Days until exam", "required": false, "default": "14"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "ai-tutor",
+      "description": "AI/ML university tutor",
+      "prompt": "You are an expert AI/ML tutor for university courses. Cover: ML theory (bias-variance, PAC, VC-dim), optimization (SGD, Adam, second-order), DL (CNN, RNN, Transformer, GNN), Generative (VAE, GAN, Diffusion, Flow), RL (MDP, PG, Actor-Critic, Q-learning), Probabilistic (HMM, Kalman, VI, MCMC). Teaching style: Feynman technique, visual intuition, mathematical rigor, code implementation, research connections. Provide: concept explanations, study plans, problem sets, project guidance, exam prep, paper reading, research advice."
+    }
+  ]
+}

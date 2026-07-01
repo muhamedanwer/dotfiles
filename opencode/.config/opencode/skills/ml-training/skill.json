@@ -1,0 +1,56 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "ml-training",
+  "description": "ML model training workflows with PyTorch, TensorFlow, scikit-learn, XGBoost, LightGBM. Includes experiment tracking, hyperparameter tuning, and model evaluation.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "ml:train",
+      "description": "Train ML model with experiment tracking",
+      "prompt": "Create a production-ready ML training pipeline with:\n- Data validation and preprocessing (Great Expectations / pandera)\n- Feature engineering pipeline (Feature-engine / custom transformers)\n- Model training with PyTorch Lightning / PyTorch / scikit-learn / XGBoost / LightGBM\n- Experiment tracking with MLflow / Weights & Biases / ClearML\n- Hyperparameter optimization with Optuna / Ray Tune / Hyperopt\n- Model evaluation with proper metrics, calibration, and fairness checks\n- Model serialization with MLflow / ONNX / TorchScript\n- Reproducibility: config management (Hydra/OmegaConf), seeds, environment capture\n- Type hints, docstrings, logging, error handling",
+      "arguments": [
+        {"name": "model_type", "description": "Model type: pytorch, sklearn, xgboost, lightgbm, tabpfn", "required": true},
+        {"name": "task_type", "description": "Task: classification, regression, ranking, multilabel", "required": true},
+        {"name": "tracking", "description": "Experiment tracker: mlflow, wandb, clearml", "required": false, "default": "mlflow"},
+        {"name": "hpo", "description": "HPO framework: optuna, ray_tune, hyperopt", "required": false, "default": "optuna"}
+      ]
+    },
+    {
+      "name": "ml:eval",
+      "description": "Comprehensive model evaluation and analysis",
+      "prompt": "Create comprehensive model evaluation with:\n- Metrics: accuracy, precision, recall, F1, ROC-AUC, PR-AUC, log-loss, calibration\n- Per-class and macro/micro/weighted averages\n- Confusion matrix, ROC/PR curves, calibration plots\n- Feature importance: SHAP, permutation importance, permutation feature importance\n- Error analysis: misclassified examples, confidence distributions\n- Fairness metrics: demographic parity, equal opportunity, disparate impact\n- Robustness: adversarial examples, distribution shift detection\n- Model cards generation with model card toolkit\n- Comparison baseline models\n- Statistical significance testing",
+      "arguments": [
+        {"name": "model_path", "description": "Path to trained model", "required": true},
+        {"name": "test_data", "description": "Path to test dataset", "required": true},
+        {"name": "task_type", "description": "classification, regression, ranking", "required": true}
+      ]
+    },
+    {
+      "name": "ml:hpo",
+      "description": "Hyperparameter optimization setup",
+      "prompt": "Set up hyperparameter optimization with:\n- Search space definition (Optuna distributions / Ray Tune search spaces)\n- Multi-objective optimization (accuracy vs latency vs size)\n- Pruning: MedianPruner, Hyperband, ASHA\n- Distributed optimization with Ray Tune / Optuna distributed\n- Early stopping integration\n- Visualization: optimization history, parameter importance, slice plots\n- Best trial retraining with full budget\n- Configuration management with Hydra",
+      "arguments": [
+        {"name": "framework", "description": "optuna, ray_tune, hyperopt", "required": true, "default": "optuna"},
+        {"name": "n_trials", "description": "Number of trials", "required": false, "default": "100"},
+        {"name": "multi_objective", "description": "Enable multi-objective optimization", "required": false, "default": "false"}
+      ]
+    },
+    {
+      "name": "ml:tabular",
+      "description": "Tabular ML pipeline with modern libraries",
+      "prompt": "Create tabular ML pipeline with:\n- Polars for fast data processing\n- Feature engineering: target encoding, frequency encoding, embeddings for categorical\n- Gradient boosting: XGBoost, LightGBM, CatBoost, TabPFN\n- Tabular deep learning: TabNet, TabTransformer, FT-Transformer, Saint\n- AutoML: AutoGluon, FLAML, H2O\n- Cross-validation: StratifiedKFold, GroupKFold, PurgedKFold\n- Pseudo-labeling, stacking, blending\n- Feature selection: SHAP-based, permutation, mutual information\n- Handling: missing values, outliers, class imbalance, target leakage\n- Interpretability: SHAP, LIME, EBM",
+      "arguments": [
+        {"name": "algorithm", "description": "xgboost, lightgbm, catboost, tabpfn, autogluon, tabnet", "required": true},
+        {"name": "data_path", "description": "Path to tabular data", "required": true}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "ml-engineer",
+      "description": "ML engineer for end-to-end model development",
+      "prompt": "You are a senior ML engineer. Build production-ready ML systems with: clean architecture, modular code, config-driven experiments, comprehensive testing, CI/CD integration, monitoring, and documentation. Use modern stack: PyTorch Lightning, Hydra, MLflow, Optuna, Polars, Ruff, PyTest. Follow MLOps best practices: reproducibility, lineage, governance."
+    }
+  ]
+}

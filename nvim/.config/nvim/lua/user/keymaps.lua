@@ -30,7 +30,6 @@ map("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Toggle undotree" })
 map("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
 
 -- Zen mode
-map("n", "<leader>z", "<cmd>ZenMode<CR>", { desc = "Toggle zen mode" })
 
 -- LSP (defined in lsp.lua on LspAttach)
 
@@ -56,7 +55,7 @@ map("n", "<leader>ms", "<cmd>MarkdownPreviewStop<CR>", { desc = "Stop markdown p
 
 -- Python
 map("n", "<leader>vs", "<cmd>VenvSelect<CR>", { desc = "Select Python venv" })
-map("n", "<leader>tt", function() require("neotest").run.run() end, { desc = "Run nearest test" })
+map("n", "<leader>tr", function() require("neotest").run.run() end, { desc = "Run nearest test" })
 map("n", "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, { desc = "Run file tests" })
 map("n", "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end, { desc = "Debug nearest test" })
 map("n", "<leader>to", function() require("neotest").output.open() end, { desc = "Test output" })

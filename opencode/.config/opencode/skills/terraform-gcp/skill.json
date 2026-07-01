@@ -1,0 +1,70 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "terraform-gcp",
+  "description": "GCP infrastructure with Terraform: VPC, GKE, Cloud SQL, Vertex AI, Dataflow, BigQuery, Artifact Registry, Cloud Run, Cloud Build, Secret Manager.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "tf:gcp-network",
+      "description": "GCP VPC and networking",
+      "prompt": "Create GCP networking with:\n- VPC: auto/custom subnets, routes, firewall rules\n- Subnets: regional, private IP, secondary ranges (GKE pods/services)\n- Firewall: ingress/egress, tags, service accounts, priority\n- Cloud NAT: regional, subnets, static IPs, logging\n- Cloud Router: BGP, NAT, VPN interconnect\n- VPC Peering: private services access, producer/consumer\n- Private Service Connect: APIs, consumer/producer\n- Network Connectivity Center: hub/spoke, VPN, interconnect\n- Load Balancing: global/regional, internal/external, SSL\n- Cloud Armor: WAF, rate limiting, IP allow/deny\n- DNS: Cloud DNS, private zones, forwarding, DNSSEC",
+      "arguments": [
+        {"name": "vpc_mode", "description": "auto, custom", "required": true, "default": "custom"},
+        {"name": "regions", "description": "Comma-separated regions", "required": true, "default": "us-central1"}
+      ]
+    },
+    {
+      "name": "tf:gcp-gke",
+      "description": "GKE cluster with best practices",
+      "prompt": "Create GKE cluster with:\n- Cluster: Autopilot/Standard, release channel, workload identity\n- Node pools: machine types, spots, autoscaling, taints/labels\n- Networking: VPC-native, pod/service ranges, DNS, gateway API\n- Security: workload identity, GKE Sandbox, binary auth, shielded nodes\n- Add-ons: Config Connector, Gateway API, CSI drivers, Backup for GKE\n- Fleet: membership, Config Sync, Policy Controller, Hub\n- Monitoring: Cloud Operations, Managed Prometheus, Cloud Profiler\n- Logging: Cloud Logging, log routing, audit logs\n- Cost: commitment, spot, right-sizing, cluster autoscaler\n- Upgrade: maintenance windows, surge upgrades, blue-green\n- Multi-cluster: multi-cluster ingress, service import/export",
+      "arguments": [
+        {"name": "mode", "description": "autopilot, standard", "required": true, "default": "standard"},
+        {"name": "release_channel", "description": "rapid, regular, stable", "required": false, "default": "regular"},
+        {"name": "workload_identity", "description": "Enable workload identity", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "tf:gcp-vertex-ai",
+      "description": "Vertex AI platform setup",
+      "prompt": "Create Vertex AI setup with:\n- Workbench: user-managed, single-user, service account\n- Pipelines: Kubeflow Pipelines, compiler, components, templates\n- Training: custom containers, pre-built, distributed, hyperparameter tuning\n- Prediction: endpoints, models, autoscaling, traffic split, explainability\n- Feature Store: online/offline, feature groups, monitoring\n- Model Registry: versions, aliases, labels, deployment\n- Experiments: runs, parameters, metrics, artifacts\n- TensorBoard: managed, custom, profiling\n- Matching Engine: index, endpoint, vector search\n- Generative AI: Model Garden, tuning, grounding, evaluation\n- MLOps: pipelines, CI/CD, model monitoring, drift detection\n- Security: VPC-SC, CMEK, IAM, Binary Authorization",
+      "arguments": [
+        {"name": "vpc_network", "description": "VPC network name", "required": true},
+        {"name": "enable_pipelines", "description": "Enable Vertex Pipelines", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "tf:gcp-data-analytics",
+      "description": "BigQuery, Dataflow, Dataproc, Composer",
+      "prompt": "Create data analytics platform with:\n- BigQuery: datasets, tables, views, materialized views, BI Engine\n- Dataflow: templates, flex templates, Python/Java/Go, Streaming Engine\n- Dataproc: clusters, serverless, autoscaling, component gateway\n- Composer: Airflow, environments, DAGs, secrets, variables\n- Pub/Sub: topics, subscriptions, schemas, dead letter, ordering\n- Data Fusion: pipelines, CDAP, plugins, versioning\n- Datastream: CDC, MySQL/PostgreSQL/Oracle to BigQuery/GCS\n- Looker: instances, models, explores, dashboards\n- Data Catalog: tag templates, entry groups, lineage\n- Analytics Hub: exchanges, listings, subscriptions\n- Governance: BigLake, Lake Formation, column-level security",
+      "arguments": [
+        {"name": "components", "description": "bigquery,dataflow,dataproc,composer", "required": true, "default": "bigquery,dataflow,dataproc,composer"},
+        {"name": "region", "description": "GCP region", "required": false, "default": "us-central1"}
+      ]
+    },
+    {
+      "name": "tf:gcp-serverless",
+      "description": "Cloud Run, Cloud Functions, Eventarc",
+      "prompt": "Create serverless platform with:\n- Cloud Run: services, jobs, revisions, traffic, custom domains\n- Cloud Functions: 1st/2nd gen, triggers, runtime, secrets\n- Eventarc: triggers, channels, brokers, destinations\n- Cloud Build: triggers, builds, artifacts, attestations\n- Artifact Registry: repositories, images, packages, vulnerability scanning\n- Cloud Tasks: queues, tasks, retries, dead letter\n- Cloud Scheduler: jobs, targets, schedules\n- Workflows: workflows, executions, connectors\n- API Gateway: APIs, configs, gateways, backends\n- Identity: IAP, Identity Platform, Cloud Run IAM\n- Observability: Cloud Trace, Profiler, Debugger, Error Reporting",
+      "arguments": [
+        {"name": "services", "description": "cloudrun,functions,eventarc,build", "required": true, "default": "cloudrun,functions,eventarc"}
+      ]
+    },
+    {
+      "name": "tf:gcp-gitops",
+      "description": "GitOps with Config Sync on GKE",
+      "prompt": "Set up GitOps on GKE with:\n- Config Sync: root/repo sync, namespaces, hierarchical\n- Policy Controller: Gatekeeper, constraints, templates, audit\n- Config Controller: declarative resource management\n- Fleet: membership, feature management\n- Repository: GitHub/GitLab/Bitbucket/Cloud Source\n- Structure: root, namespaces, hierarchy, kustomize/helm\n- Secrets: External Secrets, Sealed Secrets, Secret Manager\n- Drift: detection, prevention, auto-remediation\n- Multi-cluster: hub, spokes, fleet-wide policies\n- RBAC: IAM, RBAC, OIDC, GitHub Teams",
+      "arguments": [
+        {"name": "repo_url", "description": "Git repository URL", "required": true},
+        {"name": "sync_branch", "description": "Branch to sync", "required": false, "default": "main"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "gcp-architect",
+      "description": "GCP cloud architect",
+      "prompt": "You are a GCP architect. Expert in: VPC, GKE (Autopilot/Standard), Vertex AI, BigQuery, Dataflow, Dataproc, Composer, Cloud Run, Cloud Functions, Eventarc, Cloud Build, Artifact Registry, Secret Manager, Config Sync, Policy Controller, Binary Authorization, CMEK, VPC-SC. Build production ML/data platforms on GCP with Terraform. Focus on: security, cost optimization, scalability, reliability, compliance, GitOps."
+    }
+  ]
+}

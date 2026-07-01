@@ -1,0 +1,54 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "feature-store",
+  "description": "Feature engineering and feature store with Feast, Tecton, Hopsworks, or custom. Covers feature definitions, materialization, online/offline stores, feature discovery, and ML feature pipelines.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "fs:feast",
+      "description": "Set up Feast feature store",
+      "prompt": "Create Feast feature store with:\n- Registry: file, SQL, GCS, S3\n- Online store: Redis, DynamoDB, PostgreSQL, MySQL, Snowflake\n- Offline store: BigQuery, Redshift, Snowflake, PostgreSQL, Parquet\n- Entities: keys, descriptions, join keys\n- Feature views: entities, features, TTL, online/offline\n- Feature services: grouping, serving, transformation\n- Materialization: incremental, full, TTL-based\n- Transformations: pandas, PySpark, SQL, on-demand\n- Streaming: Kafka, Kinesis, push sources\n- UI: feature discovery, lineage, monitoring\n- CI/CD: plan, apply, test, deploy\n- Permissions: RBAC, project isolation",
+      "arguments": [
+        {"name": "online_store", "description": "redis, dynamodb, postgres, mysql", "required": true, "default": "redis"},
+        {"name": "offline_store", "description": "bigquery, redshift, snowflake, parquet", "required": true, "default": "parquet"},
+        {"name": "registry", "description": "file, sql, gcs, s3", "required": false, "default": "sql"}
+      ]
+    },
+    {
+      "name": "fs:tecton",
+      "description": "Set up Tecton feature platform",
+      "prompt": "Create Tecton feature platform with:\n- Feature views: batch, stream, real-time, request-time\n- Aggregations: time-windowed, sliding, session\n- Transformations: Python, SQL, PySpark\n- Materialization: online (Redis, DynamoDB), offline (Snowflake, Databricks)\n- Monitoring: freshness, quality, drift, usage\n- Governance: ownership, tags, descriptions, lineage\n- Workspaces: dev, staging, prod\n- GitOps: CI/CD, preview, promotion\n- API: Python, REST, SQL\n- Integrations: dbt, Airflow, Dagster, Spark, Flink",
+      "arguments": [
+        {"name": "cloud", "description": "aws, gcp, azure, databricks", "required": true},
+        {"name": "workspace", "description": "dev, staging, prod", "required": false, "default": "dev"}
+      ]
+    },
+    {
+      "name": "fs:custom",
+      "description": "Build custom feature store",
+      "prompt": "Build custom feature store with:\n- Offline: DuckDB, ClickHouse, Trino, Athena, Parquet on S3\n- Online: Redis Cluster, Dragonfly, KeyDB, Cassandra, ScyllaDB\n- Feature definitions: YAML, Python DSL, SQL\n- Computation: Polars, DuckDB, DataFusion, Arrow\n- Materialization: incremental, batch, streaming (Bytewax, RisingWave)\n- Serving: gRPC, REST, GraphQL, feature vectors\n- Versioning: Git, DVC, LakeFS, Iceberg time travel\n- Quality: Great Expectations, custom validators\n- Discovery: search, tags, lineage, usage stats\n- Access control: ABAC, row-level, column-level",
+      "arguments": [
+        {"name": "online_db", "description": "redis, dragonfly, cassandra, scylla", "required": true, "default": "redis"},
+        {"name": "offline_db", "description": "duckdb, clickhouse, trino, athena", "required": true, "default": "duckdb"},
+        {"name": "orchestrator", "description": "dagster, prefect, airflow", "required": false, "default": "dagster"}
+      ]
+    },
+    {
+      "name": "fs:pipeline",
+      "description": "Feature engineering pipeline",
+      "prompt": "Create feature engineering pipeline with:\n- Raw data: event logs, transactions, user behavior, sensors\n- Transformations: aggregations, embeddings, encodings, interactions\n- Time-aware: point-in-time correctness, no leakage\n- Scalability: incremental, distributed, GPU-accelerated\n- Quality: null checks, distribution, cardinality, drift\n- Documentation: feature catalog, descriptions, owners\n- Testing: unit, integration, golden files, regression\n- Deployment: CI/CD, feature flags, rollback\n- Monitoring: freshness, latency, throughput, errors\n- Cost: compute optimization, storage tiering, TTL",
+      "arguments": [
+        {"name": "data_source", "description": "kafka, db, s3, gcs", "required": true},
+        {"name": "compute", "description": "polars, spark, flink, ray", "required": true, "default": "polars"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "feature-engineer",
+      "description": "Feature engineer for ML feature platforms",
+      "prompt": "You are a feature engineer. Build scalable feature systems with: Feast, Tecton, or custom (DuckDB, Redis, Polars). Focus on: point-in-time correctness, incremental computation, online/offline consistency, feature discovery, governance, cost optimization. Write production pipelines with quality checks, monitoring, and documentation."
+    }
+  ]
+}

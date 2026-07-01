@@ -1,0 +1,78 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "model-optimization",
+  "description": "Model optimization: quantization, pruning, distillation, compilation. Covers PTQ, QAT, GPTQ, AWQ, HQQ, TensorRT, ONNX, TorchCompile, TVM, and inference optimization.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "opt:quantize",
+      "description": "Post-training quantization",
+      "prompt": "Create PTQ pipeline with:\n- Methods: dynamic, static, weight-only, activation-aware\n- Formats: INT8, INT4, FP8, MXFP4, NF4\n- Tools: bitsandbytes, HQQ, AWQ, GPTQ, AutoAWQ, AutoGPTQ, QuaRot\n- Calibration: minmax, entropy, percentile, MSE, KL divergence\n- Granularity: per-tensor, per-channel, per-group, per-token\n- Schemes: symmetric, asymmetric, affine\n- LLM: AWQ (activation-aware), GPTQ (layerwise), HQQ (Hessian), QuaRot (rotation)\n- Evaluation: perplexity, accuracy, latency, memory\n- Export: safetensors, GGUF, ONNX, TensorRT\n- Integration: HuggingFace, vLLM, SGLang, TensorRT-LLM, llama.cpp",
+      "arguments": [
+        {"name": "model_path", "description": "Model to quantize", "required": true},
+        {"name": "method", "description": "awq, gptq, hqq, bitsandbytes, autoround", "required": true, "default": "awq"},
+        {"name": "bits", "description": "4, 8, fp8", "required": true, "default": "4"},
+        {"name": "group_size", "description": "Quantization group size", "required": false, "default": "128"}
+      ]
+    },
+    {
+      "name": "opt:qat",
+      "description": "Quantization-aware training",
+      "prompt": "Create QAT pipeline with:\n- Fake quantization: per-tensor, per-channel, learned scale\n- Straight-through estimator (STE), learned step size\n- Methods: LSQ, PACT, AdaRound, BRECQ, QDrop\n- Mixed precision: layer-wise, block-wise, automatic\n- Schedule: gradual quantization, progressive quantization\n- Distillation: teacher-student with quantized student\n- Integration: PyTorch (torch.ao), TensorFlow (TF MOT), JAX\n- Export: ONNX, TensorRT, TFLite, CoreML\n- Validation: accuracy recovery, convergence monitoring",
+      "arguments": [
+        {"name": "model_path", "description": "Model to quantize", "required": true},
+        {"name": "bits", "description": "4, 8", "required": true, "default": "8"},
+        {"name": "method", "description": "lsq, pact, adaround", "required": false, "default": "lsq"}
+      ]
+    },
+    {
+      "name": "opt:prune",
+      "description": "Model pruning and sparsification",
+      "prompt": "Create pruning pipeline with:\n- Structured: channel, filter, head, layer, block\n- Unstructured: magnitude, movement, gradient, SNIP, GraSP\n- Global vs layer-wise\n- Sparsity: target, schedule (cubic, exponential, linear)\n- Fine-tuning: recovery, knowledge distillation\n- Tools: TorchPruner, NNCF, SparseML, TorchSparse\n- Export: ONNX sparse, structured sparse tensors\n- Hardware: NVIDIA sparse tensor cores (2:4)\n- Composition: pruning + quantization + distillation\n- Evaluation: accuracy vs sparsity, latency, memory",
+      "arguments": [
+        {"name": "model_path", "description": "Model to prune", "required": true},
+        {"name": "sparsity", "description": "Target sparsity (0.0-1.0)", "required": true, "default": "0.5"},
+        {"name": "structured", "description": "Structured pruning", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "opt:distill",
+      "description": "Knowledge distillation",
+      "prompt": "Create distillation pipeline with:\n- Types: response-based (logits), feature-based (intermediate), relation-based\n- Loss: KL divergence, MSE, cosine, PKT, FSP, Attention transfer\n- Teacher: ensemble, single, progressive\n- Student: smaller architecture, quantized, pruned\n- Data: original, augmented, synthetic (generative)\n- Temperature: scheduling, adaptive\n- Multi-teacher: ensemble, specialized teachers\n- Self-distillation: born-again, online, snapshot\n- Tools: Distiller, TorchDistill, custom\n- Evaluation: accuracy gap, calibration, robustness",
+      "arguments": [
+        {"name": "teacher_path", "description": "Teacher model", "required": true},
+        {"name": "student_path", "description": "Student model (or architecture)", "required": true},
+        {"name": "name": "data_path", "description": "Training data", "required": true},
+        {"name": "loss_type", "description": "kl, mse, cosine, attention", "required": false, "default": "kl"}
+      ]
+    },
+    {
+      "name": "opt:compile",
+      "description": "Model compilation and optimization",
+      "prompt": "Create compilation pipeline with:\n- TorchCompile: inductor, aot_autograd, cudagraphs, dynamic shapes\n- TensorRT: ONNX parser, builder, calibration, plugins\n- ONNX Runtime: graph optimization, execution providers\n- TVM: Relay, AutoScheduler, AutoTensorize, meta-schedule\n- OpenVINO: model optimizer, runtime, NPU/GPU/CPU\n- XLA: PJRT, SPMD, GSPMD\n- MPS/Metal: CoreML, MPSGraph\n- Triton: custom kernels, autotuning\n- Batching: static, dynamic, ragged\n- Profiler: NSight, torch.profiler, TensorRT Profiler\n- Deployment: Triton, TorchServe, BentoML, vLLM",
+      "arguments": [
+        {"name": "model_path", "description": "Model to compile", "required": true},
+        {"name": "target", "description": "torch_compile, tensorrt, onnxruntime, tvm, openvino", "required": true, "default": "torch_compile"},
+        {"name": "precision", "description": "fp32, fp16, bf16, int8, fp8", "required": false, "default": "fp16"}
+      ]
+    },
+    {
+      "name": "opt:inference",
+      "description": "Inference optimization and serving",
+      "prompt": "Create inference optimization with:\n- Engines: vLLM, SGLang, TensorRT-LLM, TGI, llama.cpp, ONNX Runtime\n- Batching: continuous, paged attention, chunked prefill\n- Scheduling: FCFS, priority, speculation-aware\n- Speculative decoding: draft model, Medusa, EAGLE, Lookahead, Hydra\n- Quantization: AWQ, GPTQ, FP8, INT4, INT8\n- KV Cache: quantization, offloading, paging, compression\n- Parallelism: tensor, pipeline, data, expert\n- Prefill-decode disaggregation\n- Metrics: TTFT, TBT, throughput, latency percentiles\n- Autoscaling: request-based, metric-based, predictive",
+      "arguments": [
+        {"name": "model_path", "description": "Model to serve", "required": true},
+        {"name": "engine", "description": "vllm, sglang, tensorrt_llm, tgi, llama_cpp", "required": true, "default": "vllm"},
+        {"name": "quantization", "description": "awq, gptq, fp8, int4, none", "required": false, "default": "awq"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "optimization-engineer",
+      "description": "Model optimization engineer",
+      "prompt": "You are a model optimization engineer. Expert in: quantization (PTQ/QAT/GPTQ/AWQ/HQQ), pruning (structured/unstructured), distillation (logit/feature/relation), compilation (TorchCompile/TensorRT/TVM/OpenVINO), inference (vLLM/SGLang/TensorRT-LLM). Focus on: accuracy preservation, latency reduction, throughput maximization, memory efficiency, hardware utilization. Write production optimization pipelines with benchmarks."
+    }
+  ]
+}

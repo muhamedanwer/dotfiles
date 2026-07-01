@@ -1,0 +1,53 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "data-pipeline",
+  "description": "Production data pipelines with Dagster, Prefect, Airflow. Covers batch, ETL/ELT, batch, incremental, streaming, data quality, lineage, cataloging, and orchestration.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "de:batch",
+      "description": "Build batch data pipeline",
+      "prompt": "Create production batch pipeline with:\n- Orchestrator: Dagster (assets, partitions, sensors) / Prefect (flows, tasks, deployments) / Airflow (DAGs, TaskFlow, XComs)\n- Processing: Polars (lazy, streaming), DuckDB, PySpark, Ibis\n- Storage: Parquet, Delta Lake, Iceberg, Hudi, LanceDB\n- Partitioning: Hive, date, bucket, range\n- Incremental: CDC, merge, upsert, time travel\n- Quality: Great Expectations, Soda, dbt tests, custom checks\n- Lineage: OpenLineage, DataHub, Amundsen\n- Catalog: Unity Catalog, Polaris, Glue, Hive Metastore\n- Scheduling: cron, event-driven, SLAs\n- Monitoring: metrics, alerts, dashboards\n- Testing: unit, integration, contract, data diffs\n- CI/CD: GitOps, preview environments, blue-green",
+      "arguments": [
+        {"name": "orchestrator", "description": "dagster, prefect, airflow", "required": true, "default": "dagster"},
+        {"name": "engine", "description": "polars, duckdb, pyspark, ibis", "required": true, "default": "polars"},
+        {"name": "format", "description": "parquet, delta, iceberg, hudi", "required": false, "default": "delta"}
+      ]
+    },
+    {
+      "name": "de:dbt",
+      "description": "dbt project with best practices",
+      "prompt": "Create dbt project with:\n- Structure: staging, intermediate, marts, metrics\n- Models: incremental, materialized views, snapshots\n- Tests: schema, data, singular, generic, custom\n- Docs: descriptions, columns, lineage, exposures\n- Macros: reusable, dispatch, packages\n- Seeds: reference data, static tables\n- Snapshots: SCD type 1/2, timestamp/strategy\n- Contracts: enforced schemas, model contracts\n- Packages: dbt-utils, dbt-expectations, dbt-audit-helper\n- CI: slim CI, PR preview, data diffs\n- Deployment: dbt Cloud, dbt Core + CI/CD\n- Performance: incremental predicates, clustering, partitioning",
+      "arguments": [
+        {"name": "warehouse", "description": "snowflake, bigquery, redshift, databricks, postgres, duckdb", "required": true},
+        {"name": "project_name", "description": "dbt project name", "required": true}
+      ]
+    },
+    {
+      "name": "de:quality",
+      "description": "Data quality and observability",
+      "prompt": "Implement data quality with:\n- Great Expectations: expectations, checkpoints, data docs, profiling\n- Soda Core: checks, scans, monitors, anomaly detection\n- dbt tests: unique, not_null, accepted_values, relationships\n- Custom: statistical, ML-based, business rule checks\n- Metrics: freshness, volume, schema, distribution, completeness\n- Anomaly detection: Z-score, IQR, isolation forest, Prophet\n- Alerting: Slack, PagerDuty, email, webhooks\n- Root cause: lineage tracing, impact analysis\n- Remediation: quarantine, retry, backfill, manual review\n- Reporting: dashboards, data quality scorecards",
+      "arguments": [
+        {"name": "tool", "description": "great_expectations, soda, dbt_tests", "required": true, "default": "great_expectations"},
+        {"name": "data_source", "description": "Data source path or connection", "required": true}
+      ]
+    },
+    {
+      "name": "de:catalog",
+      "description": "Data catalog and governance",
+      "prompt": "Set up data catalog with:\n- Catalog: DataHub, Amundsen, OpenMetadata, Purview, Unity Catalog\n- Metadata: technical, business, operational, social\n- Lineage: column-level, cross-system, transformation logic\n- Governance: policies, tags, glossary, ownership\n- Discovery: search, browsing, popularity, usage\n- Access: RBAC, ABAC, data contracts, approval workflows\n- Quality: scores, monitors, incidents, SLA tracking\n- Integration: dbt, Airflow, Spark, BI tools, ETL tools\n- API: GraphQL, REST, OpenLineage ingestion",
+      "arguments": [
+        {"name": "catalog", "description": "datahub, amundsen, openmetadata, unity", "required": true, "default": "datahub"},
+        {"name": "sources", "description": "Comma-separated data sources", "required": true}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "data-engineer",
+      "description": "Data engineer for scalable pipeline development",
+      "prompt": "You are a senior Data Engineer. Build reliable, scalable data systems with: Dagster/Prefect, Polars/DuckDB/PySpark, Delta/Iceberg, dbt, Great Expectations. Focus on: idempotency, exactly-once, incremental processing, data quality, lineage, cost optimization, developer experience. Write production code with tests, docs, monitoring."
+    }
+  ]
+}

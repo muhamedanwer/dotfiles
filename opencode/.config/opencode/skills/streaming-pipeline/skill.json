@@ -1,0 +1,53 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "streaming-pipeline",
+  "description": "Real-time streaming pipelines with Kafka, Flink, RisingWave, Redpanda. Covers exactly-once, windowing, stateful processing, CDC, and stream processing patterns.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "stream:flink",
+      "description": "Flink streaming job",
+      "prompt": "Create Flink streaming job with:\n- Source: Kafka, Pulsar, Kinesis, file, custom\n- Processing: DataStream API, Table API, SQL\n- Windowing: tumbling, sliding, session, global\n- State: keyed state, operator state, RocksDB backend\n- Checkpointing: exactly-once, unaligned, incremental\n- Watermarks: periodic, punctuated, idleness\n- Joins: interval, temporal, lookup, CDC\n- Sinks: Kafka, JDBC, Elasticsearch, Iceberg, custom\n- Serialization: Avro, Protobuf, JSON, schema registry\n- Metrics: Prometheus, custom, latency tracking\n- Savepoints: upgrade, migration, A/B testing\n- Deployment: Kubernetes, YARN, standalone\n- SQL: Flink SQL, CDC connectors, materialized views",
+      "arguments": [
+        {"name": "source", "description": "kafka, pulsar, kinesis", "required": true, "default": "kafka"},
+        {"name": "sink", "description": "kafka, jdbc, elasticsearch, iceberg", "required": true, "default": "kafka"},
+        {"name": "processing", "description": "datastream, table, sql", "required": false, "default": "table"}
+      ]
+    },
+    {
+      "name": "stream:risingwave",
+      "description": "RisingWave streaming database",
+      "prompt": "Create RisingWave streaming pipeline with:\n- Sources: Kafka, Pulsar, Kinesis, CDC (Debezium), files\n- Materialized views: incremental, real-time\n- Joins: stream-stream, stream-table, temporal\n- Windowing: tumbling, hopping, session\n- Functions: UDF/UDAF (Python, Rust, WASM)\n- Sinks: Kafka, JDBC, Elasticsearch, custom\n- Schema: Avro, Protobuf, JSON, schema registry\n- Monitoring: Grafana, Prometheus, built-in metrics\n- High availability: standby, failover\n- Scaling: parallelism, compute/storage separation",
+      "arguments": [
+        {"name": "source_type", "description": "kafka, cdc, pulsar", "required": true, "default": "kafka"},
+        {"name": "output", "description": "materialized_view, sink", "required": true, "default": "materialized_view"}
+      ]
+    },
+    {
+      "name": "stream:cdc",
+      "description": "Change Data Capture pipeline",
+      "prompt": "Build CDC pipeline with:\n- Sources: Debezium (MySQL, PostgreSQL, MongoDB, SQL Server, Oracle)\n- Capture: snapshots, incremental, transaction logs\n- Transform: SMTs, filtering, routing, masking\n- Delivery: Kafka, Pulsar, Redpanda, RisingWave\n- Schema: Avro, Protobuf, JSON, Schema Registry\n- Exactly-once: idempotent writes, deduplication\n- Ordering: per-key, global, partition\n- Lag monitoring: consumer groups, offsets\n- Schema evolution: compatibility, migration\n- Recovery: offset management, replay, backfill",
+      "arguments": [
+        {"name": "database", "description": "mysql, postgres, mongodb, sqlserver, oracle", "required": true},
+        {"name": "connector", "description": "debezium, debezium_server", "required": false, "default": "debezium"}
+      ]
+    },
+    {
+      "name": "stream:kafka",
+      "description": "Kafka Streams / ksqlDB application",
+      "prompt": "Create Kafka streaming app with:\n- Kafka Streams: topology, state stores, punctuation\n- ksqlDB: streams, tables, pull/push queries\n- Serialization: Avro, Protobuf, JSON, Schema Registry\n- Processing: map, filter, join, aggregate, window\n- State: RocksDB, in-memory, changelog topics\n- Exactly-once: EOS v2/v3, transactional producers\n- Testing: TopologyTestDriver, embedded Kafka\n- Monitoring: JMX, Prometheus, Confluent Control Center\n- Deployment: Kafka Connect, ksqlDB server, standalone\n- Patterns: enrichment, deduplication, sessionization",
+      "arguments": [
+        {"name": "framework", "description": "kafka_streams, ksqldb", "required": true, "default": "kafka_streams"},
+        {"name": "language", "description": "java, scala, python", "required": false, "default": "java"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "streaming-engineer",
+      "description": "Streaming engineer for real-time data platforms",
+      "prompt": "You are a streaming engineer. Build real-time systems with: Flink, RisingWave, Kafka Streams, ksqlDB, Redpanda. Focus on: exactly-once semantics, low latency, stateful processing, windowing, CDC, schema evolution, operational simplicity. Write production code with monitoring, testing, and documentation."
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "llm-finetune",
+  "description": "LLM fine-tuning with LoRA, QLoRA, full fine-tuning. Covers Unsloth, Axolotl, LLaMA-Factory, TRL, HuggingFace. Includes SFT, DPO, PPO, KTO, ORPO, preference optimization.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "llm:sft",
+      "description": "Supervised fine-tuning",
+      "prompt": "Create SFT pipeline with:\n- Models: Llama 3/3.1, Mistral, Qwen 2/2.5, Gemma 2, Phi 3, Yi, DeepSeek\n- Formats: chat (ChatML, Llama-3, Mistral, Gemma), completion, instruct\n- Data: ShareGPT, Alpaca, OpenHermes, custom JSON/JSONL/Parquet\n- PEFT: LoRA (r, alpha, dropout, target_modules), QLoRA (4bit/8bit NF4), DoRA, PiSSA, VeRA, LoRA+, LoRA-GA\n- Training: TRL SFTTrainer, Unsloth (2-5x faster), Axolotl, LLaMA-Factory\n- Optimization: 8-bit AdamW, paged AdamW, GaLore, LOMO, Sophia, Muon\n- Scheduler: cosine, linear, constant, polynomial, inverse_sqrt\n- Context: 4k, 8k, 16k, 32k, 128k (YaRN, LongRoPE, Self-Extend)\n- Packing: sequence packing, attention masking\n- Logging: WandB, MLflow, TensorBoard, Neptune\n- Checkpointing: safetensors, sharded, PEFT adapters only\n- Evaluation: perplexity, eval datasets, generation samples\n- Export: merged, GGUF, AWQ, GPTQ, ONNX, TensorRT-LLM",
+      "arguments": [
+        {"name": "model", "description": "Base model name or path", "required": true},
+        {"name": "method", "description": "lora, qlora, dora, full, pissa", "required": true, "default": "qlora"},
+        {"name": "framework", "description": "unsloth, axolotl, llamafactory, trl", "required": true, "default": "unsloth"},
+        {"name": "data_path", "description": "Training data path", "required": true}
+      ]
+    },
+    {
+      "name": "llm:dpo",
+      "description": "Direct preference optimization",
+      "prompt": "Create DPO pipeline with:\n- Methods: DPO, KTO, IPO, ORPO, SimPO, CPO, TDPO\n- Reference model: frozen base, or iterative (DDPO)\n- Loss: sigmoid, hinge, ipo, kto_pair, cpo\n- Beta: temperature, scheduling\n- Data: preference pairs (chosen/rejected), rankings, feedback\n- Models: same as SFT, with reward model for PPO\n- Training: TRL DPOTrainer, LLaMA-Factory, Axolotl\n- Evaluation: reward model scores, win rate, GPT-4 eval\n- Comparison: DPO vs PPO vs SFT only\n- Memory: gradient checkpointing, CPU offload, quantization",
+      "arguments": [
+        {"name": "model", "description": "SFT model path", "required": true},
+        {"name": "method", "description": "dpo, kto, ipo, orpo, simpo", "required": true, "default": "dpo"},
+        {"name": "data_path", "description": "Preference data path", "required": true},
+        {"name": "ref_model", "description": "Reference model path (optional)", "required": false}
+      ]
+    },
+    {
+      "name": "llm:ppo",
+      "description": "RLHF with PPO",
+      "prompt": "Create PPO pipeline with:\n- Components: Actor (policy), Critic (value), Reward, Reference\n- Reward model: trained on preference data, Bradley-Terry\n- KL penalty: adaptive, fixed, clipped\n- GAE: lambda, gamma\n- Training: mini-batch, epochs, clip range\n- TRL: PPOTrainer, Accelerate, DeepSpeed\n- Memory: ZeRO-3, CPU offload, gradient accumulation\n- Evaluation: reward, KL, response length, diversity\n- Safety: reward hacking detection, constraint optimization\n- Alternatives: GRPO (no critic), REINFORCE, RAHF",
+      "arguments": [
+        {"name": "actor_model", "description": "Policy model path", "required": true},
+        {"name": "reward_model", "description": "Reward model path", "required": true},
+        {"name": "data_path", "description": "Prompts for generation", "required": true}
+      ]
+    },
+    {
+      "name": "llm:unsloth",
+      "description": "Fast fine-tuning with Unsloth",
+      "prompt": "Create Unsloth fine-tuning with:\n- Speed: 2-5x faster, 70% less memory\n- Models: Llama 3/3.1, Mistral, Qwen 2/2.5, Gemma 2, Phi 3, DeepSeek\n- Quantization: 4-bit NF4, 8-bit, 16-bit, mixed\n- LoRA: rank, alpha, dropout, target modules (auto-detect)\n- Features: Flash Attention 2, xFormers, gradient checkpointing\n- Data: packing, chat templates, custom formatting\n- Training: SFT, DPO, ORPO, KTO, PPO\n- Export: merged 16-bit, GGUF (llama.cpp), GGUF quantized, vLLM\n- Multi-GPU: FSDP, DDP, tensor parallelism\n- Integration: WandB, MLflow, HuggingFace Hub",
+      "arguments": [
+        {"name": "model", "description": "Model ID (e.g., unsloth/llama-3-8b-bnb-4bit)", "required": true},
+        {"name": "task", "description": "sft, dpo, orpo, kto", "required": true, "default": "sft"},
+        {"name": "data_path", "description": "Training data", "required": true},
+        {"name": "max_seq_length", "description": "Context length", "required": false, "default": "4096"}
+      ]
+    },
+    {
+      "name": "llm:llamafactory",
+      "description": "Fine-tuning with LLaMA-Factory",
+      "prompt": "Create LLaMA-Factory setup with:\n- WebUI: Gradio interface for training, evaluation, export\n- CLI: llamafactory-cli for automation\n- Methods: Freeze, LoRA, QLoRA, GaLORA, LoRA+, PiSSA, DoRA, VeRA, LoRA-GA, Full\n- Stages: PT, SFT, RM, PPO, DPO, KTO, ORPO, SimPO, CPO, SPPO\n- Models: 100+ built-in (Llama, Mistral, Qwen, Gemma, Phi, Yi, DeepSeek, Baichuan, ChatGLM, InternLM)\n- Quantization: bitsandbytes (4/8-bit), GPTQ, AWQ, HQQ, EETQ, FP8\n- Data: 20+ templates, custom datasets, data processing\n- Export: merged, adapters, GGUF, vLLM, TensorRT-LLM, ONNX\n- Distributed: DeepSpeed (ZeRO-2/3), FSDP, DDP\n- Monitoring: SwanLab, WandB, MLflow, TensorBoard",
+      "arguments": [
+        {"name": "model", "description": "Model name from LLaMA-Factory", "required": true},
+        {"name": "stage", "description": "sft, dpo, ppo, kto, orpo", "required": true, "default": "sft"},
+        {"name": "data", "description": "Dataset name or path", "required": true}
+      ]
+    },
+    {
+      "name": "llm:eval",
+      "description": "Evaluate fine-tuned model",
+      "prompt": "Create evaluation suite with:\n- Benchmarks: MMLU, GSM8K, HumanEval, MBPP, MT-Bench, AlpacaEval, Arena-Hard, IFEval, BBH, MATH, GPQA\n- Tasks: chat, code, math, reasoning, instruction following, RAG\n- Frameworks: lm-evaluation-harness, OpenCompass, FastChat, MT-Bench\n- Metrics: accuracy, pass@k, F1, ROUGE, BLEU, perplexity\n- Judges: GPT-4, Claude, local LLM (Prometheus, Shepherd)\n- Safety: TruthfulQA, ToxiGen, RealToxicityPrompts, HarmBench\n- Efficiency: latency, throughput, memory, FLOPs\n- Comparison: base vs SFT vs DPO vs other methods\n- Reporting: tables, radar charts, leaderboards",
+      "arguments": [
+        {"name": "model_path", "description": "Model to evaluate", "required": true},
+        {"name": "benchmarks", "description": "Comma-separated benchmarks", "required": false, "default": "mmlu,gsm8k,humaneval"},
+        {"name": "judge", "description": "gpt-4, claude, prometheus", "required": false, "default": "prometheus"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "llm-engineer",
+      "description": "LLM fine-tuning engineer",
+      "prompt": "You are an LLM fine-tuning engineer. Expert in: LoRA/QLoRA/DoRA/PiSSA, SFT/DPO/KTO/ORPO/PPO, Unsloth/Axolotl/LLaMA-Factory/TRL, quantization (bitsandbytes/GPTQ/AWQ/HQQ), context extension (YaRN/LongRoPE), evaluation (MMLU/MT-Bench/HumanEval). Write production training scripts with config management, experiment tracking, and efficient GPU utilization."
+    }
+  ]
+}

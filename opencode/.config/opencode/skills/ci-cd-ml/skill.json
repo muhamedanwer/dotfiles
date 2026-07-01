@@ -1,0 +1,72 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "ci-cd-ml",
+  "description": "CI/CD for ML: GitHub Actions, GitLab CI, testing, building, training, deploying, monitoring. Covers ML-specific pipelines with data validation, model testing, drift detection, and progressive delivery.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "ci:github-ml",
+      "description": "GitHub Actions for ML",
+      "prompt": "Create GitHub Actions ML pipeline with:\n- Workflows: CI, CD, training, evaluation, deployment\n- Jobs: lint, test, type-check, security, build, train, eval, deploy\n- Caching: pip, conda, docker layers, dataset, model artifacts\n- Matrix: Python versions, OS, GPU/CPU, frameworks\n- Testing: pytest, hypothesis, great_expectations, data diffs\n- Linting: ruff, mypy, bandit, hadolint, checkov\n- Containers: build, scan (trivy/syft/grype), sign (cosign), push\n- MLflow: log params, metrics, artifacts, register model\n- DVC: data versioning, pipeline reproduction\n- Training: self-hosted runners (GPU), cloud runners\n- Deployment: ArgoCD, KServe, BentoML, Terraform\n- Environments: dev, staging, prod with approval gates\n- Notifications: Slack, email, PR comments",
+      "arguments": [
+        {"name": "runner", "description": "self-hosted, github-hosted, cloud", "required": true, "default": "self-hosted"},
+        {"name": "gpu", "description": "Enable GPU runners", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "ci:gitlab-ml",
+      "description": "GitLab CI for ML",
+      "prompt": "Create GitLab CI ML pipeline with:\n- Stages: prepare, test, build, train, evaluate, package, deploy\n- Rules: branch, tag, MR, schedule, manual, variables\n- Cache: key, paths, policy, S3/GCS backend\n- Artifacts: reports (junit, coverage, terraform, sast), models, data\n- Services: PostgreSQL, MySQL, Redis, MinIO, LocalStack\n- Runners: shared, group, project, tags (gpu, ml, k8s)\n- Kubernetes: gitlab-k8s-agent, helm, kustomize\n- MLflow: integrated tracking, model registry\n- DVC: data pipeline, experiments\n- Auto DevOps: ML template, customization\n- Security: SAST, DAST, dependency scanning, container scanning\n- Environments: dynamic, review apps, production\n- Deploy: freezes, boards, feature flags",
+      "arguments": [
+        {"name": "runner_type", "description": "shared, group, project, k8s", "required": true, "default": "k8s"},
+        {"name": "mlflow", "description": "Enable MLflow integration", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "ci:ml-testing",
+      "description": "ML-specific testing patterns",
+      "prompt": "Implement ML testing with:\n- Unit: model forward, loss, metrics, utilities\n- Integration: training loop, data pipeline, evaluation\n- Data: schema (pandera/Great Expectations), distribution, drift\n- Model: numerical equivalence, ONNX export, quantization\n- Property-based: hypothesis, invariants, metamorphic\n- Performance: latency, throughput, memory, GPU utilization\n- Regression: golden files, model cards, benchmark suites\n- Fairness: demographic parity, equal opportunity, counterfactual\n- Robustness: adversarial, OOD, stress testing\n- Reproducibility: seed, env, config, data version\n- Contract: model serving API, schema, SLA\n- Mutation: model mutation, data mutation",
+      "arguments": [
+        {"name": "framework", "description": "pytest, hypothesis, great_expectations", "required": true, "default": "pytest"},
+        {"name": "model_path", "description": "Model to test", "required": true}
+      ]
+    },
+    {
+      "name": "ci:progressive-delivery",
+      "description": "Progressive delivery for ML",
+      "prompt": "Implement progressive delivery with:\n- Strategies: canary, blue-green, A/B, shadow, mirror\n- Tools: Argo Rollouts, Flagger, Istio, Linkerd\n- Metrics: success rate, latency, business KPIs, drift\n- Analysis: Prometheus, DataDog, NewRelic, custom\n- Promotion: manual, automatic, stepwise\n- Rollback: automatic, manual, metric-based\n- Traffic: Istio virtual services, gateway API\n- Experimentation: assignment, logging, analysis\n- Feature flags: LaunchDarkly, Unleash, custom\n- Model-specific: shadow inference, champion/challenger\n- Governance: approvals, audit, compliance",
+      "arguments": [
+        {"name": "tool", "description": "argo_rollouts, flagger, istio", "required": true, "default": "argo_rollouts"},
+        {"name": "strategy", "description": "canary, blue_green, ab, shadow", "required": true, "default": "canary"}
+      ]
+    },
+    {
+      "name": "ci:docker-ml",
+      "description": "Docker for ML workloads",
+      "prompt": "Create ML Docker images with:\n- Base: nvidia/cuda, pytorch, tensorflow, jax, rapids\n- Multi-stage: build, test, runtime, distroless\n- Layers: system, python, ML libs, app, model\n- Caching: BuildKit, cache mounts, registry cache\n- Security: non-root, read-only, capabilities, distroless\n- Scanning: Trivy, Grype, Syft, Snyk, Hadolint\n- Signing: Cosign, Notary, Sigstore\n- SBOM: SPDX, CycloneDX\n- GPU: nvidia-container-toolkit, CUDA compat\n- Size: .dockerignore, squash, dive analysis\n- Runtime: GPU, CPU, specific arch (amd64/arm64)",
+      "arguments": [
+        {"name": "framework", "description": "pytorch, tensorflow, jax, sklearn, xgboost", "required": true, "default": "pytorch"},
+        {"name": "cuda_version", "description": "CUDA version", "required": false, "default": "12.4"},
+        {"name": "base_image", "description": "Base image", "required": false, "default": "nvidia/cuda"}
+      ]
+    },
+    {
+      "name": "ci:mlops-platform",
+      "description": "Complete MLOps CI/CD platform",
+      "prompt": "Build MLOps CI/CD platform with:\n- Source: GitHub/GitLab/Bitbucket, monorepo/polyrepo\n- CI: GitHub Actions/GitLab CI/Jenkins/Tekton\n- Artifacts: MLflow, WandB, Neptune, S3/GCS, model registry\n- Data: DVC, LakeFS, Delta Lake, Iceberg versioning\n- Training: Kubernetes (Kubeflow/Operator), Ray, Vertex AI, SageMaker\n- Testing: data, model, pipeline, integration, contract\n- Deployment: ArgoCD/Flux, KServe/BentoML/vLLM, Helm/Kustomize\n- Progressive: Argo Rollouts/Flagger, canary/A/B/shadow\n- Monitoring: Prometheus/Grafana, Evidently/WhyLabs, drift\n- Feedback: automated retraining, alerts, dashboards\n- Governance: model cards, lineage, audit, compliance\n- Developer: Backstage, CLI, templates, self-service",
+      "arguments": [
+        {"name": "ci_tool", "description": "github_actions, gitlab_ci, tekton, jenkins", "required": true, "default": "github_actions"},
+        {"name": "deploy_tool", "description": "argocd, flux, helm", "required": true, "default": "argocd"},
+        {"name": "cloud", "description": "aws, gcp, azure, onprem", "required": true}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "mlops-ci-engineer",
+      "description": "MLOps CI/CD engineer",
+      "prompt": "You are an MLOps CI/CD engineer. Expert in: GitHub Actions, GitLab CI, Tekton, Jenkins for ML workloads. Build pipelines for: testing (data/model/pipeline), training (distributed, HPO), deployment (progressive, canary, A/B), monitoring (drift, performance), governance (lineage, audit). Focus on: reproducibility, velocity, reliability, cost optimization, developer experience."
+    }
+  ]
+}

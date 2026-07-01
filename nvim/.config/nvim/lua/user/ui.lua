@@ -6,12 +6,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     if vim.fn.argc() == 0 and not vim.g.started_by_firenvim then
       local ascii = {
-        "    _   _   _   _   _   _   _   _   _",
-        "   / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\",
-        "  ( A | n | w | a | r )",
-        "   \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/",
-        "",
-        "  Neovim IDE ready • <leader>ff find files",
+          " █████╗  ███╗   ██╗██╗ ███╗   ██╗ █████╗ ██████╗ ",
+          "██╔══██╗ ████╗  ██║██║ ████╗  ██║██╔══██╗██╔══██╗",
+          "███████║ ██╔██╗ ██║██║ ██╔██╗ ██║███████║██████╔╝",
+          "██╔══██║ ██║╚██╗██║██║ ██║╚██╗██║██╔══██║██╔══██╗",
+          "██║  ██║ ██║ ╚████║██║ ██║ ╚████║██║  ██║██║  ██║",
+          "╚═╝  ╚═╝ ╚═╝  ╚═══╝╚═╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝",
+          "",
+          "  Neovim IDE ready • <leader>ff to find files",
       }
       vim.schedule(function()
         for _, line in ipairs(ascii) do
@@ -129,9 +131,6 @@ vim.opt.wildmode = "longest:full,full"
 vim.opt.wildignorecase = true
 vim.opt.wildignore = { "*.o", "*.obj", "*.pyc", "*.class", "*.jar", "*.swp", "*.zip", "*.exe", "*.dll", "*.so", "*.dylib", "node_modules", ".git", "__pycache__", "target", "build", "dist" }
 
--- Smooth scrolling
-vim.opt.smoothscroll = true
-
 -- Better diff
 vim.opt.diffopt:append("linematch:60")
 vim.opt.diffopt:append("algorithm:histogram")
@@ -149,9 +148,6 @@ vim.opt.shortmess:append("I")
 -- Better completion menu
 vim.opt.pumheight = 10
 vim.opt.pumblend = 10
-
--- Floating window borders
-vim.opt.winborder = "rounded"
 
 -- Spell check for text files
 vim.api.nvim_create_autocmd("FileType", {

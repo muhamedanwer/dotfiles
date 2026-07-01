@@ -1,0 +1,72 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "terraform-aws",
+  "description": "AWS infrastructure with Terraform: VPC, EKS, RDS, S3, Lambda, SageMaker, Bedrock, EMR, Redshift, OpenSearch, MSK, Kinesis, and ML-specific services.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "tf:aws-vpc",
+      "description": "AWS VPC and networking",
+      "prompt": "Create AWS VPC with:\n- VPC: CIDR, DNS hostnames, DNS resolution, flow logs\n- Subnets: public, private, database, EKS (across AZs)\n- NAT: gateway (single/multi-AZ), instance\n- Gateway: internet, egress-only, transit gateway\n- Endpoints: S3, DynamoDB, ECR, CloudWatch, SSM, interface endpoints\n- Security: security groups, NACLs, flow logs\n- Peering: VPC peering, transit gateway attachments\n- DNS: Route53 private hosted zones, resolver rules\n- Tags: cost allocation, naming convention\n- Modules: terraform-aws-modules/vpc/aws",
+      "arguments": [
+        {"name": "cidr", "description": "VPC CIDR block", "required": true, "default": "10.0.0.0/16"},
+        {"name": "azs", "description": "Number of AZs", "required": false, "default": "3"},
+        {"name": "nat_gateway", "description": "single, multi, none", "required": false, "default": "multi"}
+      ]
+    },
+    {
+      "name": "tf:aws-eks",
+      "description": "EKS cluster with ML workloads",
+      "prompt": "Create EKS cluster with:\n- Cluster: version, endpoint access, logging, encryption\n- Node groups: managed, self-managed, Karpenter\n- Instance types: GPU (p4/p5/g5), CPU (m6i/c6i), spot\n- Add-ons: VPC CNI, CoreDNS, kube-proxy, EBS CSI, EFS CSI\n- IRSA: IAM roles for service accounts\n- Fargate: profiles, selectors\n- Karpenter: NodePool, NodeClass, consolidation, disruption\n- GPU: NVIDIA device plugin, MIG, time-slicing\n- Networking: CNI config, security groups for pods\n- Monitoring: CloudWatch, Prometheus, ADOT\n- Upgrade: cluster, node groups, add-ons",
+      "arguments": [
+        {"name": "version", "description": "Kubernetes version", "required": false, "default": "1.29"},
+        {"name": "node_groups", "description": "Comma-separated node group configs", "required": true},
+        {"name": "karpenter", "description": "Enable Karpenter", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "tf:aws-ml",
+      "description": "AWS ML services (SageMaker, Bedrock, EMR)",
+      "prompt": "Create AWS ML infrastructure with:\n- SageMaker: domain, user profiles, spaces, notebook instances, pipelines, model registry, endpoints, feature store\n- Bedrock: model access, knowledge bases, agents, guardrails, evaluation\n- EMR: clusters, Serverless, Studio, EKS, Spark, Flink, Iceberg\n- Redshift: Serverless, provisioned, RA3, ML integration\n- OpenSearch: domain, Serverless, k-NN, ML Commons\n- MSK: clusters, Serverless, Kafka Connect, Schema Registry\n- Kinesis: Data Streams, Data Firehose, Data Analytics\n- Lambda: functions, layers, container images, provisioned concurrency\n- S3: buckets, versioning, lifecycle, Intelligent-Tiering, access points\n- Glue: catalog, crawlers, jobs, DataBrew, Data Quality\n- Lake Formation: permissions, governance, transactions",
+      "arguments": [
+        {"name": "services", "description": "Comma-separated: sagemaker, bedrock, emr, redshift, opensearch, msk, kinesis", "required": true},
+        {"name": "environment", "description": "dev, staging, prod", "required": false, "default": "dev"}
+      ]
+    },
+    {
+      "name": "tf:aws-data",
+      "description": "AWS data infrastructure",
+      "prompt": "Create data infrastructure with:\n- S3: data lake buckets, partitioning, lifecycle, access points, Object Lambda\n- Glue: catalog database, tables, partitions, crawlers, classifiers\n- Athena: workgroups, prepared statements, federated queries\n- Lake Formation: permissions, LF-Tags, transactions, governed tables\n- Redshift: cluster/Serverless, schemas, tables, materialized views, datashares\n- EMR: Spark, Hive, Presto, Trino, Iceberg, Hudi, Delta Lake\n- Kinesis: streaming ingestion, Firehose delivery, Analytics\n- MSK: Kafka topics, Schema Registry, Connect, MirrorMaker\n- DMS: replication, CDC, validation, transformation\n- DataZone: domain, projects, glossary, lineage\n- QuickSight: datasets, analyses, dashboards, embedding",
+      "arguments": [
+        {"name": "components", "description": "s3, glue, athena, lakeformation, redshift, emr, kinesis, msk", "required": true},
+        {"name": "governance", "description": "Enable Lake Formation", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "tf:aws-security",
+      "description": "AWS security and compliance",
+      "prompt": "Implement AWS security with:\n- IAM: roles, policies, conditions, boundaries, access analyzer\n- Organizations: SCPs, delegated admin, trusted access\n- Secrets: Secrets Manager, Parameter Store, rotation\n- KMS: keys, aliases, policies, rotation, external keys\n- GuardDuty: detector, findings, publishing\n- Security Hub: standards, controls, insights\n- Config: rules, conformance packs, remediation\n-ediation\n- CloudTrail: organization trail, data events, insights\n- WAF: web ACL, rules, rate limiting, logging\n- Shield: Standard, Advanced, DDoS protection\n- Network Firewall: rule groups, policies, logging\n- PrivateLink: endpoint services, VPC endpoints",
+      "arguments": [
+        {"name": "compliance", "description": "cis, pci, hipaa, soc2, fedramp", "required": false, "default": "cis"},
+        {"name": "organization", "description": "Enable Organizations", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "tf:aws-gitops",
+      "description": "GitOps with ArgoCD/Flux on AWS",
+      "prompt": "Set up GitOps on AWS with:\n- ArgoCD: installation, applications, projects, repositories\n- Flux: bootstrap, controllers, kustomize, helm\n- EKS: cluster access, IRSA for controllers\n- Secrets: SealedSecrets, External Secrets, Vault\n- Repository: GitHub, GitLab, Bitbucket, CodeCommit\n- Environments: dev, staging, prod with promotion\n- Progressive: Argo Rollouts, Flagger, canary, blue-green\n- Drift: detection, auto-sync, prune\n- RBAC: SSO, OIDC, GitHub Teams\n- Notifications: Slack, email, webhook\n- Audit: ArgoCD notifications, Flux events",
+      "arguments": [
+        {"name": "tool", "description": "argocd, flux", "required": true, "default": "argocd"},
+        {"name": "repo_url", "description": "Git repository URL", "required": true}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "aws-architect",
+      "description": "AWS cloud architect",
+      "prompt": "You are an AWS architect. Expert in: VPC, EKS, SageMaker, Bedrock, EMR, Redshift, OpenSearch, MSK, Kinesis, Lambda, S3, Glue, Lake Formation, IAM, Organizations, Security Hub, GuardDuty, ArgoCD, Flux, Karpenter. Build production ML/data platforms on AWS with Terraform. Focus on: security, cost optimization, scalability, reliability, compliance, GitOps."
+    }
+  ]
+}

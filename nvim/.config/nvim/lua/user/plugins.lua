@@ -34,6 +34,37 @@ require("lazy").setup({
     end
   },
   { "nvim-tree/nvim-web-devicons" },
+  { "folke/tokyonight.nvim", lazy = false, config = function()
+      require("tokyonight").setup({
+        style = "night",
+        transparent = false,
+        terminal_colors = true,
+        styles = {
+          comments = { italic = true },
+          keywords = { italic = true },
+          functions = {},
+          variables = {},
+          sidebars = "dark",
+          floats = "dark",
+        },
+        sidebars = { "qf", "help", "terminal", "lazy", "mason", "neo-tree" },
+        on_colors = function(colors)
+          colors.bg = "#0a0a0a"
+          colors.bg_dark = "#080808"
+          colors.bg_float = "#0d0d0d"
+          colors.bg_highlight = "#151515"
+          colors.bg_popup = "#0d0d0d"
+          colors.bg_search = "#252525"
+          colors.bg_sidebar = "#0a0a0a"
+          colors.bg_statusline = "#0a0a0a"
+          colors.bg_visual = "#1a1a1a"
+          colors.border = "#1a1a1a"
+          colors.fg = "#c0c0c0"
+          colors.comment = "#505050"
+        end,
+      })
+    end
+  },
   { "nvim-lualine/lualine.nvim",
     config = function()
       require("lualine").setup({ options = { theme = "auto" } })
@@ -47,17 +78,21 @@ require("lazy").setup({
       local alpha = require("alpha")
       local dashboard = require("alpha.themes.dashboard")
       dashboard.section.header.val = {
-        "    _   _   _   _   _   _   _   _   _",
-        "   / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\",
-        "  ( A | n | w | a | r )",
-        "   \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/ \\_/",
+        " █████╗  ███╗   ██╗██╗ ███╗   ██╗ █████╗ ██████╗ ",
+        "██╔══██╗ ████╗  ██║██║ ████╗  ██║██╔══██╗██╔══██╗",
+        "███████║ ██╔██╗ ██║██║ ██╔██╗ ██║███████║██████╔╝",
+        "██╔══██║ ██║╚██╗██║██║ ██║╚██╗██║██╔══██║██╔══██╗",
+        "██║  ██║ ██║ ╚████║██║ ██║ ╚████║██║  ██║██║  ██║",
+        "╚═╝  ╚═╝ ╚═╝  ╚═══╝╚═╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝",
+        "",
+        "  Neovim IDE ready • <leader>ff to find files",
       }
       dashboard.section.buttons.val = {
         dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
         dashboard.button("r", "  Recent files", ":Telescope oldfiles <CR>"),
         dashboard.button("g", "  Find text", ":Telescope live_grep <CR>"),
         dashboard.button("e", "  File explorer", ":NvimTreeToggle <CR>"),
-        dashboard.button("p", "  Projects", ":Telescope projects <CR>"),
+        dashboard.button("p", "  Projects", ":Telescope find_files <CR>"),
         dashboard.button("s", "  Settings", ":e $MYVIMRC <CR>"),
         dashboard.button("q", "  Quit", ":qa<CR>"),
       }
@@ -145,6 +180,12 @@ require("lazy").setup({
   { "numToStr/Comment.nvim", config = true },
   { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
   { "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, config = true },
+  { "rcarriga/nvim-notify", event = "VeryLazy", config = function()
+      local notify = require("notify")
+      notify.setup({ background_colour = "#0d0d0d", fps = 30, stages = "fade_in_slide_out" })
+      vim.notify = notify
+    end
+  },
 
   -- File explorer
   { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -157,4 +198,4 @@ require("lazy").setup({
   { "mbbill/undotree" },
 }, { checker = { enabled = true } })
 
-vim.cmd.colorscheme("matteblack")
+vim.cmd.colorscheme("tokyonight")

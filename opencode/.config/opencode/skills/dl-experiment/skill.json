@@ -1,0 +1,68 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "dl-experiment",
+  "description": "Deep learning experimentation with PyTorch, JAX, TensorFlow. Covers CV, NLP, Audio, Time Series, Graph, Multimodal. Includes distributed training, mixed precision, compilation, and advanced techniques.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "dl:train",
+      "description": "Train deep learning model with modern best practices",
+      "prompt": "Create production-ready DL training pipeline with:\n- Framework: PyTorch (torch.compile, FSDP, DDP) / JAX (Flax, Orbax) / TensorFlow (Keras 3, tf.distribute)\n- Mixed precision: AMP, BF16, TF32\n- Distributed: FSDP, DDP, ZeRO, tensor parallelism, pipeline parallelism\n- Optimizers: AdamW, Lion, Sophia, Muon, schedule-free\n- Schedulers: cosine, cosine with warmup, OneCycle, linear decay\n- Regularization: DropPath, Stochastic Depth, Label Smoothing, MixUp, CutMix, AugMix\n- Data loading: DataLoader with num_workers, prefetch_factor, persistent_workers\n- Augmentation: Albumentations, torchvision v2, kornia, audiomentations\n- Logging: TensorBoard, WandB, Aim, ClearML\n- Checkpointing: Orbax, torch.save, safetensors\n- Profiling: torch.profiler, Nsight Systems, PyTorch Profiler\n- Compilation: torch.compile, JAX jit, XLA\n- Gradient accumulation, clipping, anomaly detection\n- Reproducibility: seeds, deterministic algorithms, env capture",
+      "arguments": [
+        {"name": "domain", "description": "cv, nlp, audio, timeseries, graph, multimodal", "required": true},
+        {"name": "framework", "description": "pytorch, jax, tensorflow", "required": true, "default": "pytorch"},
+        {"name": "model", "description": "Model architecture name or path", "required": true},
+        {"name": "distributed", "description": "fsdp, ddp, zero, tensor_parallel", "required": false, "default": "none"}
+      ]
+    },
+    {
+      "name": "dl:cv",
+      "description": "Computer vision pipeline",
+      "prompt": "Create CV pipeline with:\n- Backbones: ResNet, ConvNeXt, ViT, Swin, MaxViT, EfficientNet, YOLO, RT-DETR\n- Tasks: classification, detection, segmentation, pose, depth, OCR\n- Datasets: ImageNet, COCO, LVIS, ADE20K, custom (COCO/YOLO/VOC format)\n- Augmentation: AutoAugment, RandAugment, TrivialAugment, CutMix, MixUp, Mosaic\n- Detection: YOLOv8/9/10, RT-DETR, DETR, Deformable DETR\n- Segmentation: Mask2Former, SAM, SAM2, DeepLabV3+, UPerNet\n- Self-supervised: MAE, DINOv2, iBOT, MaskFeat, SimMIM\n- Export: ONNX, TensorRT, OpenVINO, TFLite, CoreML\n- Quantization: PTQ, QAT, AWQ, GPTQ\n- Inference: TensorRT, ONNX Runtime, DeepSpeed Inference",
+      "arguments": [
+        {"name": "task", "description": "classification, detection, segmentation, pose", "required": true},
+        {"name": "backbone", "description": "Model backbone", "required": true},
+        {"name": "dataset_format", "description": "coco, yolo, voc, folder", "required": false, "default": "coco"}
+      ]
+    },
+    {
+      "name": "dl:nlp",
+      "description": "NLP/LLM training pipeline",
+      "prompt": "Create NLP/LLM pipeline with:\n- Models: BERT, RoBERTa, DeBERTa, Llama, Mistral, Gemma, Phi, Qwen\n- Tasks: classification, NER, QA, summarization, translation, generation\n- Training: full fine-tuning, LoRA, QLoRA, DoRA, PiSSA, VeRA, prefix-tuning\n- PEFT: LORA, AdaLoRA, IA3, Prompt Tuning, P-Tuning\n- Quantization: bitsandbytes 4bit/8bit, GPTQ, AWQ, HQQ\n- Data: HuggingFace Datasets, streaming, packing, chat templates\n- SFT: TRL, Axolotl, LLaMA-Factory, Unsloth\n- RLHF: PPO, DPO, KTO, ORPO, SimPO\n- Evaluation: MMLU, GSM8K, HumanEval, MT-Bench, AlpacaEval\n- Serving: vLLM, TGI, SGLang, llama.cpp, TensorRT-LLM\n- Context extension: YaRN, LongRoPE, Self-Extend",
+      "arguments": [
+        {"name": "model", "description": "Base model name or path", "required": true},
+        {"name": "method", "description": "sft, dpo, ppo, kto, orpo", "required": true, "default": "sft"},
+        {"name": "peft", "description": "lora, qlora, dora, full", "required": false, "default": "lora"}
+      ]
+    },
+    {
+      "name": "dl:distributed",
+      "description": "Distributed training setup",
+      "prompt": "Set up distributed training with:\n- FSDP: full shard, hybrid shard, CPU offload, activation checkpointing\n- DDP: bucket_cap_mb, gradient_as_bucket_view, static_graph\n- ZeRO: DeepSpeed ZeRO-1/2/3, offload to CPU/NVMe\n- Tensor Parallel: Megatron-LM, ColossalAI, PyTorch native\n- Pipeline Parallel: GPipe, PipeDream, 1F1B\n- Sequence Parallel: Ring Attention, ZigZag Ring Attention\n- Communication: NCCL, GLOO, MPI\n- Cluster: Slurm, Kubernetes, Ray, MosaicML\n- Profiling: Nsight Systems, PyTorch Profiler, Kineto\n- Elastic training: torch.distributed.elastic",
+      "arguments": [
+        {"name": "strategy", "description": "fsdp, ddp, zero, tensor_parallel, pipeline_parallel", "required": true},
+        {"name": "framework", "description": "pytorch, deepspeed, megatron, colossalai", "required": true, "default": "pytorch"},
+        {"name": "nodes", "description": "Number of nodes", "required": false, "default": "1"},
+        {"name": "gpus_per_node", "description": "GPUs per node", "required": false, "default": "8"}
+      ]
+    },
+    {
+      "name": "dl:optimize",
+      "description": "Model optimization and compilation",
+      "prompt": "Optimize model for inference:\n- Compilation: torch.compile (inductor, aot_autograd), JAX jit, TensorRT\n- Quantization: PTQ (dynamic, static), QAT, GPTQ, AWQ, HQQ, EETQ\n- Pruning: magnitude, movement, L0, structured, unstructured\n- Distillation: knowledge distillation, feature distillation, logit distillation\n- Architecture: depth/width scaling, early exit, dynamic inference\n- Kernel fusion: FlashAttention, xFormers, FlashInfer, custom kernels\n- Batching: continuous batching, paged attention, chunked prefill\n- Speculative decoding: draft model, Medusa, EAGLE, Lookahead\n- Serving: vLLM, SGLang, TensorRT-LLM, TGI, llama.cpp",
+      "arguments": [
+        {"name": "model_path", "description": "Path to model", "required": true},
+        {"name": "target", "description": "tensorrt, onnx, vllm, sglang, llama_cpp", "required": true},
+        {"name": "quantization", "description": "int8, int4, fp8, awq, gptq", "required": false, "default": "int8"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "dl-researcher",
+      "description": "DL researcher for cutting-edge model development",
+      "prompt": "You are a deep learning researcher. Implement novel architectures, reproduce papers, design experiments. Use PyTorch/JAX with torch.compile, FSDP, activation checkpointing. Focus on: efficiency (FLOPs, memory, latency), scaling laws, emergent capabilities, alignment. Write clean, modular, well-documented code with experiments tracked in W&B/MLflow."
+    }
+  ]
+}

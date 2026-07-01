@@ -1,0 +1,77 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "distributed-training",
+  "description": "Multi-GPU/multi-node training with FSDP, DeepSpeed, Megatron-LM, ColossalAI. Covers data, tensor, pipeline, sequence parallelism, ZeRO optimization, and communication optimization.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "dist:fsdp",
+      "description": "PyTorch FSDP training",
+      "prompt": "Create FSDP training with:\n- Sharding: FULL_SHARD, SHARD_GRAD_OP, NO_SHARD, HYBRID_SHARD\n- CPU offload: parameters, gradients, optimizer state\n- Activation checkpointing: selective, full, auto-wrap\n- Mixed precision: BF16, FP16, FP8\n- Communication: NCCL, GLOO, all-gather, reduce-scatter\n- Wrapping: auto_wrap_policy (size, transformer, custom)\n- Optimizer: state dict consolidation, sharded optimizer\n- Saving: sharded checkpoints, consolidated, DTensor\n- Elastic: torch.distributed.elastic, min/max nodes\n- Profiling: memory, communication, computation\n- Debugging: rank0 logs, DDP timeout, NCCL debug\n- Integration: PyTorch Lightning, Accelerate, TorchRun",
+      "arguments": [
+        {"name": "sharding", "description": "FULL_SHARD, HYBRID_SHARD, SHARD_GRAD_OP", "required": true, "default": "FULL_SHARD"},
+        {"name": "cpu_offload", "description": "Enable CPU offload", "required": false, "default": "false"},
+        {"name": "activation_checkpointing", "description": "Enable activation checkpointing", "required": false, "default": "true"},
+        {"name": "precision", "description": "bf16, fp16, fp8", "required": false, "default": "bf16"}
+      ]
+    },
+    {
+      "name": "dist:deepspeed",
+      "description": "DeepSpeed ZeRO training",
+      "prompt": "Create DeepSpeed training with:\n- ZeRO Stage 1: optimizer state partitioning\n- ZeRO Stage 2: + gradient partitioning\n- ZeRO Stage 3: + parameter partitioning (full sharding)\n- Offload: CPU (params, grads, optimizer), NVMe\n- Activation checkpointing: selective, full\n- Mixed precision: BF16, FP16, FP8\n- Pipeline parallelism: 1F1B, interleaved\n- Tensor parallelism: sequence parallel, Megatron style\n- MoE: expert parallelism, capacity factor\n- Communication: NCCL, MPI, all-reduce overlap\n- Checkpointing: ZeRO checkpoint, universal checkpoint\n- Config: JSON, YAML, command line\n- Integration: Megatron-DeepSpeed, HuggingFace Trainer, Accelerate",
+      "arguments": [
+        {"name": "zero_stage", "description": "1, 2, 3", "required": true, "default": "3"},
+        {"name": "offload", "description": "cpu, nvme, none", "required": false, "default": "none"},
+        {"name": "pipeline_parallel", "description": "Pipeline parallel size", "required": false, "default": "1"},
+        {"name": "tensor_parallel", "description": "Tensor parallel size", "required": false, "default": "1"}
+      ]
+    },
+    {
+      "name": "dist:megatron",
+      "description": "Megatron-LM training",
+      "prompt": "Create Megatron-LM training with:\n- Tensor parallelism: row/column, sequence parallel\n- Pipeline parallelism: GPipe, 1F1B, interleaved\n- Context parallelism: ring attention, zigzag ring\n- Expert parallelism: MoE, token/sequence dispatch\n- Sequence parallelism: reduce-scatter, all-gather\n- Optimizer: distributed optimizer, BF16/FP8\n- Checkpointing: distributed, async, model parallel\n- Data: blended datasets, weighted sampling, curriculum\n- Initialization: model parallel, tensor parallel\n- Transformer: GPT, BERT, T5, Llama, custom\n- Kernels: FlashAttention, fused bias-gelu, rotary\n- Logging: TensorBoard, WandB, MLPerf\n- Auto-config: auto-parallel, auto-tp/pp/cp",
+      "arguments": [
+        {"name": "model_type", "description": "gpt, bert, t5, llama", "required": true},
+        {"name": "tp", "description": "Tensor parallel size", "required": true, "default": "1"},
+        {"name": "pp", "description": "Pipeline parallel size", "required": true, "default": "1"},
+        {"name": "cp", "description": "Context parallel size", "required": false, "default": "1"}
+      ]
+    },
+    {
+      "name": "dist:colossalai",
+      "description": "ColossalAI training",
+      "prompt": "Create ColossalAI training with:\n- Parallelism: data, tensor (1D/2D/2.5D/3D), pipeline, sequence\n- ZeRO: ZeRO-DDP (Gemini), ZeRO-Offload\n- Auto-parallel: ShardFormer, auto-tensor, auto-pipeline\n- Gemini: heterogeneous memory management (CPU/GPU/NVMe)\n- Kernel: FlashAttention, fused ops, custom kernels\n- Checkpointing: activation, parameter, optimizer\n- Mixture of Experts: expert parallel, capacity\n- Booster: plug-and-play acceleration\n- Distributed: NCCL, GLOO, MPI\n- Integration: HuggingFace, PyTorch Lightning, custom\n- Profiling: memory, communication, computation",
+      "arguments": [
+        {"name": "strategy", "description": "ddp, zero, gemini, tensor_parallel, pipeline_parallel", "required": true, "default": "gemini"},
+        {"name": "model", "description": "Model name or path", "required": true}
+      ]
+    },
+    {
+      "name": "dist:accelerate",
+      "description": "HuggingFace Accelerate multi-GPU",
+      "prompt": "Create Accelerate config with:\n- Config: single/multi GPU, multi-node, TPU, FP8\n- DeepSpeed: ZeRO-2/3, offload, pipeline\n- FSDP: sharding, offload, activation checkpointing\n- Megatron-LM: tensor, pipeline, sequence parallel\n- Gradient accumulation, clipping, mixed precision\n- DataLoader: distributed sampler, split_batches\n- Scheduler: per-device, global step\n- Checkpointing: model, optimizer, scheduler, RNG\n- Logging: TensorBoard, WandB, MLflow, Comet\n- Launch: accelerate launch, torchrun, deepspeed\n- Debug: find_unused_parameters, gradient sync",
+      "arguments": [
+        {"name": "config", "description": "Config name (default, deepspeed_zero3, fsdp, megatron)", "required": true, "default": "fsdp"},
+        {"name": "num_processes", "description": "Number of GPUs", "required": true, "default": "8"},
+        {"name": "num_machines", "description": "Number of nodes", "required": false, "default": "1"}
+      ]
+    },
+    {
+      "name": "dist:kernels",
+      "description": "Custom kernels and optimization",
+      "prompt": "Create optimized kernels with:\n- FlashAttention: 2, 3, varlen, windowed, prefix\n- Triton: custom kernels, elementwise, reduction, matmul\n- xFormers: memory efficient attention, SwiGLU, RMSNorm\n- Fused: bias-gelu, bias-dropout-add, layer norm, rotary\n- Quantization: FP8 GEMM, INT8, INT4, MXFP4\n- MoE: token dispatch, expert parallel, capacity\n- Communication: NCCL kernels, all-reduce, all-gather\n- Profiling: NCU, Nsight Systems, torch.profiler\n- Compilation: torch.compile, Triton JIT, CUTLASS\n- Integration: Megatron, DeepSpeed, FlashAttention",
+      "arguments": [
+        {"name": "kernel_type", "description": "flash_attn, triton, xformers, fused, quant", "required": true},
+        {"name": "model", "description": "Target model", "required": true}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "distributed-engineer",
+      "description": "Distributed training engineer",
+      "prompt": "You are a distributed training engineer. Expert in: FSDP, DeepSpeed ZeRO, Megatron-LM, ColossalAI, PyTorch Distributed. Focus on: scaling laws, communication optimization, memory efficiency, kernel fusion, fault tolerance, elasticity. Write production training code for 100s-1000s of GPUs with monitoring, checkpointing, and debugging tools."
+    }
+  ]
+}

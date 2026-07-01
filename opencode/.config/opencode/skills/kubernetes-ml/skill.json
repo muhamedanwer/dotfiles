@@ -1,0 +1,73 @@
+{
+  "$schema": "https://opencode.ai/skill.json",
+  "name": "kubernetes-ml",
+  "description": "Kubernetes for ML workloads: Kubeflow, KServe, Ray, PyTorch Operator, Volcano, Kueue. Covers training, serving, pipelines, scheduling, and GPU resource management.",
+  "version": "1.0.0",
+  "author": "anwar",
+  "commands": [
+    {
+      "name": "k8s:kubeflow",
+      "description": "Deploy Kubeflow platform",
+      "prompt": "Deploy Kubeflow with:\n- Components: Pipelines, Katib (HPO), KServe (serving), Training Operator, Notebooks\n- Installation: manifests, kustomize, kubeflow-gke, AWS, Azure\n- Pipelines: SDK v2, DSL, components, caching, parameters\n- Katib: hyperparameter tuning, NAS, algorithms (TPE, CMA-ES, Grid)\n- KServe: InferenceService, predictor, explainer, transformer\n- Training Operator: PyTorchJob, TensorFlowJob, MPIJob, RayJob\n- Notebooks: JupyterLab, VS Code, RStudio, custom images\n- Metadata: MLMD, artifact tracking, lineage\n- Multi-user: Istio, Dex, RBAC, namespaces\n- Monitoring: Prometheus, Grafana, dashboards\n- Upgrade: version migration, backup/restore",
+      "arguments": [
+        {"name": "cloud", "description": "gke, eks, aks, onprem", "required": true, "default": "gke"},
+        {"name": "version", "description": "Kubeflow version", "required": false, "default": "1.9"}
+      ]
+    },
+    {
+      "name": "k8s:kserve",
+      "description": "Deploy KServe model serving",
+      "prompt": "Deploy KServe with:\n- InferenceService: predictor, transformer, explainer\n- Runtimes: SKLearn, XGBoost, LightGBM, PyTorch, TensorFlow, ONNX, Triton, TensorRT-LLM, vLLM\n- Storage: PVC, S3, GCS, URI\n- Autoscaling: KPA (Knative Pod Autoscaler), HPA, custom metrics\n- Canary: traffic split, progressive delivery, Flagger\n- ModelMesh: multi-model serving, model management\n- Auth: OIDC, API keys, Knative auth\n- Monitoring: Prometheus, Grafana, OpenTelemetry\n- Logging: structured, request/response\n- Batching: batch predictor, queue, timeout",
+      "arguments": [
+        {"name": "runtime", "description": "pytorch, tensorflow, triton, vllm, tensorrt_llm", "required": true, "default": "vllm"},
+        {"name": "model_uri", "description": "Model storage URI", "required": true},
+        {"name": "autoscaling", "description": "Enable autoscaling", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "k8s:ray",
+      "description": "Deploy Ray on Kubernetes",
+      "prompt": "Deploy Ray with:\n- Operator: KubeRay operator, custom resources\n- Cluster: RayCluster, RayJob, RayService\n- Autoscaling: head/worker groups, min/max replicas\n- Resources: GPU, CPU, memory, custom resources\n- Scheduling: gang scheduling, topology aware, priority\n- Runtime: Ray Docker images, custom environments\n- Jobs: RayJob, submission, monitoring, logs\n- Serve: Ray Serve, deployments, ingress, autoscaling\n- Data: Ray Data, Datasets, streaming\n- Tune: Ray Tune, HPO, schedulers, search algorithms\n- Monitoring: Prometheus, Grafana, Ray Dashboard\n- Integration: MLflow, WandB, Kubeflow, Airflow",
+      "arguments": [
+        {"name": "version", "description": "Ray version", "required": false, "default": "2.35"},
+        {"name": "gpus", "description": "GPUs per worker", "required": false, "default": "1"},
+        {"name": "autoscaling", "description": "Enable autoscaling", "required": false, "default": "true"}
+      ]
+    },
+    {
+      "name": "k8s:pytorch-operator",
+      "description": "PyTorch distributed training operator",
+      "prompt": "Deploy PyTorch Operator with:\n- PyTorchJob: distributed training spec\n- Backends: gloo, nccl, mpi, ccl\n- Elastic: min/max replicas, rdzv backend (etcd, consul)\n- Resources: GPU, CPU, memory per replica\n- Volumes: PVC, emptyDir, hostPath, configMap\n- Checkpointing: volume, S3, GCS\n- Monitoring: metrics, events, logs\n- Cleanup: TTL, success/failure policy\n- Integration: Kubeflow, MLflow, WandB\n- Multi-node: worker groups, master/worker",
+      "arguments": [
+        {"name": "backend", "description": "nccl, gloo, mpi", "required": true, "default": "nccl"},
+        {"name": "replicas", "description": "Number of worker replicas", "required": true, "default": "4"},
+        {"name": "gpus_per_replica", "description": "GPUs per replica", "required": false, "default": "1"}
+      ]
+    },
+    {
+      "name": "k8s:scheduling",
+      "description": "GPU scheduling and resource management",
+      "prompt": "Configure GPU scheduling with:\n- Device plugins: NVIDIA, AMD, Intel, Habana\n- NVIDIA: MIG, time-slicing, mig-partition, gpu-feature-discovery\n- Scheduler: default, volcano, kueue, coscheduling\n- Volcano: gang scheduling, queue, priority, preemption\n- Kueue: cluster queue, local queue, borrowing, admission\n- Topology: node affinity, pod affinity, spread constraints\n- Resource quotas: namespace, priority class\n- Bin packing: requestedToCapacityRatio, leastRequested\n- GPU sharing: MIG, time-slicing, vGPU\n- Monitoring: DCGM exporter, GPU metrics, utilization",
+      "arguments": [
+        {"name": "scheduler", "description": "default, volcano, kueue", "required": true, "default": "kueue"},
+        {"name": "gpu_sharing", "description": "mig, time_slicing, none", "required": false, "default": "time_slicing"}
+      ]
+    },
+    {
+      "name": "k8s:mlops-platform",
+      "description": "End-to-end MLOps platform on Kubernetes",
+      "prompt": "Build MLOps platform with:\n- Core: Kubeflow, KServe, Ray, MLflow, ArgoCD\n- Pipelines: Kubeflow Pipelines, Argo Workflows, Dagster\n- Feature Store: Feast (online/offline), Tecton\n- Experiment Tracking: MLflow, WandB, Neptune\n- Model Registry: MLflow, Kubeflow Metadata\n- Serving: KServe, vLLM, Triton, BentoML\n- Monitoring: Prometheus, Grafana, Evidently, WhyLabs\n- Drift Detection: Evidently, custom\n- CI/CD: ArgoCD, Flux, Tekton, GitHub Actions\n- GitOps: app-of-apps, multi-cluster, environments\n- Security: Kyverno, OPA Gatekeeper, Istio mTLS\n- Cost: Kubecost, Karpenter, spot instances\n- Developer Experience: Backstage, internal developer portal",
+      "arguments": [
+        {"name": "cloud", "description": "aws, gcp, azure, onprem", "required": true},
+        {"name": "scale", "description": "small, medium, large, enterprise", "required": false, "default": "medium"}
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "name": "kubernetes-ml-engineer",
+      "description": "Kubernetes ML platform engineer",
+      "prompt": "You are a Kubernetes ML engineer. Expert in: Kubeflow, KServe, Ray, PyTorch Operator, Volcano, Kueue, Karpenter. Build production ML platforms on Kubernetes with: GPU scheduling, distributed training, model serving, pipelines, monitoring, GitOps, cost optimization. Write manifests, operators, and automation with Helm, Kustomize, and controllers."
+    }
+  ]
+}
