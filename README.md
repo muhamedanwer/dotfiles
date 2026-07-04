@@ -16,7 +16,7 @@ This repository contains dotfiles and configs for my daily desktop environment:
 - **Shells**: Fish, Bash, Zsh
 - **Other**: Starship, Fastfetch, opencode
 
-**Root-level dotfiles**: `.vimrc`, `.xinitrc`, `.zshrc`, `hyprland.conf`, `picom.conf`, plus input device configs.
+**Root-level dotfiles**: `.vimrc`, `.xinitrc` (managed via `root/` package), `.zshrc` (managed via `zsh/` package).
 
 ## Setup
 
@@ -31,7 +31,6 @@ cd ~/dotfiles
 
 The installer will:
 - Install Stow if not present (pacman, apt, dnf, or brew)
-- Backup any conflicting files to `~/.local/share/dotfiles-backup/`
 - Symlink all configs into place
 
 ### Manual setup
@@ -42,13 +41,41 @@ cd ~/dotfiles
 stow alacritty    # Creates ~/.config/alacritty/ symlink
 stow nvim         # Creates ~/.config/nvim/ symlink
 stow fish         # Creates ~/.config/fish/ symlink
+stow root         # Creates ~/.vimrc, ~/.xinitrc symlinks
+stow zsh          # Creates ~/.zshrc symlink
+```
+
+## Package Structure
+
+Each package follows the standard Stow layout where configs are placed under `.config/<app>/` or at the root level:
+
+```
+dotfiles/
+├── alacritty/.config/alacritty/     # → ~/.config/alacritty/
+├── bash/                            # → ~/.bash_profile, ~/.bashrc
+├── dunst/.config/dunst/             # → ~/.config/dunst/
+├── fastfetch/.config/fastfetch/     # → ~/.config/fastfetch/
+├── fish/.config/fish/               # → ~/.config/fish/
+├── hypr/.config/hypr/               # → ~/.config/hypr/
+├── mako/.config/mako/               # → ~/.config/mako/
+├── nvim/.config/nvim/               # → ~/.config/nvim/
+├── opencode/.config/opencode/       # → ~/.config/opencode/
+├── rofi/.config/rofi/               # → ~/.config/rofi/
+├── root/                            # → ~/.vimrc, ~/.xinitrc
+├── scripts/.local/bin/              # → ~/.local/bin/
+├── starship/.config/                # → ~/.config/starship.toml
+├── swaylock/.config/swaylock/       # → ~/.config/swaylock/
+├── waybar/.config/waybar/           # → ~/.config/waybar/
+├── wofi/.config/wofi/               # → ~/.config/wofi/
+└── zsh/                             # → ~/.zshrc
 ```
 
 ## Key files & scripts
 
-- `install.sh` — automated setup with Stow and optional package installation
+- `install.sh` — automated setup with Stow
 - `setup_obsidian_vault.sh` — Obsidian vault initialization helper
 - `dwm/` — DWM source with custom patches and config (see `dwm/README`, rebuild with `make`)
+- `slstatus/` — slstatus source with custom config (rebuild with `make`)
 - `hypr/` — Hyprland config and helper scripts
 - `scripts/` — utility scripts (e.g., for status bar, keyboard layout)
 - `nvim/` — Neovim Lua config with lazy.nvim
