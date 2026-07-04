@@ -27,7 +27,7 @@ cd "$DOTFILES_DIR"
 
 echo "Stowing configurations..."
 
-PACKAGES=(alacritty bash dunst fastfetch fish hypr mako nvim opencode rofi root scripts starship swaylock waybar wofi zsh)
+PACKAGES=(alacritty bash dunst fastfetch fish hypr mako nvim opencode rofi root scripts starship swaylock wallpapers waybar wofi zsh)
 for package in "${PACKAGES[@]}"; do
     if [[ -d "$package" ]]; then
         echo "  Stowing $package..."
