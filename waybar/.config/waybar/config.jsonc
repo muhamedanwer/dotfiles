@@ -74,7 +74,8 @@
         "on-right-click": "bash /home/anwar/.local/bin/waybar-taskwarrior.sh list 2>/dev/null",
         "on-middle-click": "bash /home/anwar/.local/bin/waybar-taskwarrior.sh done 2>/dev/null",
         "return-type": "json",
-        "signal": 11
+        "signal": 11,
+        "on-update": true
     },
 
     // ── CPU ───────────────────────────────────────────────────────────────────
@@ -126,7 +127,7 @@
     //
     "temperature": {
         "interval": 3,
-        "thermal-zone": 0,
+        "thermal-zone": 8,
         // "hwmon-chip": "coretemp",
         // "input-filename": "temp1_input",
         "critical-threshold": 85,

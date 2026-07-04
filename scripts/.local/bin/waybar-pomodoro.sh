@@ -132,25 +132,25 @@ format_output() {
     case "$state" in
         running)
             case "$mode" in
-                work)       icon="🍅"; class="running-work" ;;
-                break)      icon="☕"; class="running-break" ;;
-                long_break) icon="🌴"; class="running-long-break" ;;
+                work)       icon="🍅"; class="working" ;;
+                break)      icon="☕"; class="break" ;;
+                long_break) icon="🌴"; class="break" ;;
             esac
             tooltip="$mode • $time remaining\\nSessions today: $total"
             ;;
         paused)
             case "$mode" in
-                work)       icon="🍅"; class="paused-work" ;;
-                break)      icon="☕"; class="paused-break" ;;
-                long_break) icon="🌴"; class="paused-long-break" ;;
+                work)       icon="🍅"; class="paused" ;;
+                break)      icon="☕"; class="paused" ;;
+                long_break) icon="🌴"; class="paused" ;;
             esac
             tooltip="$mode (paused) • $time left\\nSessions today: $total\\nClick to resume"
             ;;
         idle)
             case "$mode" in
-                work)       icon="🍅"; class="idle-work" ;;
-                break)      icon="☕"; class="idle-break" ;;
-                long_break) icon="🌴"; class="idle-long-break" ;;
+                work)       icon="🍅"; class="idle" ;;
+                break)      icon="☕"; class="idle" ;;
+                long_break) icon="🌴"; class="idle" ;;
             esac
             tooltip="Ready: $mode\\nSessions today: $total\\nClick to start"
             ;;

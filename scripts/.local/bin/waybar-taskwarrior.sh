@@ -25,7 +25,7 @@ case "${1:-status}" in
             class="done"
         fi
         
-        jq -n --arg text "$text" --arg tooltip "$tooltip" --arg class "$class" \
+        jq -c -n --arg text "$text" --arg tooltip "$tooltip" --arg class "$class" \
             '{text: $text, tooltip: $tooltip, class: $class}' 2>/dev/null || \
         printf '{"text": "%s", "tooltip": "%s", "class": "%s"}\n' "$text" "$tooltip" "$class"
         ;;
