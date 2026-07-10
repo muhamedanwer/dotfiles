@@ -9,17 +9,25 @@ map("n", "<leader>q", "<cmd>q<CR>", opts)
 map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
 map("n", "<leader>pv", vim.cmd.Ex, { desc = "File explorer (netrw)" })
 
--- Window navigation (default: <C-w>h/j/k/l)
+-- Window navigation
+map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Move to lower window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Move to upper window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+
 -- Window resizing
 map("n", "<C-Up>", "<cmd>resize +2<CR>", opts)
 map("n", "<C-Down>", "<cmd>resize -2<CR>", opts)
 map("n", "<C-Left>", "<cmd>vertical resize -2<CR>", opts)
 map("n", "<C-Right>", "<cmd>vertical resize +2<CR>", opts)
 
--- Buffer navigation (default: :bnext, :bprev, :bd)
+-- Buffer navigation
 map("n", "<leader>bl", "<cmd>Telescope buffers<CR>", { desc = "List buffers" })
+map("n", "<S-h>", "<cmd>bprevious<CR>", { desc = "Prev buffer" })
+map("n", "<S-l>", "<cmd>bnext<CR>", { desc = "Next buffer" })
+map("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
 
--- Tab navigation (default: gt, gT, :tabnew, :tabclose)
+-- Tab navigation
 map("n", "<leader>tn", "<cmd>tabnew<CR>", { desc = "New tab" })
 map("n", "<leader>td", "<cmd>tabclose<CR>", { desc = "Close tab" })
 
@@ -29,29 +37,29 @@ map("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "Toggle undotree" })
 -- Search
 map("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
 
--- Zen mode
+-- Harpoon
+map("n", "<leader>ha", function() require("harpoon"):list():add() end, { desc = "Harpoon add file" })
+map("n", "<leader>hh", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, { desc = "Harpoon menu" })
+map("n", "<leader>1", function() require("harpoon"):list():select(1) end, { desc = "Harpoon file 1" })
+map("n", "<leader>2", function() require("harpoon"):list():select(2) end, { desc = "Harpoon file 2" })
+map("n", "<leader>3", function() require("harpoon"):list():select(3) end, { desc = "Harpoon file 3" })
+map("n", "<leader>4", function() require("harpoon"):list():select(4) end, { desc = "Harpoon file 4" })
 
--- LSP (defined in lsp.lua on LspAttach)
-
--- DAP (defined in dap.lua)
-
--- Database (defined in database.lua)
-
--- Telescope (defined in plugins.lua)
+-- Toggleterm
+map("n", "<leader>tt", "<cmd>ToggleTerm<CR>", { desc = "Toggle terminal" })
+map("t", "<C-h>", "<cmd>wincmd h<CR>", { desc = "Terminal left" })
+map("t", "<C-j>", "<cmd>wincmd j<CR>", { desc = "Terminal down" })
+map("t", "<C-k>", "<cmd>wincmd k<CR>", { desc = "Terminal up" })
+map("t", "<C-l>", "<cmd>wincmd l<CR>", { desc = "Terminal right" })
+map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Git
 map("n", "<leader>gs", "<cmd>Git<CR>", { desc = "Git status" })
 map("n", "<leader>gc", "<cmd>Git commit<CR>", { desc = "Git commit" })
 map("n", "<leader>gp", "<cmd>Git push<CR>", { desc = "Git push" })
 map("n", "<leader>gl", "<cmd>Git log --oneline -20<CR>", { desc = "Git log" })
-
--- Terminal
-map("n", "<leader>tt", "<cmd>terminal<CR>", { desc = "Open terminal" })
-map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
--- Markdown preview
-map("n", "<leader>mp", "<cmd>MarkdownPreview<CR>", { desc = "Markdown preview" })
-map("n", "<leader>ms", "<cmd>MarkdownPreviewStop<CR>", { desc = "Stop markdown preview" })
+map("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", { desc = "Git diffview" })
+map("n", "<leader>gh", "<cmd>DiffviewFileHistory<CR>", { desc = "Git file history" })
 
 -- Python
 map("n", "<leader>vs", "<cmd>VenvSelect<CR>", { desc = "Select Python venv" })
@@ -76,3 +84,17 @@ map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Trouble 
 map("n", "<leader>xw", "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", { desc = "Trouble buffer diagnostics" })
 map("n", "<leader>xl", "<cmd>Trouble loclist toggle<CR>", { desc = "Trouble loclist" })
 map("n", "<leader>xq", "<cmd>Trouble quickfix toggle<CR>", { desc = "Trouble quickfix" })
+
+-- Database
+map("n", "<leader>D", "<cmd>DBUIToggle<cr>", { desc = "Toggle DB UI" })
+map("n", "<leader>Da", "<cmd>DBUIAddConnection<cr>", { desc = "Add DB connection" })
+map("n", "<leader>Df", "<cmd>DBUIFindBuffer<cr>", { desc = "Find DB buffer" })
+map("n", "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>", { desc = "Rename DB buffer" })
+
+-- AI
+map("n", "<leader>ac", function() require("codecompanion").chat() end, { desc = "AI chat" })
+map("n", "<leader>ai", function() require("codecompanion").inline() end, { desc = "AI inline" })
+map("v", "<leader>ai", function() require("codecompanion").inline() end, { desc = "AI inline (visual)" })
+
+-- Zen mode
+map("n", "<leader>z", "<cmd>ZenMode<CR>", { desc = "Toggle zen mode" })

@@ -108,8 +108,6 @@ function _G.toggle_focus_mode()
   end
 end
 
-vim.keymap.set("n", "<leader>z", toggle_focus_mode, { desc = "Toggle focus mode" })
-
 -- Statusline: show macro recording
 vim.api.nvim_create_autocmd("RecordingEnter", {
   group = vim.api.nvim_create_augroup("MacroRecording", {}),
@@ -169,5 +167,31 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
     if vim.wo.number then
       vim.wo.relativenumber = event.event == "InsertLeave"
     end
+  end,
+})
+
+-- Which-key groups (lazy-loaded)
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    local wk = require("which-key")
+    wk.add({
+      { "<leader>f", group = "Find/Telescope" },
+      { "<leader>g", group = "Git" },
+      { "<leader>d", group = "Debug/DAP" },
+      { "<leader>t", group = "Test/Trouble" },
+      { "<leader>r", group = "Rust" },
+      { "<leader>D", group = "Database" },
+      { "<leader>h", group = "Harpoon" },
+      { "<leader>a", group = "AI" },
+      { "<leader>x", group = "Trouble" },
+      { "<leader>w", proxy = "w", desc = "Save" },
+      { "<leader>q", proxy = "q", desc = "Quit" },
+      { "<leader>e", proxy = "e", desc = "File explorer" },
+      { "<leader>z", proxy = "z", desc = "Zen/Focus mode" },
+      { "<leader>u", proxy = "u", desc = "Undotree" },
+      { "<leader>v", proxy = "vs", desc = "Python venv" },
+      { "<leader>m", proxy = "fm", desc = "Format" },
+    })
   end,
 })

@@ -15,12 +15,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Keymaps
-vim.keymap.set("n", "<leader>D", "<cmd>DBUIToggle<cr>", { desc = "Toggle DB UI" })
-vim.keymap.set("n", "<leader>Da", "<cmd>DBUIAddConnection<cr>", { desc = "Add DB connection" })
-vim.keymap.set("n", "<leader>Df", "<cmd>DBUIFindBuffer<cr>", { desc = "Find DB buffer" })
-vim.keymap.set("n", "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>", { desc = "Rename DB buffer" })
-
 -- Example connections (add to ~/.vim/db_ui/connections.json):
 -- {
 --   "dev_postgres": {

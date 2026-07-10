@@ -22,13 +22,12 @@ Plug 'morhetz/gruvbox'                  " Gruvbox color scheme
 " Python Development
 Plug 'psf/black', { 'branch': 'stable' } " Auto-format Python code
 Plug 'nvie/vim-flake8'                  " Python linting with Flake8
-Plug 'junegunn/vim-plug'
 Plug 'davidhalter/jedi-vim'  " Jedi for Python autocompletion
 
 " C/C++ Development
 Plug 'octol/vim-cpp-enhanced-highlight' " Enhanced C/C++ syntax highlighting
 Plug 'vim-jp/vim-cpp'
-Plug 'rip-rip/clang_complete'
+" Plug 'rip-rip/clang_complete'  (unmaintained, use built-in omni-completion or YouCompleteMe)
 
 " Rust Development
 Plug 'rust-lang/rust.vim'               " Rust syntax highlighting and auto-formatting

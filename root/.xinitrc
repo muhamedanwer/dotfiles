@@ -1,6 +1,6 @@
-exec nitrogen --restore &
-exec slstatus &
-exec volumeicon &
-exec blueberry &
-exec flameshot &
-dwm
+nitrogen --restore &
+slstatus &
+volumeicon &
+blueberry &
+flameshot &
+exec dwm

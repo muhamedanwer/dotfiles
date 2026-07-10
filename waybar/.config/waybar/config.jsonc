@@ -2,41 +2,49 @@
     "layer": "top",
     "position": "top",
     "height": 32,
-    "spacing": 6,
-
+    "spacing": 4,
     // ┌─────────────────────────────────────────────────────────────────────┐
     // │  Left: workspaces  │  Center: clock · pomodoro · tasks  │  Right:  │
     // │  cpu · memory · temperature · network · audio · battery · tray      │
     // └─────────────────────────────────────────────────────────────────────┘
-    "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["clock", "custom/pomodoro", "custom/taskwarrior"],
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "clock",
+        "custom/pomodoro",
+        "custom/taskwarrior"
+    ],
     "modules-right": [
+        "idle_inhibitor",
         "cpu",
         "memory",
         "temperature",
+        "custom/gpu",
+        "custom/disk",
+        "hyprland/language",
         "network",
         "pulseaudio",
         "battery",
+        "mpd",
+        "custom/jupyter",
         "tray"
     ],
-
     // ── Workspaces ───────────────────────────────────────────────────────────
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "format": "{icon}",
         "format-icons": {
-            "1": "1", "2": "2", "3": "3", "4": "4", "5": "5",
-            "6": "6", "7": "7", "8": "8", "9": "9", "10": "10",
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
             "active": "●",
             "urgent": "◌"
-        },
-        "persistent-workspaces": {
-            "1": [], "2": [], "3": [], "4": [], "5": [],
-            "6": [], "7": [], "8": [], "9": [], "10": []
         }
     },
-
     // ── Clock ─────────────────────────────────────────────────────────────────
     "clock": {
         "format": " {:%H:%M}",
@@ -48,7 +56,6 @@
             "on-scroll": 1
         }
     },
-
     // ── Pomodoro ──────────────────────────────────────────────────────────────
     // Script: ~/.local/bin/waybar-pomodoro.sh
     //   left-click   → toggle (start / pause / resume)
@@ -64,20 +71,21 @@
         "return-type": "json",
         "signal": 10
     },
-
     // ── Taskwarrior ───────────────────────────────────────────────────────────
+    // Script: ~/.local/bin/waybar-taskwarrior.sh
+    //   left-click   → add task
+    //   right-click  → list tasks (with action menu)
+    //   middle-click → interaction menu (add/list/done/start/stop/sync)
     "custom/taskwarrior": {
         "format": "{}",
-        "interval": 5,
+        "interval": 10,
         "exec": "bash /home/anwar/.local/bin/waybar-taskwarrior.sh status 2>/dev/null",
         "on-click": "bash /home/anwar/.local/bin/waybar-taskwarrior.sh add 2>/dev/null",
         "on-right-click": "bash /home/anwar/.local/bin/waybar-taskwarrior.sh list 2>/dev/null",
-        "on-middle-click": "bash /home/anwar/.local/bin/waybar-taskwarrior.sh done 2>/dev/null",
+        "on-middle-click": "bash /home/anwar/.local/bin/waybar-taskwarrior.sh menu 2>/dev/null",
         "return-type": "json",
-        "signal": 11,
-        "on-update": true
+        "signal": 11
     },
-
     // ── CPU ───────────────────────────────────────────────────────────────────
     // Polls every 2 s. Click → btop. Alt-click → frequency view.
     // CSS classes "warning"(70%) and "critical"(90%) — wire in style.css.
@@ -93,7 +101,6 @@
             "critical": 90
         }
     },
-
     // ── Memory ────────────────────────────────────────────────────────────────
     // Shows used/total in GiB. Alt-click → percentage view.
     "memory": {
@@ -108,7 +115,6 @@
             "critical": 85
         }
     },
-
     // ── Temperature ───────────────────────────────────────────────────────────
     //
     // SETUP — pick one option:
@@ -133,11 +139,14 @@
         "critical-threshold": 85,
         "format": "{icon} {temperatureC}°C",
         "format-critical": "󱃂 {temperatureC}°C",
-        "format-icons": ["", "", ""],
+        "format-icons": [
+            "",
+            "",
+            ""
+        ],
         "tooltip": true,
         "tooltip-format": "CPU temp: {temperatureC}°C"
     },
-
     // ── Network ───────────────────────────────────────────────────────────────
     // Click → nmtui for quick connection switching without leaving the terminal.
     "network": {
@@ -149,7 +158,6 @@
         "tooltip-format-ethernet": "{ifname}: {ipaddr}",
         "on-click": "alacritty -e nmtui"
     },
-
     // ── Pulseaudio / PipeWire-pulse ───────────────────────────────────────────
     // Right-click mutes/unmutes directly without opening pavucontrol.
     "pulseaudio": {
@@ -160,14 +168,66 @@
             "headphone": "󰋋",
             "headset": "󰋋",
             "speaker": "󰕾",
-            "default": ["󰕿", "󰖀", "󰕾"]
+            "default": [
+                "󰕿",
+                "󰖀",
+                "󰕾"
+            ]
         },
         "on-click": "pavucontrol",
         "on-right-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "scroll-step": 5,
         "tooltip-format": "{desc}\nVolume: {volume}%"
     },
-
+    // ── GPU ───────────────────────────────────────────────────────────────────
+    "custom/gpu": {
+        "exec": "bash /home/anwar/.local/bin/waybar-gpu.sh 2>/dev/null",
+        "interval": 5,
+        "return-type": "json",
+        "signal": 12
+    },
+    // ── Disk ──────────────────────────────────────────────────────────────────
+    "custom/disk": {
+        "exec": "bash /home/anwar/.local/bin/waybar-disk.sh 2>/dev/null",
+        "interval": 60,
+        "return-type": "json",
+        "signal": 14,
+        "on-click": "alacritty -e ncdu /"
+    },
+    // ── Idle Inhibitor ────────────────────────────────────────────────────────
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰅶",
+            "deactivated": "󰾪"
+        }
+    },
+    // ── MPD ───────────────────────────────────────────────────────────────────
+    "mpd": {
+        "format": "{stateIcon} {artist} - {title}",
+        "format-disconnected": " 󰎆",
+        "format-stopped": " 󰓛",
+        "stateIcons": {
+            "play": "󰐊",
+            "pause": "󰏤"
+        },
+        "interval": 2,
+        "on-click": "mpc toggle",
+        "on-right-click": "alacritty -e ncmpcpp",
+        "tooltip-format": "{elapsed}/{total}  {stateIcon} {artist} - {title}"
+    },
+    // ── Jupyter ───────────────────────────────────────────────────────────────
+    "custom/jupyter": {
+        "exec": "bash /home/anwar/.local/bin/waybar-jupyter.sh 2>/dev/null",
+        "interval": 30,
+        "return-type": "json",
+        "signal": 13
+    },
+    // ── Keyboard Layout ───────────────────────────────────────────────────────
+    "hyprland/language": {
+        "format": " {}",
+        "on-click": "hyprctl switchxkblayout all next"
+    },
     // ── Battery ───────────────────────────────────────────────────────────────
     // 30 s interval — battery doesn't move faster than that.
     "battery": {
@@ -176,14 +236,24 @@
         "format-charging": "{capacity}% 󰂄",
         "format-plugged": "{capacity}% 󰚥",
         "format-alt": "{time} {icon}",
-        "format-icons": ["󰂎", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "format-icons": [
+            "󰂎",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
         "states": {
             "warning": 25,
             "critical": 10
         },
         "tooltip-format": "{capacity}%\nTime: {timeTo}\nPower: {power}W"
     },
-
     // ── System tray ───────────────────────────────────────────────────────────
     "tray": {
         "icon-size": 16,

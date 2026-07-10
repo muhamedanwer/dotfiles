@@ -22,10 +22,17 @@ require("lazy").setup({
     config = function()
       require("telescope").setup({
         pickers = { find_files = { hidden = true } },
+        extensions = {
+          fzf = { fuzzy = true, override_generic_sorter = true, override_file_sorter = true, case_mode = "smart_case" },
+          live_grep_args = { auto_quoting = true },
+        },
       })
+      require("telescope").load_extension("fzf")
+      require("telescope").load_extension("live_grep_args")
       local builtin = require("telescope.builtin")
+      local extensions = require("telescope").extensions
       vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
+      vim.keymap.set("n", "<leader>fg", extensions.live_grep_args.live_grep_args, { desc = "Live grep (args)" })
       vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Help tags" })
       vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "LSP references" })
@@ -33,6 +40,8 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>fw", builtin.lsp_workspace_symbols, { desc = "Workspace symbols" })
     end
   },
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  { "nvim-telescope/telescope-live-grep-args.nvim" },
   { "nvim-tree/nvim-web-devicons" },
   { "folke/tokyonight.nvim", lazy = false, config = function()
       require("tokyonight").setup({
@@ -90,7 +99,7 @@ require("lazy").setup({
       dashboard.section.buttons.val = {
         dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
         dashboard.button("r", "  Recent files", ":Telescope oldfiles <CR>"),
-        dashboard.button("g", "  Find text", ":Telescope live_grep <CR>"),
+        dashboard.button("g", "  Find text", ":Telescope live_grep_args <CR>"),
         dashboard.button("e", "  File explorer", ":NvimTreeToggle <CR>"),
         dashboard.button("p", "  Projects", ":Telescope find_files <CR>"),
         dashboard.button("s", "  Settings", ":e $MYVIMRC <CR>"),
@@ -101,6 +110,9 @@ require("lazy").setup({
       alpha.setup(dashboard.config)
     end,
   },
+
+  -- Session persistence
+  { "folke/persistence.nvim", event = "BufReadPre", config = true },
 
   -- LSP & Mason
   { "williamboman/mason.nvim", build = ":MasonUpdate" },
@@ -115,6 +127,10 @@ require("lazy").setup({
   { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
   { "rafamadriz/friendly-snippets" },
   { "stevearc/conform.nvim" },
+
+  -- Enhanced LSP UX
+  { "rachartier/tiny-inline-diagnostic.nvim", event = "LspAttach", config = true },
+  { "ray-x/lsp_signature.nvim", event = "LspAttach", config = true },
 
   -- Python
   { "mfussenegger/nvim-dap-python" },
@@ -161,6 +177,8 @@ require("lazy").setup({
 
   -- Git
   { "tpope/vim-fugitive" },
+  { "tpope/vim-rhubarb" },
+  { "sindrets/diffview.nvim", cmd = { "DiffviewOpen", "DiffviewFileHistory" } },
   { "lewis6991/gitsigns.nvim", config = true },
 
   -- Debugging
@@ -180,12 +198,31 @@ require("lazy").setup({
   { "numToStr/Comment.nvim", config = true },
   { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
   { "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, config = true },
-  { "rcarriga/nvim-notify", event = "VeryLazy", config = function()
-      local notify = require("notify")
-      notify.setup({ background_colour = "#0d0d0d", fps = 30, stages = "fade_in_slide_out" })
-      vim.notify = notify
+  { "folke/noice.nvim", event = "VeryLazy", dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" }, config = function()
+      require("noice").setup({
+        lsp = { override = { ["vim.lsp.util.convert_input_to_markdown_lines"] = true, ["vim.lsp.util.stylize_markdown"] = true, ["cmp.entry.get_documentation"] = true } },
+        presets = { bottom_search = true, command_palette = true, long_message_to_split = true, inc_rename = false, lsp_doc_border = true },
+        views = { cmdline_popup = { border = { style = "rounded" }, position = { row = 5, col = "50%" } } },
+      })
     end
   },
+
+  -- Indent guides & folding
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async", event = "BufReadPost", config = function()
+      vim.o.foldcolumn = "1"
+      vim.o.foldlevel = 99
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+      require("ufo").setup({ provider_selector = function() return { "treesitter", "indent" } end })
+    end
+  },
+  { "nvim-treesitter/nvim-treesitter-context", config = true },
+  { "nvim-treesitter/nvim-treesitter-textobjects" },
+
+  -- Navigation
+  { "ThePrimeagen/harpoon", branch = "harpoon2", dependencies = "nvim-lua/plenary.nvim", config = true },
+  { "akinsho/toggleterm.nvim", version = "*", config = true },
 
   -- File explorer
   { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" },

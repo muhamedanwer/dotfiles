@@ -9,42 +9,6 @@ mason_lspconfig.setup({
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
-local function make_lsp_opts(server)
-  local opts = { capabilities = capabilities }
-  if server == "pyright" then
-    opts.settings = {
-      python = {
-        analysis = {
-          typeCheckingMode = "basic",
-          autoSearchPaths = true,
-          useLibraryCodeForTypes = true,
-          diagnosticMode = "workspace",
-        },
-      },
-    }
-  elseif server == "clangd" then
-    opts.cmd = { "clangd", "--background-index", "--clang-tidy", "--completion-style=detailed", "--header-insertion=iwyu" }
-  elseif server == "rust_analyzer" then
-    opts.settings = {
-      ["rust-analyzer"] = {
-        cargo = { allFeatures = true },
-        checkOnSave = { command = "clippy" },
-        procMacro = { enable = true },
-      },
-    }
-  elseif server == "yamlls" then
-    opts.settings = {
-      yaml = {
-        schemas = {
-          ["https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/dbt.yml"] = "dbt_project.yml",
-          ["https://raw.githubusercontent.com/airflow/apache-airflow/main/airflow/config_templates/airflow.cfg"] = "airflow.cfg",
-        },
-      },
-    }
-  end
-  return opts
-end
-
 -- LSP keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -60,9 +24,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
     vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
     vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-    vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-    vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
   end,
 })
@@ -115,7 +76,6 @@ cmp.setup({
   },
 })
 
--- Use cmdline & path source for ':' and '/'
 cmp.setup.cmdline({ "/", "?" }, {
   mapping = cmp.mapping.preset.cmdline(),
   sources = { { name = "buffer" } },
@@ -125,47 +85,61 @@ cmp.setup.cmdline(":", {
   sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
 
--- LSP configurations: use mason-lspconfig handlers to avoid requiring the
--- deprecated `lspconfig` framework directly. This defers setup until
--- mason has registered the server and prevents deprecation warnings.
-if type(mason_lspconfig.setup_handlers) == "function" then
-  mason_lspconfig.setup_handlers({
-    function(server_name)
-      local ok, opts = pcall(make_lsp_opts, server_name)
-      if not ok then
-        opts = {}
-      end
+-- New vim.lsp.config API (Neovim 0.11+)
+vim.lsp.config("*", {
+  capabilities = capabilities,
+})
 
-      if vim.lsp.config and vim.lsp.config[server_name] and type(vim.lsp.config[server_name].setup) == "function" then
-        vim.lsp.config[server_name].setup(opts)
-      else
-        vim.notify(string.format("LSP: no setup function for %s (skipping)", server_name), vim.log.levels.WARN)
-      end
-    end,
-  })
-else
-  -- Fallback: mason-lspconfig doesn't provide setup_handlers (older version).
-  -- Configure known servers directly; try vim.lsp.config first, then lspconfig.
-  local fallback_servers = { "pyright", "bashls", "clangd", "jsonls", "taplo", "sqlls", "dockerls", "rust_analyzer", "yamlls", "r_language_server" }
-  for _, server_name in ipairs(fallback_servers) do
-    local ok, opts = pcall(make_lsp_opts, server_name)
-    if not ok then opts = {} end
+vim.lsp.config("pyright", {
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = "basic",
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        diagnosticMode = "workspace",
+      },
+    },
+  },
+})
 
-    local handled = false
-    if vim.lsp.config and vim.lsp.config[server_name] and type(vim.lsp.config[server_name].setup) == "function" then
-      pcall(vim.lsp.config[server_name].setup, opts)
-      handled = true
-    else
-      -- No compatible handler available; skip and warn. Upgrading
-      -- `mason-lspconfig` or `nvim-lspconfig` (or Neovim) will enable
-      -- proper setup via `mason_lspconfig.setup_handlers`.
-    end
+vim.lsp.config("clangd", {
+  cmd = { "clangd", "--background-index", "--clang-tidy", "--completion-style=detailed", "--header-insertion=iwyu" },
+})
 
-    if not handled then
-      vim.notify(string.format("LSP: could not setup %s (no handler)", server_name), vim.log.levels.WARN)
-    end
-  end
-end
+vim.lsp.config("rust_analyzer", {
+  settings = {
+    ["rust-analyzer"] = {
+      cargo = { allFeatures = true },
+      checkOnSave = { command = "clippy" },
+      procMacro = { enable = true },
+    },
+  },
+})
+
+vim.lsp.config("yamlls", {
+  settings = {
+    yaml = {
+      schemas = {
+        ["https://raw.githubusercontent.com/dbt-labs/dbt-jsonschema/main/schemas/dbt.yml"] = "dbt_project.yml",
+        ["https://raw.githubusercontent.com/airflow/apache-airflow/main/airflow/config_templates/airflow.cfg"] = "airflow.cfg",
+      },
+    },
+  },
+})
+
+vim.lsp.enable({
+  "pyright",
+  "clangd",
+  "rust_analyzer",
+  "r_language_server",
+  "yamlls",
+  "bashls",
+  "jsonls",
+  "taplo",
+  "sqlls",
+  "dockerls",
+})
 
 -- conform.nvim (auto-format)
 require("conform").setup({

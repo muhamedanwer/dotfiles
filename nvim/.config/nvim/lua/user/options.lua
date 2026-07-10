@@ -20,7 +20,12 @@ vim.opt.sidescrolloff = 8
 vim.opt.colorcolumn = "100"
 vim.opt.cursorline = true
 
+-- New options
+vim.opt.undofile = true
+vim.opt.inccommand = "split"
+vim.opt.confirm = true
+vim.opt.exrc = true
+vim.opt.secure = true
+
 local runtime_path = vim.api.nvim_list_runtime_paths()
 vim.opt.path = vim.opt.path + runtime_path
-
-

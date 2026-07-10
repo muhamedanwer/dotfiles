@@ -1,7 +1,3 @@
-/* ========================================
- * Waybar - Matte Black Theme
- * ======================================== */
-
 * {
     border: none;
     border-radius: 0;
@@ -10,38 +6,19 @@
     min-height: 0;
 }
 
-/* Main bar */
 window#waybar {
     background: rgba(10, 10, 10, 0.95);
     color: #c0c0c0;
     border-bottom: 1px solid #1a1a1a;
 }
 
-/* Modules container */
-#workspaces,
-#clock,
-#pulseaudio,
-#network,
-#battery,
-#tray,
-#temperature,
-#backlight,
-#idle_inhibitor,
-#mode,
-#custom-pomodoro,
-#custom-taskwarrior {
-    padding: 0 10px;
-    margin: 4px 2px;
-    background: transparent;
-}
-
-/* Workspaces */
 #workspaces {
-    margin-left: 4px;
+    padding: 0 4px;
+    margin: 4px 2px 4px 8px;
 }
 
 #workspaces button {
-    padding: 0 10px;
+    padding: 0 8px;
     margin: 0 2px;
     background: transparent;
     color: #606060;
@@ -65,64 +42,141 @@ window#waybar {
     color: #e06060;
 }
 
-/* Clock */
 #clock {
     color: #d0d0d0;
     font-weight: 500;
     padding: 0 14px;
+    margin: 4px 2px;
+    background: transparent;
 }
 
-#clock:hover {
-    color: #e0e0e0;
+#custom-pomodoro {
+    color: #e0a060;
+    padding: 0 12px;
+    margin: 4px 2px;
+    background: transparent;
 }
 
-/* PulseAudio */
-#pulseaudio {
+#custom-pomodoro.working { color: #70a070; }
+#custom-pomodoro.break { color: #a0c0e0; }
+#custom-pomodoro.paused { color: #d06060; }
+#custom-pomodoro.idle { color: #606060; }
+
+#custom-taskwarrior {
+    color: #a0c0e0;
+    padding: 0 12px;
+    margin: 4px 2px;
+    background: transparent;
+}
+
+#custom-taskwarrior.active { color: #70a070; }
+#custom-taskwarrior.pending { color: #e0a060; }
+#custom-taskwarrior.done { color: #606060; }
+
+#cpu {
+    padding: 0 5px;
+    margin: 4px 2px;
+    background: transparent;
+}
+
+#memory {
+    padding: 0 5px;
+    margin: 4px 2px;
+    background: transparent;
+}
+
+#temperature {
+    padding: 0 5px;
+    margin: 4px 2px;
+    background: transparent;
+}
+
+#custom-gpu {
     color: #a0a0a0;
+    padding: 0 5px;
+    margin: 4px 2px;
+    background: transparent;
 }
 
-#pulseaudio.muted {
-    color: #606060;
+#custom-gpu.high { color: #e06060; }
+#custom-gpu.na { color: #505050; }
+
+#custom-disk {
+    color: #90a0a0;
+    padding: 0 5px;
+    margin: 4px 2px;
+    background: transparent;
 }
 
-#pulseaudio:hover {
-    color: #d0d0d0;
-}
+#custom-disk.warning { color: #d0a050; }
+#custom-disk.critical { color: #e06060; }
 
-/* Network */
 #network {
     color: #909090;
+    padding: 0 5px;
+    margin: 4px 2px;
+    background: transparent;
 }
 
-#network.disconnected {
-    color: #604040;
+#network.disconnected { color: #604040; }
+
+#pulseaudio {
+    color: #a0a0a0;
+    padding: 0 5px;
+    margin: 4px 2px;
+    background: transparent;
 }
 
-#network:hover {
-    color: #c0c0c0;
-}
+#pulseaudio.muted { color: #606060; }
 
-/* Battery */
 #battery {
     color: #a0a0a0;
+    padding: 0 10px;
+    margin: 4px 2px;
+    background: transparent;
 }
 
-#battery.charging {
-    color: #70a070;
-}
+#battery.charging { color: #70a070; }
+#battery.warning:not(.charging) { color: #d07070; }
+#battery.critical:not(.charging) { color: #e05050; }
 
-#battery.warning:not(.charging) {
-    color: #d07070;
-}
-
-#battery.critical:not(.charging) {
-    color: #e05050;
-}
-
-/* Tray */
-#tray {
-    margin-right: 8px;
+#idle_inhibitor {
+    color: #606060;
     padding: 0 8px;
+    margin: 4px 2px;
+    background: transparent;
+}
+
+#idle_inhibitor.activated { color: #70a070; }
+
+#mpd {
+    color: #a0b0c0;
+    padding: 0 5px;
+    margin: 4px 2px;
+    background: transparent;
+}
+
+#custom-jupyter {
+    color: #d0a050;
+    padding: 0 8px;
+    margin: 4px 2px;
+    background: transparent;
+}
+
+#custom-jupyter.stopped { color: transparent; }
+
+#language {
+    color: #808080;
+    font-weight: 500;
+    padding: 0 5px;
+    margin: 4px 2px;
+    background: transparent;
+}
+
+#tray {
+    padding: 0 6px;
+    margin: 4px 2px 4px 6px;
+    background: transparent;
 }
 
 #tray > .passive {
@@ -135,7 +189,6 @@ window#waybar {
     border-radius: 4px;
 }
 
-/* Tooltip */
 tooltip {
     background: rgba(15, 15, 15, 0.98);
     border: 1px solid #222;
@@ -144,50 +197,8 @@ tooltip {
     color: #d0d0d0;
 }
 
-tooltip label {
-    color: #d0d0d0;
-}
+tooltip label { color: #d0d0d0; }
 
-/* Custom modules (pomodoro, taskwarrior) */
-#custom-pomodoro {
-    color: #e0a060;
-    padding: 0 12px;
-}
-
-#custom-pomodoro.working {
-    color: #70a070;
-}
-
-#custom-pomodoro.break {
-    color: #a0c0e0;
-}
-
-#custom-pomodoro.paused {
-    color: #d06060;
-}
-
-#custom-pomodoro.idle {
-    color: #606060;
-}
-
-#custom-taskwarrior {
-    color: #a0c0e0;
-    padding: 0 12px;
-}
-
-#custom-taskwarrior.active {
-    color: #70a070;
-}
-
-#custom-taskwarrior.pending {
-    color: #e0a060;
-}
-
-#custom-taskwarrior.done {
-    color: #606060;
-}
-
-/* Mode indicator (for sway/hyprland keybind modes) */
 #mode {
     background: #2a1a1a;
     color: #e06060;
