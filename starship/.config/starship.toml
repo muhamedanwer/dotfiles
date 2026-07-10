@@ -7,6 +7,10 @@ $hostname\
 $directory\
 $git_branch\
 $git_status\
+$nodejs\
+$python\
+$rust\
+$golang\
 $cmd_duration\
 $line_break$character"""
 
@@ -44,6 +48,27 @@ untracked = "?"
 stashed = "$"
 modified = "!"
 deleted = ""
+
+[nodejs]
+format = "via [$symbol($version )]($style)"
+style = "bold green"
+disabled = false
+
+[python]
+format = "via [$symbol($version )]($style)"
+style = "bold yellow"
+disabled = false
+python_binary = "python3"
+
+[rust]
+format = "via [$symbol($version )]($style)"
+style = "bold red"
+disabled = false
+
+[golang]
+format = "via [$symbol($version )]($style)"
+style = "bold cyan"
+disabled = false
 
 [cmd_duration]
 min_time = 2000

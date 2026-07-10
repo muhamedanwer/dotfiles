@@ -1,0 +1,54 @@
+# OS files
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+Icon
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor / IDE
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.netrwhist
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+*.egg
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Rust
+target/
+**/*.rs.bk
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Compiled
+*.class
+*.o
+*.so
+*.dylib
